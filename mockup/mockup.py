@@ -5,9 +5,8 @@ def main():
     root = tk.Tk()
     root.title("BARENTS Mockup")
 
-    root.geometry("800x600")
-    root.minsize(600, 300)  
-    # root.maxsize(1200, 800)
+    root.geometry("1600x900")
+    root.resizable(False, False)
 
     # Call function from src/gui.py
     create_gui(root)
