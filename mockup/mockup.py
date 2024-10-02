@@ -1,17 +1,10 @@
 import tkinter as tk
-from src.gui import create_gui
 
-def main():
-    root = tk.Tk()
-    root.title("BARENTS Mockup")
+from src.editor import create_editor
 
-    root.geometry("1600x900")
-    root.resizable(False, False)
+root = tk.Tk()
+root.geometry('1600x900')
 
-    # Call function from src/gui.py
-    create_gui(root)
+create_editor(root)
 
-    root.mainloop()
-
-if __name__ == "__main__":
-    main()
+root.mainloop()
