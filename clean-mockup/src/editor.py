@@ -1,5 +1,5 @@
 import tkinter as tk
-from src.rdfManager import addDataSource, addDataSink, addTransformation, subject_dictionary, renameTriples
+from src.rdfManager import addDataSource, addDataSink, addTransformation, subject_dictionary, renameTriples, returnLayer, knowledgeLevel, informationLevel, dataLevel
 import src.sharedResources
 
 lastClicked = None
@@ -77,7 +77,15 @@ def on_click(event, canvas):
 
     global lastClicked
     lastClicked = ressource[0]
-    entry_content.set(subject_dictionary[ressource[0]])
+    entry_content.set(subject_dictionary[lastClicked])
+    match str(returnLayer(subject_dictionary[lastClicked])):
+        case 'Data Layer':
+            print('data')
+        case 'Knowledge Layer':
+            print('knowledge')
+        case 'Information Layer':
+            print('information')
+
 
     global current_square, offset_x, offset_y
     current_square = ressource

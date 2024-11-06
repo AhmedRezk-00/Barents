@@ -6,6 +6,7 @@ mainGraph.bind("dl", dl)
 
 uniqueId = 1
 
+global knowledgeLevel, informationLevel, dataLevel
 knowledgeLevel = rdf.Literal("Knowledge Layer")
 informationLevel = rdf.Literal("Information Layer")
 dataLevel = rdf.Literal("Data Layer")
@@ -56,3 +57,10 @@ def add_to_dictionary(index, subject):
     if len(subject_dictionary) <= index:
         subject_dictionary.extend([None] * (index + 1 - len(subject_dictionary)))
     subject_dictionary[index] = subject
+
+def setTransformationType(subject, transformationType):
+    mainGraph.set((rdf.URIRef(dl + subject), dl.type, rdf.Literal(transformationType)))
+
+def returnLayer(subject):
+    for obj in mainGraph.objects(subject=rdf.URIRef(dl + subject), predicate=dl.layer):
+        return str(obj)
