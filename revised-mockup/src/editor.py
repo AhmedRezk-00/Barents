@@ -23,10 +23,16 @@ def create_editor(root):
     generate_button = tk.Button(root, text="Generate Square", command=(lambda: create_square(mainCanvas)))
     generate_button.grid(row=1, column=0, sticky='nesw', pady=5, padx=5)
 
+    # Frame to display square information
+    squareInfo = tk.Frame(root, bd=2, relief="ridge")
+    squareInfo.grid(row=0, column=2, sticky='nesw', padx=5, pady=5, rowspan=2)
+    square_info_label = tk.Label(squareInfo, text="Square Info:\n")
+    square_info_label.pack(pady=10)
+
     # Bind events for drag-and-drop functionality on the canvas
-    mainCanvas.bind("<Button-1>", lambda event: on_square_click(event, mainCanvas))
-    mainCanvas.bind("<B1-Motion>", lambda event: on_square_drag(event, mainCanvas))
-    mainCanvas.bind("<ButtonRelease-1>", lambda event: on_square_release(event))
+    mainCanvas.bind("<Button-1>", lambda event: on_square_click(event, mainCanvas, square_info_label))
+    mainCanvas.bind("<B1-Motion>", lambda event: on_square_drag(event, mainCanvas, square_info_label))
+    mainCanvas.bind("<ButtonRelease-1>", lambda event: on_square_release(event, square_info_label))
 
     # Initialize global variables to keep track of the current square and its offsets
     global current_square, offset_x, offset_y
@@ -34,16 +40,13 @@ def create_editor(root):
     offset_x = 0
     offset_y = 0
 
-    squareInfo = tk.Frame(root)
-    squareInfo.grid(row=0, column=2, sticky='nesw', padx=5, pady=5, rowspan=2)
-
 def create_square(canvas):
     # Set a fixed position and size for the square
     x1, y1, size = 200, 200, 50
     # Draw the square on the canvas
     canvas.create_rectangle(x1, y1, x1 + size, y1 + size, fill="blue")
 
-def on_square_click(event, canvas):
+def on_square_click(event, canvas, info_label):
     global current_square, offset_x, offset_y
     # Identify the closest item (square) to the click position
     item = canvas.find_closest(event.x, event.y)
@@ -52,16 +55,30 @@ def on_square_click(event, canvas):
         # Calculate the offset to maintain square position relative to cursor
         offset_x = event.x - canvas.coords(item)[0]
         offset_y = event.y - canvas.coords(item)[1]
+        # Update square information display
+        update_square_info(info_label, canvas.coords(current_square))
 
-def on_square_drag(event, canvas):
+def on_square_drag(event, canvas, info_label):
     global current_square
     if current_square:
         # Update the square's position based on the cursor movement
         new_x = event.x - offset_x
         new_y = event.y - offset_y
         canvas.coords(current_square, new_x, new_y, new_x + 50, new_y + 50)
+        # Update square information display as it moves
+        update_square_info(info_label, canvas.coords(current_square))
 
-def on_square_release(event):
+def on_square_release(event, info_label):
     global current_square
+    # Clear current square information on release
+    update_square_info(info_label, None)
     # Release the current square once the mouse button is released
     current_square = None
+
+def update_square_info(info_label, coords):
+    if coords:
+        # Display current coordinates of the square
+        info_label.config(text=f"Square Info:\nPosition: ({int(coords[0])}, {int(coords[1])})")
+    else:
+        # Clear the info display when no square is selected
+        info_label.config(text="Square Info:\nNo square selected")
