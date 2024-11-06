@@ -107,10 +107,6 @@ def testRun():
     setPartOf('peptides', 'results')
     #- export rdf 
     exportGraph()
-    # change some compontents
-    # export rdf
-    # delete rdf
-    # export rdf
 
-
-testRun()
+if __name__ == '__main__': 
+    testRun()
