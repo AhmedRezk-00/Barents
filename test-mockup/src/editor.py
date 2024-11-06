@@ -4,7 +4,13 @@ from src.graphManager import testRun
 
 
 # warning: this file contains plagiarized code 
+# Dictionary to hold square IDs and their corresponding canvas items
+squares = {}
+square_count = 0
+
 def create_editor(root):
+    global square_info_label
+    
     # Set up grid configuration for layout
     root.columnconfigure(0, weight=1)
     root.columnconfigure(1, weight=20)
@@ -30,9 +36,9 @@ def create_editor(root):
     square_info_label.pack(pady=10)
 
     # Bind events for drag-and-drop functionality on the canvas
-    mainCanvas.bind("<Button-1>", lambda event: on_square_click(event, mainCanvas, square_info_label))
-    mainCanvas.bind("<B1-Motion>", lambda event: on_square_drag(event, mainCanvas, square_info_label))
-    mainCanvas.bind("<ButtonRelease-1>", lambda event: on_square_release(event, square_info_label))
+    mainCanvas.bind("<Button-1>", lambda event: on_square_click(event, mainCanvas))
+    mainCanvas.bind("<B1-Motion>", lambda event: on_square_drag(event, mainCanvas))
+    mainCanvas.bind("<ButtonRelease-1>", lambda event: on_square_release(event))
 
     # Initialize global variables to keep track of the current square and its offsets
     global current_square, offset_x, offset_y
@@ -41,44 +47,60 @@ def create_editor(root):
     offset_y = 0
 
 def create_square(canvas):
-    # Set a fixed position and size for the square
-    x1, y1, size = 200, 200, 50
-    # Draw the square on the canvas
-    canvas.create_rectangle(x1, y1, x1 + size, y1 + size, fill="blue")
+    global square_count, squares
 
-def on_square_click(event, canvas, info_label):
+    # Define position and size
+    x1, y1, size = 200, 200, 50
+    
+    # Draw the square on the canvas
+    square = canvas.create_rectangle(x1, y1, x1 + size, y1 + size, fill="blue")
+    
+    # Assign a unique ID to the square and store it in the dictionary
+    square_id = f"Square_{square_count}"
+    squares[square_id] = square
+    square_count += 1
+
+def on_square_click(event, canvas):
     global current_square, offset_x, offset_y
     # Identify the closest item (square) to the click position
     item = canvas.find_closest(event.x, event.y)
     if item:
-        current_square = item  # Store the item for dragging
+        current_square = item[0]  # Store the item ID for dragging
         # Calculate the offset to maintain square position relative to cursor
         offset_x = event.x - canvas.coords(item)[0]
         offset_y = event.y - canvas.coords(item)[1]
+        
+        # Find the square's unique ID from the dictionary
+        square_id = next((k for k, v in squares.items() if v == current_square), None)
         # Update square information display
-        update_square_info(info_label, canvas.coords(current_square))
+        update_square_info(square_id, canvas.coords(current_square))
 
-def on_square_drag(event, canvas, info_label):
+def on_square_drag(event, canvas):
     global current_square
     if current_square:
         # Update the square's position based on the cursor movement
         new_x = event.x - offset_x
         new_y = event.y - offset_y
         canvas.coords(current_square, new_x, new_y, new_x + 50, new_y + 50)
-        # Update square information display as it moves
-        update_square_info(info_label, canvas.coords(current_square))
+        
+        # Find the square's unique ID and update its position
+        square_id = next((k for k, v in squares.items() if v == current_square), None)
+        update_square_info(square_id, canvas.coords(current_square))
 
-def on_square_release(event, info_label):
+def on_square_release(event):
     global current_square
     # Clear current square information on release
-    update_square_info(info_label, None)
+    update_square_info(None, None)
     # Release the current square once the mouse button is released
     current_square = None
 
-def update_square_info(info_label, coords):
-    if coords:
-        # Display current coordinates of the square
-        info_label.config(text=f"Square Info:\nPosition: ({int(coords[0])}, {int(coords[1])})")
+def update_square_info(square_id, coords):
+    global square_info_label
+    if square_id and coords:
+        # Display current ID and coordinates of the square
+        square_info_label.config(
+            text=f"Square Info:\nID: {square_id}\nPosition: ({int(coords[0])}, {int(coords[1])})"
+        )
     else:
         # Clear the info display when no square is selected
-        info_label.config(text="Square Info:\nNo square selected")
+        square_info_label.config(text="Square Info:\nNo square selected")

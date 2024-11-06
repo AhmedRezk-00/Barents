@@ -1,5 +1,6 @@
 import tkinter as tk
 from src.graphManager import *
+from src.canvas import create_square
 
 def create_dataSource_panel(dataSource_panel):
     dataSource_panel.columnconfigure(0, weight=1)
@@ -12,8 +13,12 @@ def create_dataSource_panel(dataSource_panel):
     button_frame = tk.Frame(dataSource_panel)
     button_frame.grid(row=1, column=0, sticky='nesw', pady=5, padx=5)
 
-    dataSource_button = tk.Button(button_frame, text="add test data Source", command=(lambda: add_dataSource("test")), bd=1, relief="raised", bg='grey')
+    dataSource_button = tk.Button(button_frame, text="add test data Source", command=(lambda: add_dataSourceNode("test")), bd=1, relief="raised", bg='grey')
     chocolate_button = tk.Button(button_frame, text="add Chocolate", command=(lambda: add_dataSource("chocolate")), bd=1, relief="raised", bg='grey')
 
     chocolate_button.pack(fill=tk.X, padx=5, pady=5)
     dataSource_button.pack(fill=tk.X, padx=5, pady=5)
+
+def add_dataSourceNode(source):
+    add_dataSource(source)
+    create_square()

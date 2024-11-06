@@ -15,6 +15,7 @@ uniqueId = 0
 # function to export rdf graph as .xml
 def exportGraph():
     mainGraph.serialize(format="xml", destination="resultsRDF.xml")
+    
 def resetGraph():
     global mainGraph
     del mainGraph
