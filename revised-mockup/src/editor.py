@@ -2,6 +2,8 @@ import tkinter as tk
 
 from src.graphManager import testRun
 
+
+# warning: this file contains plagiarized code 
 def create_editor(root):
     # Set up grid configuration for layout
     root.columnconfigure(0, weight=1)
