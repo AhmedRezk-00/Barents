@@ -40,11 +40,11 @@ def create_editor(root):
     global ressource_info_label, entry_content
     entry_content = tk.StringVar(value="")
     ressource_info_label = tk.Label(right_sidepanel, text='ressource name:', bg='gray20', fg='gray80')
-    ressource_info_label.grid(row=0, column=0)
+    ressource_info_label.grid(row=0, column=0, sticky='new')
     ressource_entry = tk.Entry(right_sidepanel, textvariable=entry_content)
-    ressource_entry.grid(row=1, column=0)
+    ressource_entry.grid(row=0, column=0, sticky='ew')
     ressource_entry_button = tk.Button(right_sidepanel, background='gray10', relief='solid', text='submit subject name', foreground='gray80', command=(lambda:submit_entry()))
-    ressource_entry_button.grid(row=2, column=0)
+    ressource_entry_button.grid(row=0, column=0, sticky='esw')
 
     # events for drag and drop, as well as components customization
     # TODO: introduce drag and drop events. first introduce simple renaming to support rdfmanager renametriples()
