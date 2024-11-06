@@ -46,6 +46,9 @@ def create_editor(root):
     ressource_entry_button = tk.Button(right_sidepanel, background='gray10', relief='solid', text='submit subject name', foreground='gray80', command=(lambda:submit_entry()))
     ressource_entry_button.grid(row=0, column=0, sticky='esw')
 
+    global transformation_panel
+    transformation_panel = tk.Label(right_sidepanel, text='last clicked transformation') 
+
     # events for drag and drop, as well as components customization
     # TODO: introduce drag and drop events. first introduce simple renaming to support rdfmanager renametriples()
     canvas.bind('<Button-1>', lambda event: on_click(event, canvas))
@@ -81,10 +84,13 @@ def on_click(event, canvas):
     match str(returnLayer(subject_dictionary[lastClicked])):
         case 'Data Layer':
             print('data')
+            transformation_panel.grid_forget()
         case 'Knowledge Layer':
             print('knowledge')
+            transformation_panel.grid_forget()
         case 'Information Layer':
             print('information')
+            transformation_panel.grid(row=1, column=0)
 
 
     global current_square, offset_x, offset_y
