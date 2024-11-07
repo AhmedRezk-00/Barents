@@ -1,6 +1,5 @@
 # BFP-BARENTS Mockup
 Dieser Mockup ist ein erster Versuch, das Erstellen und Bearbeiten von RDF Instanzen der BARENTS Ontologie graphisch umzusetzen. 
-Dabei handlet es sich um eine eigenständige Implementierung in python.
 
 Im Rahmen dieses Mockups wird UX, etc. ignoriert. Ausserdem wurde nicht auf clean code oder sonstige Richtlinien geachtet. 
 
