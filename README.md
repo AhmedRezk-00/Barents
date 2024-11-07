@@ -1,5 +1,5 @@
 # BFP-BARENTS
-**Realisierung eines Konzepts für eine bedarfsgerechte Datenaufbereitung.**
+*Realisierung eines Konzepts für eine bedarfsgerechte Datenaufbereitung.*
 
 
 ## Setup
