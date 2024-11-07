@@ -3,14 +3,6 @@
 
 Dieses Repository realisiert im Rahmen eines Bachelor-Forschungsprojekts an der Universität Stuttgart einen Prototyp bezüglich des papers ["Demand-Driven Data Provisioning in DataLakes: BARENTS — A Tailorable Data Preparation Zone"](https://www.ipvs.uni-stuttgart.de/departments/as/publications/stachch/iiwas_21_barents.pdf).
 
-## Setup
-
-### Depenencies, etc.
-
-### Installation
-
-### Programmausführung
-
 ## Autoren
 
 | Name        | Matrikelnummer | e-mail   | Studiengang             |
@@ -20,4 +12,14 @@ Dieses Repository realisiert im Rahmen eines Bachelor-Forschungsprojekts an der 
 |             |                |          |                         |
 |             |                |          |                         |
 
-## Lizenz 
+## Projekte 
+Es gibt drei Mockups, mit denen graphische und logische Umsetzung des GUIs getestet wurde. 
+Mehr Infos: [Mockups](mockups/README.md)
+
+## Setup
+
+### Depenencies, etc.
+
+### Installation
+
+## Programmausführung
