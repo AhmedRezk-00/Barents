@@ -23,6 +23,7 @@ def create_editor(root):
     canvas.grid(column=1, row=1, sticky='nesw')
     right_sidebar.grid(column=2, row=1, sticky='nesw')
 
+    # function to create all the defined editor components
     create_canvas(canvas)
     create_top_bar(top_bar)
     create_left_sidebar(left_sidebar)
