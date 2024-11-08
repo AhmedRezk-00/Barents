@@ -64,3 +64,5 @@ def setTransformationType(subject, transformationType):
 def returnLayer(subject):
     for obj in mainGraph.objects(subject=rdf.URIRef(dl + subject), predicate=dl.layer):
         return str(obj)
+    
+# TODO: add missing functions from test-mockup, such as defining zones or partof
