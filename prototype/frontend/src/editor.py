@@ -1,4 +1,8 @@
 import tkinter as tk
+from src.src_editor.canvas import create_canvas
+from src.src_editor.top_bar import create_top_bar
+from src.src_editor.right_sidebar import create_right_sidebar
+from src.src_editor.left_sidebar import create_left_sidebar
 
 def create_editor(root):
     # divide entry window into rows and columns
@@ -18,3 +22,9 @@ def create_editor(root):
     left_sidebar.grid(column=0, row=1, sticky='nesw')
     canvas.grid(column=1, row=1, sticky='nesw')
     right_sidebar.grid(column=2, row=1, sticky='nesw')
+
+    create_canvas(canvas)
+    create_top_bar(top_bar)
+    create_left_sidebar(left_sidebar)
+    create_canvas(canvas)
+    create_right_sidebar(right_sidebar)
