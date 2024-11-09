@@ -6,10 +6,7 @@ rdf_graph = rdf.Graph()
 dl = rdf.Namespace("http://barents.dl/")
 rdf_graph.bind("dl", dl)
 
-# id that should match id of items on canvas. it should be unique for all created rdf subjects
-canvas_id = 1
-
-# array that stores all resources created in rdf graph at any given canvas_id 
+# array that stores all resources created in rdf graph at any given id of items on the canvas
 resource_dictionary = []
 
 # variables to store rdf literal of layer information to ensure consistency
@@ -26,7 +23,7 @@ def reset_graph():
     pass
 
 # function to add data level resource
-def add_data_source():
+def add_data_source(id):
     pass
 
 # function to add knowledge level resource
