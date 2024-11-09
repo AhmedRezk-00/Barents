@@ -69,7 +69,7 @@ def rename_triples(resource_name, new_name):
 # resource should be the string of the URIRef starting after the dl namespace
 def add_to_dictionary(id, resource):
     if len(resource_dictionary) <= id:
-        resource_dictionary.extend([None] * id - len(resource_dictionary) + 1)
+        resource_dictionary.extend([None] * (id - len(resource_dictionary) + 1))
     resource_dictionary[id] = resource
 
 # function that returns the level at which a given resource belongs. 
