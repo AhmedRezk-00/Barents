@@ -20,50 +20,74 @@ def export_graph(file_name):
 
 # function to delete all triples from rdf graph
 def reset_graph():
-    pass
+    global rdf_graph
+    del rdf_graph
+    rdf_graph = rdf.Graph()
+    rdf_graph.bind("dl", dl)
 
 # function to add data level resource
 def add_data_source(id):
-    new_resource = 'unnamed_ressource_' + str(id)
+    new_resource = 'source_ressource_' + str(id)
     rdf_graph.add((rdf.URIRef(dl + new_resource), dl.layer, data_layer))
-    # TODO: add_to_dictionary(id, new_ressource)
+    add_to_dictionary(id, new_resource)
 
 # function to add knowledge level resource
-def add_data_sink():
-    pass
+def add_data_sink(id):
+    new_resource = 'sink_ressource_' + str(id)
+    rdf_graph.add((rdf.URIRef(dl + new_resource), dl.layer, knowledge_layer))
+    add_to_dictionary(id, new_resource)
 
 # function to ass information level resource
-def add_transformation():
-    pass
+def add_transformation(id):
+    new_resource = 'transformation_ressource_' + str(id)
+    rdf_graph.add((rdf.URIRef(dl + new_resource), dl.layer, information_layer))
+    add_to_dictionary(id, new_resource)
 
 # function to set type of given transformation
-def set_transformation_type():
-    pass
+def set_transformation_type(resource, transformation_type):
+    if get_level(resource) == information_layer:
+        rdf_graph.set((rdf.URIRef(dl + resource), dl.type, rdf.Literal(transformation_type)))
+    else:
+        print('rdf_manager: set_transformation_type: unexpected resource given, it doesnt match the information layer')
 
 # function to set expression that defines given transformation
 def set_transformation_expression():
+    # TODO: implement this function
     pass
 
-# function to rename all triples belonging to a given subject
-def rename_triples():
-    pass
+# function to rename all triples belonging to a given resource
+def rename_triples(resource_name, new_name):
+    for s, p, o in rdf_graph.triples((rdf.URIRef(dl + resource_name), None, None)):
+        rdf_graph.remove((s,p,o))
+        # TODO: add check if new_name is available
+        rdf_graph.add((rdf.URIRef(dl + new_name),p,o))
+    # TODO: add code to rename triples where the given resource appears as an object instead of subject
 
 # helper function to ensure new resources are added properly to dictionary
-def add_to_dictionary():
-    pass
+# resource should be the string of the URIRef starting after the dl namespace
+def add_to_dictionary(id, resource):
+    if len(resource_dictionary) <= id:
+        resource_dictionary.extend([None] * id - len(resource_dictionary) + 1)
+    resource_dictionary[id] = resource
 
 # function that returns the level at which a given resource belongs. 
-def return_level():
-    pass
+def get_level(resource):
+    for o in rdf_graph.objects(subject=rdf.URIRef(dl + resource), predicate=dl.layer):
+        return str(o)
 
 # function to set the zone literal of a given knowledge level resource
 def set_zone():
+    # TODO: implement this function
     pass
 
 # function to set partof relationship given two resources, with one of them being a information level resource (transformation)
 def set_part_of():
+    # TODO: implement this function
     pass
 
 # function to set source literal of a given data level resource
 def set_source():
+    # TODO: implement this function
     pass
+
+# TODO: add necessary misisng functions from test-mockup
