@@ -24,7 +24,9 @@ def reset_graph():
 
 # function to add data level resource
 def add_data_source(id):
-    pass
+    new_resource = 'unnamed_ressource_' + str(id)
+    rdf_graph.add((rdf.URIRef(dl + new_resource), dl.layer, data_layer))
+    # TODO: add_to_dictionary(id, new_ressource)
 
 # function to add knowledge level resource
 def add_data_sink():
