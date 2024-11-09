@@ -50,10 +50,12 @@ def set_transformation_type(resource, transformation_type):
     else:
         print('rdf_manager: set_transformation_type: unexpected resource given, it doesnt match the information layer')
 
-# function to set expression that defines given transformation
-def set_transformation_expression():
-    # TODO: implement this function
-    pass
+# function to set function that defines given transformation
+def set_transformation_function(resource, transformation_function):
+    if get_level(resource) == information_layer:
+        rdf_graph.set((rdf.URIRef(dl + resource), dl.function, rdf.Literal(transformation_function)))
+    else:
+        print('rdf_manager: set_transformation_function: unexpected resource given, it doesnt match the information layer')
 
 # function to rename all triples belonging to a given resource
 def rename_triples(resource_name, new_name):
@@ -76,18 +78,18 @@ def get_level(resource):
         return str(o)
 
 # function to set the zone literal of a given knowledge level resource
-def set_zone():
-    # TODO: implement this function
-    pass
+def set_zone(resource, zone):
+    # TODO: possibly implement check to see if resource belongs to knowledge level
+    rdf_graph.set((rdf.URIRef(dl + resource), dl.zone, rdf.Literal(zone)))
 
 # function to set partof relationship given two resources, with one of them being a information level resource (transformation)
-def set_part_of():
-    # TODO: implement this function
-    pass
+def set_part_of(subject, object):
+    if get_level(subject) == information_layer ^ get_level(object) == information_layer:
+        rdf_graph.set((rdf.URIRef(dl + subject), dl.zone, rdf.Literal(object)))
+    else:
+        print('rdf_manager: set_part_of: unexpected parameters: exactly one resource most belong to the information layer')
 
 # function to set source literal of a given data level resource
-def set_source():
-    # TODO: implement this function
-    pass
-
-# TODO: add necessary misisng functions from test-mockup
+def set_source(resource, zone):
+    # TODO:  possibly check if resource belongs to data level
+    rdf_graph.set((rdf.URIRef(dl + resource), dl.zone, rdf.Literal(zone)))
