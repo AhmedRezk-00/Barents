@@ -74,8 +74,11 @@ def add_to_dictionary(id, resource):
 
 # function that returns the level at which a given resource belongs. 
 def get_level(resource):
-    for o in rdf_graph.objects(subject=rdf.URIRef(dl + resource), predicate=dl.layer):
-        return str(o)
+    if(resource):
+        for o in rdf_graph.objects(subject=rdf.URIRef(dl + resource), predicate=dl.layer):
+            return str(o)
+    else:
+        print('rdf_manager: get_level: parameter is none')
 
 # function to set the zone literal of a given knowledge level resource
 def set_zone(resource, zone):
