@@ -24,4 +24,4 @@ def create_left_sidebar(root):
 # function to create rectangle to represent data source on canvas and add data source to rdf graph
 def add_data_source():
     square = src.shared_resources.canvas.create_rectangle(50, 50, 100, 100, fill='gray30')
-    rdf_manager.add_data_source(0)
+    rdf_manager.add_data_source(square)
