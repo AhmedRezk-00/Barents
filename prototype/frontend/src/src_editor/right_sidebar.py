@@ -1,8 +1,9 @@
 import tkinter as tk
-from src.rdf_manager import rename_triples, resource_dictionary, get_level, set_transformation_type, get_transformation_type
+from src.rdf_manager import rename_triples, resource_dictionary, get_level, set_transformation_type, get_transformation_type, set_transformation_function, get_transformation_function
 
 current_resource_id = None
 selected_type = None
+function_entry_text = None
 
 # TODO: add comments for this file
 def create_right_sidebar(root):
@@ -55,6 +56,9 @@ def update_right_sidebar(resource_id):
 
             transformation_type = get_transformation_type(resource_dictionary[current_resource_id])
             selected_type.set(transformation_type)
+
+            function_entry = get_transformation_function(resource_dictionary[current_resource_id])
+            function_entry_text.set(function_entry)
         case "Data Layer":
             knowledge_layer_panel.grid_forget()
             information_layer_panel.grid_forget()
@@ -75,8 +79,14 @@ def create_data_layer_panel(root):
     root.rowconfigure(0, weight=1)
 
 def create_information_layer_panel(root):
-    root.columnconfigure((0,1,2), weight=1)
-    root.rowconfigure(0, weight=1)
+    root.columnconfigure(0, weight=1)
+    root.rowconfigure((0,1), weight=1)
+
+    type_panel = tk.Frame(root)
+    type_panel.grid(row=0, column=0, sticky='nesw')
+
+    type_panel.rowconfigure(0, weight=1)
+    type_panel.columnconfigure((0,1,2), weight=1)
 
     global selected_type
     selected_type = tk.StringVar()
@@ -84,10 +94,23 @@ def create_information_layer_panel(root):
         selected_type.set(transformation_type)
         set_transformation_type(resource_dictionary[current_resource_id], transformation_type)
 
-    filter_checkbox = tk.Checkbutton(root, text="filter",variable=selected_type, onvalue='filter', offvalue='', command=(lambda: select_checkbox('filter')))
+    filter_checkbox = tk.Checkbutton(type_panel, text="filter",variable=selected_type, onvalue='filter', offvalue='', command=(lambda: select_checkbox('filter')))
     filter_checkbox.grid(column=0, row=0, sticky='nesw')
-    map_checkbox = tk.Checkbutton(root, text="map",variable=selected_type, onvalue='map', offvalue='', command=(lambda: select_checkbox('map')))
+    map_checkbox = tk.Checkbutton(type_panel, text="map",variable=selected_type, onvalue='map', offvalue='', command=(lambda: select_checkbox('map')))
     map_checkbox.grid(column=1, row=0, sticky='nesw')
-    reduce_checkbox = tk.Checkbutton(root, text="reduce",variable=selected_type, onvalue='reduce', offvalue='', command=(lambda: select_checkbox('reduce')))
+    reduce_checkbox = tk.Checkbutton(type_panel, text="reduce",variable=selected_type, onvalue='reduce', offvalue='', command=(lambda: select_checkbox('reduce')))
     reduce_checkbox.grid(column=2, row=0, sticky='nesw')
 
+    function_panel = tk.Frame(root)
+    function_panel.grid(row=1, column=0, sticky='nesw')
+
+    function_panel.columnconfigure(0,weight=1)
+    function_panel.rowconfigure((0,1),weight=1)
+
+    global function_entry_text
+    function_entry_text = tk.StringVar(value='')
+    function_entry = tk.Entry(function_panel, textvariable=function_entry_text)
+    function_entry.grid(row=0, column=0, sticky='ew')
+
+    function_button = tk.Button(function_panel, text='update function', command=(lambda: set_transformation_function(resource_dictionary[current_resource_id], function_entry_text.get())))
+    function_button.grid(row=1, column=0, sticky='nesw')
