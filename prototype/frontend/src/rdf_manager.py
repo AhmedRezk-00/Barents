@@ -45,14 +45,14 @@ def add_transformation(id):
 
 # function to set type of given transformation
 def set_transformation_type(resource, transformation_type):
-    if get_level(resource) == information_layer:
+    if get_level(resource) == information_layer.value:
         rdf_graph.set((rdf.URIRef(dl + resource), dl.type, rdf.Literal(transformation_type)))
     else:
         print('rdf_manager: set_transformation_type: unexpected resource given, it doesnt match the information layer')
 
 # function to set function that defines given transformation
 def set_transformation_function(resource, transformation_function):
-    if get_level(resource) == information_layer:
+    if get_level(resource) == information_layer.value:
         rdf_graph.set((rdf.URIRef(dl + resource), dl.function, rdf.Literal(transformation_function)))
     else:
         print('rdf_manager: set_transformation_function: unexpected resource given, it doesnt match the information layer')
@@ -79,6 +79,13 @@ def get_level(resource):
             return str(o)
     else:
         print('rdf_manager: get_level: parameter is none')
+
+def get_transformation_type(resource):
+    if get_level(resource) == information_layer.value:
+        for o in rdf_graph.objects(subject=rdf.URIRef(dl + resource), predicate=dl.type):
+            return str(o)
+    else:
+        print('rdf_manager: get_transformation_type: unexpected resource given, it doesnt match the information layer')
 
 # function to set the zone literal of a given knowledge level resource
 def set_zone(resource, zone):
