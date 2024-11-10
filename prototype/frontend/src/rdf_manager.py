@@ -27,19 +27,19 @@ def reset_graph():
 
 # function to add data level resource
 def add_data_source(id):
-    new_resource = 'source_ressource_' + str(id)
+    new_resource = 'source_resource_' + str(id)
     rdf_graph.add((rdf.URIRef(dl + new_resource), dl.layer, data_layer))
     add_to_dictionary(id, new_resource)
 
 # function to add knowledge level resource
 def add_data_sink(id):
-    new_resource = 'sink_ressource_' + str(id)
+    new_resource = 'sink_resource_' + str(id)
     rdf_graph.add((rdf.URIRef(dl + new_resource), dl.layer, knowledge_layer))
     add_to_dictionary(id, new_resource)
 
 # function to ass information level resource
 def add_transformation(id):
-    new_resource = 'transformation_ressource_' + str(id)
+    new_resource = 'transformation_resource_' + str(id)
     rdf_graph.add((rdf.URIRef(dl + new_resource), dl.layer, information_layer))
     add_to_dictionary(id, new_resource)
 

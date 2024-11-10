@@ -1,6 +1,5 @@
 import tkinter as tk 
 import src.shared_resources
-from src.rdf_manager import resource_dictionary, get_level
 from src.src_editor.right_sidebar import update_right_sidebar
 
 # variables to store the last clicked resource
@@ -36,7 +35,7 @@ def on_click(event, canvas):
         offset_y = event.y - canvas.coords(current_resource_id)[1]
 
         # update right sidebar 
-        update_right_sidebar(get_level(resource_dictionary[current_resource_id]))
+        update_right_sidebar(current_resource_id)
 
 # function to handle drag event
 def on_drag(event, canvas):
