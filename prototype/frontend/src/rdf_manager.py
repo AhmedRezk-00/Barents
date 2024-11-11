@@ -16,7 +16,8 @@ data_layer = rdf.Literal("Data Layer")
 
 # function to export rdf_graph as an .xml file 
 def export_graph(file_name):
-    rdf_graph.serialize(format="xml", destination=file_name + '.xml')
+    if file_name:
+        rdf_graph.serialize(format="xml", destination=file_name)
 
 # function to delete all triples from rdf graph
 def reset_graph():
