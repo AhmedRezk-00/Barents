@@ -2,6 +2,7 @@ import tkinter as tk
 from src.rdf_manager import export_graph, reset_graph
 import src.shared_resources
 from tkinter import filedialog
+from tkinter.messagebox import askyesno
 
 # function to create top bar widget 
 def create_top_bar(root):
@@ -19,8 +20,9 @@ def create_top_bar(root):
 
 # function that resets the rdf graph as well as the canvas 
 def reset_canvas():
-    reset_graph()
-    src.shared_resources.canvas.delete('all')
+    if(askyesno(title="BFP-BARENTS: Confirm Deletion",message="Are you sure you want to delete the current graph?")):
+        reset_graph()
+        src.shared_resources.canvas.delete('all')
 
 def export_button_function():
     export_graph(filedialog.asksaveasfilename(title="Save RDF Graph As", defaultextension=".xml", filetypes=[("RDF/XML File", "*.xml"), ("All Files", "*.*")]))
