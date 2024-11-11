@@ -99,6 +99,13 @@ def set_zone(resource, zone):
     # TODO: possibly implement check to see if resource belongs to knowledge level
     rdf_graph.set((rdf.URIRef(dl + resource), dl.zone, rdf.Literal(zone)))
 
+def get_zone(resource):
+    if get_level(resource) == knowledge_layer.value:
+        for o in rdf_graph.objects(subject=rdf.URIRef(dl + resource), predicate=dl.zone):
+            return str(o)
+    else:
+        print('rdf_manager: get_zone: unexpected resource given, it doesnt match the knowledge layer')
+
 # function to set partof relationship given two resources, with one of them being a information level resource (transformation)
 def set_part_of(subject, object):
     if get_level(subject) == information_layer ^ get_level(object) == information_layer:
@@ -107,6 +114,13 @@ def set_part_of(subject, object):
         print('rdf_manager: set_part_of: unexpected parameters: exactly one resource most belong to the information layer')
 
 # function to set source literal of a given data level resource
-def set_source(resource, zone):
+def set_source(resource, source):
     # TODO:  possibly check if resource belongs to data level
-    rdf_graph.set((rdf.URIRef(dl + resource), dl.zone, rdf.Literal(zone)))
+    rdf_graph.set((rdf.URIRef(dl + resource), dl.source, rdf.Literal(source)))
+
+def get_source(resource):
+    if get_level(resource) == data_layer.value:
+        for o in rdf_graph.objects(subject=rdf.URIRef(dl + resource), predicate=dl.source):
+            return str(o)
+    else:
+        print('rdf_manager: get_source: unexpected resource given, it doesnt match the data layer')

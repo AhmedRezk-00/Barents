@@ -1,9 +1,11 @@
 import tkinter as tk
-from src.rdf_manager import rename_triples, resource_dictionary, get_level, set_transformation_type, get_transformation_type, set_transformation_function, get_transformation_function
+from src.rdf_manager import rename_triples, resource_dictionary, get_level, set_transformation_type, get_transformation_type, set_transformation_function, get_transformation_function, set_source, set_zone, get_source, get_zone
 
 current_resource_id = None
 selected_type = None
 function_entry_text = None
+source_entry_text = None
+zone_entry_text = None
 
 # TODO: add comments for this file
 def create_right_sidebar(root):
@@ -49,6 +51,8 @@ def update_right_sidebar(resource_id):
             knowledge_layer_panel.grid(row=0, column=0, sticky='nesw')
             information_layer_panel.grid_forget()
             data_layer_panel.grid_forget()
+
+            zone_entry_text.set(get_zone(resource_dictionary[current_resource_id]))
         case "Information Layer":
             knowledge_layer_panel.grid_forget()
             information_layer_panel.grid(row=0, column=0, sticky='nesw')
@@ -63,6 +67,7 @@ def update_right_sidebar(resource_id):
             knowledge_layer_panel.grid_forget()
             information_layer_panel.grid_forget()
             data_layer_panel.grid(row=0, column=0, sticky='nesw')
+            source_entry_text.set(get_source(resource_dictionary[current_resource_id]))
     
 def submit_resource_name():
     if current_resource_id:
@@ -72,11 +77,27 @@ def submit_resource_name():
 
 def create_knowledge_layer_panel(root):
     root.columnconfigure(0, weight=1)
-    root.rowconfigure(0, weight=1)
+    root.rowconfigure((0,1), weight=1)
+
+    global zone_entry_text
+    zone_entry_text = tk.StringVar(value='')
+    zone_entry = tk.Entry(root, textvariable=zone_entry_text)
+    zone_entry.grid(row=0, column=0, sticky='ew')
+
+    zone_button = tk.Button(root, text='update zone', command=(lambda: set_zone(resource_dictionary[current_resource_id], zone_entry_text.get())))
+    zone_button.grid(row=1, column=0, sticky='nesw')
 
 def create_data_layer_panel(root):
     root.columnconfigure(0, weight=1)
-    root.rowconfigure(0, weight=1)
+    root.rowconfigure((0,1), weight=1)
+
+    global source_entry_text
+    source_entry_text = tk.StringVar(value='')
+    source_entry = tk.Entry(root, textvariable=source_entry_text)
+    source_entry.grid(row=0, column=0, sticky='ew')
+
+    source_button = tk.Button(root, text='update source', command=(lambda: set_source(resource_dictionary[current_resource_id], source_entry_text.get())))
+    source_button.grid(row=1, column=0, sticky='nesw')
 
 def create_information_layer_panel(root):
     root.columnconfigure(0, weight=1)
