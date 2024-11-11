@@ -28,14 +28,16 @@ def create_canvas(root):
 def on_click(event, canvas):
     global current_resource_id
     # check if theres any items on canvas to drag and drop
-    if canvas.find_all():
-        current_resource_id = canvas.find_closest(event.x, event.y)[0]
+    if canvas.find_overlapping(event.x, event.y, event.x, event.y):
+        current_resource_id = canvas.find_overlapping(event.x, event.y, event.x, event.y)[0]
         global offset_x, offset_y
         offset_x = event.x - canvas.coords(current_resource_id)[0]
         offset_y = event.y - canvas.coords(current_resource_id)[1]
 
         # update right sidebar 
         update_right_sidebar(current_resource_id)
+    else:
+        current_resource_id = None
 
 # function to handle drag event
 def on_drag(event, canvas):
