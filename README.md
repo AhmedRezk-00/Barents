@@ -13,6 +13,10 @@ Dieses Repository realisiert im Rahmen eines Bachelor-Forschungsprojekts an der 
 |             |                |          |                         |
 
 ## Projekte 
+Im Rahmen des Forschungsprojekts erstellen wir einen Prototyp.
+Dieser ist im entsprechendenden Ordner, "prototype", zu finden. 
+Dazu gehört ein Frontend, mit dem RDF-Ontologien erstellt werden können und ein backend, welches diese Ontologien verarbeiten kann.
+
 Es gibt drei Mockups, mit denen graphische und logische Umsetzung des GUIs getestet wurde. 
 Mehr Infos: [Mockups](mockups/README.md)
 
@@ -23,3 +27,4 @@ Mehr Infos: [Mockups](mockups/README.md)
 ### Installation
 
 ## Programmausführung
+Aktuell kann der prototype von der Datei "frontend.py" ausgeführt werden.
