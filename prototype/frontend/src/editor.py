@@ -1,4 +1,5 @@
 import tkinter as tk
+from turtle import window_width
 from src.src_editor.canvas import create_canvas
 from src.src_editor.top_bar import create_top_bar
 from src.src_editor.right_sidebar import create_right_sidebar
