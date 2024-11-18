@@ -13,9 +13,9 @@ def create_canvas(root):
     # create canvas widget
     root.columnconfigure(0, weight = 1)
     root.rowconfigure(0, weight=1)
-    canvas = tk.Canvas(root,width=800, height=450, relief='solid', highlightbackground='black',
+    canvas = tk.Canvas(root, relief='solid', highlightbackground='black',
                        scrollregion=(0, 0, 800, 450)) #issue12
-    canvas.grid(row=0, column=0)#, sticky='nesw')
+    canvas.grid(row=0, column=0, sticky='nesw')#, sticky='nesw')
 
     #issue12: add scrollbar
     y_scroll = tk.Scrollbar(root, orient='vertical', command=canvas.yview)
@@ -61,17 +61,17 @@ def on_drag(event, canvas):
         new_y = event.y - offset_y;
 
         #issue12: new_x and new_y have to be within canvas
-        new_x = moveIntoCanvasX(new_x);
-        new_y = moveIntoCanvasY(new_y);
+        new_x = moveIntoCanvasX(new_x, canvas.canvasx(canvas.winfo_width()));
+        new_y = moveIntoCanvasY(new_y, canvas.canvasy(canvas.winfo_height()));
 
         canvas.coords(current_resource_id, new_x, new_y, new_x+50, new_y+50)
 
 #issue12: checks and potentially moves data_source-x-value within canvas-borders
-def moveIntoCanvasX(new_x):
+def moveIntoCanvasX(new_x, max_width):
     #border-x-values 
     #800x450 canvas (frontend.py); radius=25 (left_sidebar.add_data_source)
     left_border = 0;
-    right_border = 800;
+    right_border = max_width;
 
     #checks (and updates) x
     if new_x < left_border: 
@@ -81,11 +81,11 @@ def moveIntoCanvasX(new_x):
     else: return new_x;
 
 # checks and potentially moves data_source-y-value within canvas-borders
-def moveIntoCanvasY(new_y):
+def moveIntoCanvasY(new_y, max_height):
     #border-y-values
     #800x450 canvas (frontend.py); radius=25 (left_sidebar.add_data_source)
     upper_border = 0;
-    lower_border = 450;
+    lower_border = max_height;
 
     #checks (and updates) y
     if new_y+50 > lower_border: 
