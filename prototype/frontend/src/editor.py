@@ -4,7 +4,9 @@ from src.src_editor.top_bar import create_top_bar
 from src.src_editor.right_sidebar import create_right_sidebar
 from src.src_editor.left_sidebar import create_left_sidebar
 
+
 def create_editor(root):
+    
     # divide entry window into rows and columns
     root.rowconfigure(0, weight=1)
     root.rowconfigure(1, weight=10)

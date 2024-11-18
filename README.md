@@ -8,7 +8,7 @@ Dieses Repository realisiert im Rahmen eines Bachelor-Forschungsprojekts an der 
 | Name        | Matrikelnummer | e-mail   | Studiengang             |
 | ----------- | -------------- | -------- | ----------------------- |
 | Luke Mayr   | 3593022        | st177937 | B. Sc. Medieninformatik |
-|             |                |          |                         |
+| Metin Arab  | 3587258        | st178931 | B. Sc. Informatik       |
 |             |                |          |                         |
 |             |                |          |                         |
 
