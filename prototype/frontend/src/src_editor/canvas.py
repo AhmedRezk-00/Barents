@@ -1,19 +1,12 @@
 import tkinter as tk 
 import src.shared_resources
 from src.src_editor.right_sidebar import update_right_sidebar
-from screeninfo import get_monitors     #issue12: to get screen size
-
 
 # variables to store the last clicked resource
 current_resource_id = None
 # variables to handle drag and drop
 offset_x = 0
 offset_y = 0
-
-#issue12: get screen size
-monitor_details = get_monitors();
-canvas_width = monitor_details[0].width;
-canvas_height = monitor_details[0].height;
 
 # function to create canvas of editor. rdf graph resources should be displayed here 
 def create_canvas(root):
@@ -23,8 +16,6 @@ def create_canvas(root):
     canvas = tk.Canvas(root,width=800, height=450, relief='solid', highlightbackground='black',
                        scrollregion=(0, 0, 800, 450)) #issue12
     canvas.grid(row=0, column=0)#, sticky='nesw')
-    print("Canvas width: "+ str(canvas.winfo_reqwidth()));
-    print("Canvas height: "+ str(canvas.winfo_reqheight()));
 
     #issue12: add scrollbar
     y_scroll = tk.Scrollbar(root, orient='vertical', command=canvas.yview)
@@ -84,12 +75,8 @@ def moveIntoCanvasX(new_x):
 
     #checks (and updates) x
     if new_x < left_border: 
-        print("outside left border"); 
-        #print("coords x: " + str(new_x) + " , " + str(new_y)); 
         return left_border;
     elif new_x+50 > right_border:   
-       print("outside right border"); 
-       #print("coords x: " + str(new_x) + " , " + str(new_y)); 
        return right_border-50;
     else: return new_x;
 
@@ -102,12 +89,8 @@ def moveIntoCanvasY(new_y):
 
     #checks (and updates) y
     if new_y+50 > lower_border: 
-        print("outside lower border"); 
-        #print("coords: " + str(new_x) + " , " + str(new_y));
         return lower_border-50;
     elif new_y < upper_border: 
-        print("outside upper border"); 
-        #print("coords: " + str(new_x) + " , " + str(new_y)); 
         return upper_border;
     else: return new_y;
 
