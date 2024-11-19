@@ -68,29 +68,3 @@ def add_data_sink():
 def add_transformation():
     square = src.shared_resources.canvas.create_rectangle(50, 50, 100, 100, fill='teal')
     rdf_manager.add_transformation(square)
-
-
-
-
-
-
-    #KEEPING IT HERE JUST IN CASE:
-     
-    #firstRow = ctk.CTkFrame(root,fg_color="transparent", bg_color="transparent")
-    #secondRow = ctk.CTkFrame(root,fg_color="transparent", bg_color="transparent")
-    #thirdRow = ctk.CTkFrame(root,fg_color="transparent", bg_color="transparent")
-
-    # grid panels 
-    #firstRow.grid(row=0, column=0, sticky='nesw',pady=5, padx=10)
-    #thirdRow.grid(row=2, column=0, sticky='nesw',pady=5,padx=10)
-    #secondRow.grid(row=1, column=0, sticky='nesw',pady=5,padx=10)
-    # split panels into appropriate grid to add components
-   # firstRow.columnconfigure(0, weight=1)
-    #firstRow.columnconfigure(1 ,weight=1)
-    #firstRow.rowconfigure(0, weight=1)
-    #secondRow.columnconfigure(0, weight=1)
-    #secondRow.columnconfigure(1, weight=1)
-    #secondRow.rowconfigure(0, weight=1)
-    #thirdRow.columnconfigure(0, weight=1)
-    #thirdRow.columnconfigure(1, weight=1)
-    #thirdRow.rowconfigure(0, weight=1)
