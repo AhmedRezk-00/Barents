@@ -92,10 +92,10 @@ def get_transformation_function(resource):
     if get_level(resource) == information_layer.value:
         for o in rdf_graph.objects(subject=rdf.URIRef(dl + resource), predicate=dl.function):
             return str(o)
-            return""
+        return""
     else:
         print('rdf_manager: get_transformation_function: unexpected resource given, it doesnt match the information layer')
-
+        
 # function to set the zone literal of a given knowledge level resource
 def set_zone(resource, zone):
     # TODO: possibly implement check to see if resource belongs to knowledge level
@@ -105,7 +105,7 @@ def get_zone(resource):
     if get_level(resource) == knowledge_layer.value:
         for o in rdf_graph.objects(subject=rdf.URIRef(dl + resource), predicate=dl.zone):
             return str(o)
-            return""
+        return""
     else:
         print('rdf_manager: get_zone: unexpected resource given, it doesnt match the knowledge layer')
 
@@ -125,6 +125,6 @@ def get_source(resource):
     if get_level(resource) == data_layer.value:
         for o in rdf_graph.objects(subject=rdf.URIRef(dl + resource), predicate=dl.source):
             return str(o)
-            return""
+        return""
     else:
         print('rdf_manager: get_source: unexpected resource given, it doesnt match the data layer')
