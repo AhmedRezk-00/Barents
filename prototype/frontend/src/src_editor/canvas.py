@@ -13,8 +13,9 @@ def create_canvas(root):
     # create canvas widget
     root.columnconfigure(0, weight = 1)
     root.rowconfigure(0, weight=1)
+    # create canvas with scrollregion which sort of defines minimum size of canvas 
     canvas = tk.Canvas(root, relief='solid', highlightbackground='black',
-                       scrollregion=(0, 0, 800, 450)) #issue12
+                       scrollregion=(0, 0, 800, 450)) 
     canvas.grid(row=0, column=0, sticky='nesw')#, sticky='nesw')
 
     #issue12: add scrollbar
@@ -32,7 +33,7 @@ def create_canvas(root):
     canvas.bind("<B1-Motion>", lambda event: on_drag(event, canvas))
     canvas.bind("<ButtonRelease-1>", lambda event: on_drop(event))
 
-    canvas.config(scrollregion=canvas.bbox('all'))#issue12
+    canvas.config(scrollregion=canvas.bbox('all'))
 
 # function to handle on_click event
 def on_click(event, canvas):
