@@ -4,10 +4,10 @@ import src.rdf_manager as rdf_manager
 import src.shared_resources
 import os
  #load images
-path_Source="BFP-BARENTS/prototype/frontend/src/images/DataSource.png"
-Source="BFP-BARENTS/prototype/frontend/src/images/Arrow3.png"
-DataSinkPath="BFP-BARENTS/prototype/frontend/src/images/DataSink2.png"
-Transformations="BFP-BARENTS/prototype/frontend/src/images/Transformations.png"
+path_Source="prototype/frontend/src/images/DataSource.png"
+Source="prototype/frontend/src/images/Arrow3.png"
+DataSinkPath="prototype/frontend/src/images/DataSink2.png"
+Transformations="prototype/frontend/src/images/Transformations.png"
 
 DataSource_image = ctk.CTkImage(light_image=Image.open(path_Source),
                                   dark_image=Image.open(path_Source),
