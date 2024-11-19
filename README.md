@@ -27,4 +27,4 @@ Mehr Infos: [Mockups](mockups/README.md)
 ### Installation
 
 ## Programmausführung
-Aktuell kann der prototype von der Datei "frontend.py" ausgeführt werden.
+Aktuell kann der prototype von der Datei "frontend.py", im prototype/frontend directory aus, ausgeführt werden.
