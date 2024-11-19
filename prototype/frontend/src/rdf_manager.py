@@ -1,4 +1,5 @@
 import rdflib as rdf
+import os
 
 # initialize graph. changes made to the graph should reflect in the editor.
 rdf_graph = rdf.Graph()
@@ -17,8 +18,19 @@ data_layer = rdf.Literal("Data Layer")
 # function to export rdf_graph as an .xml file 
 def export_graph(file_name):
     if file_name:
-        # rdf_graph.serialize(format="xml", destination=file_name)
-        rdf_graph.serialize(destination=file_name)
+        match os.path.splitext(file_name)[1]:
+            case '.xml':
+                rdf_graph.serialize(format="xml", destination=file_name)
+            case '.ttl':
+                rdf_graph.serialize(format="ttl", destination=file_name)
+            case '.jsonld':
+                rdf_graph.serialize(format="json-ld", destination=file_name)
+            case '.nt':
+                rdf_graph.serialize(format="nt", destination=file_name)
+            case '.n3':
+                rdf_graph.serialize(format="n3", destination=file_name)
+            case _:
+                rdf_graph.serialize(destination=file_name)      
 
 # function to delete all triples from rdf graph
 def reset_graph():
