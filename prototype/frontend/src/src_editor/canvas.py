@@ -1,4 +1,5 @@
 import tkinter as tk 
+import customtkinter as ctk
 import src.shared_resources
 from src.src_editor.right_sidebar import update_right_sidebar
 
@@ -25,6 +26,18 @@ def create_canvas(root):
     x_scroll.grid(row=1, column=0, sticky='ew')
     canvas.config(xscrollcommand=x_scroll.set, yscrollcommand=y_scroll.set)
 
+    # add buttons to change scrollregion horizontally
+    horizontal_frame = ctk.CTkFrame(root)
+    horizontal_frame.grid(row=2, column=0, pady=15)
+    ctk.CTkButton(horizontal_frame, text='+', command=lambda: horizontal_scrollregion(canvas, 'increase')).pack(side='right', padx=5)
+    ctk.CTkButton(horizontal_frame, text='-', command=lambda: horizontal_scrollregion(canvas, 'decrease')).pack(side='left', padx=5)
+
+    # add buttons to change scrollregion vertically
+    vertical_frame = ctk.CTkFrame(root)
+    vertical_frame.grid(row=0, column=2)
+    ctk.CTkButton(vertical_frame, text='+', command=lambda: vertical_scrollregion(canvas, 'increase')).pack(side='bottom',  pady=5)
+    ctk.CTkButton(vertical_frame, text='-', command=lambda: vertical_scrollregion(canvas, 'decrease')).pack(side='top', pady=5)
+
     # define shared_resources.canvas to be this canvas
     src.shared_resources.canvas = canvas
 
@@ -34,6 +47,36 @@ def create_canvas(root):
     canvas.bind("<ButtonRelease-1>", lambda event: on_drop(event))
 
     canvas.config(scrollregion=canvas.bbox('all'))
+
+#function to change canvas scrollregion horizontally
+def horizontal_scrollregion(canvas, type):
+    x1, y1, x2, y2 = canvas.cget("scrollregion").split()
+    x1, y1, x2, y2 = int(x1), int(y1), int(x2), int(y2)
+
+    if type=='increase':
+        x2 = x2+1000
+    if type=='decrease':
+        x2 = x2-1000
+        # define a minimum size
+        if x2<800:
+            x2=800
+
+    canvas.config(scrollregion=(x1,y1,x2,y2))
+
+#function to change canvas scrollregion horizontally
+def vertical_scrollregion(canvas, type):
+    x1, y1, x2, y2 = canvas.cget("scrollregion").split()
+    x1, y1, x2, y2 = int(x1), int(y1), int(x2), int(y2)
+
+    if type=='increase':
+        y2 = y2+1000
+    if type=='decrease':
+        y2 = y2-1000
+        # define a minimum size
+        if y2<450:
+            y2=450
+
+    canvas.config(scrollregion=(x1,y1,x2,y2))
 
 # function to handle on_click event
 def on_click(event, canvas):
