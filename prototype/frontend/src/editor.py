@@ -1,9 +1,8 @@
-import tkinter as tk
+import customtkinter as ctk
 from src.src_editor.canvas import create_canvas
 from src.src_editor.top_bar import create_top_bar
 from src.src_editor.right_sidebar import create_right_sidebar
 from src.src_editor.left_sidebar import create_left_sidebar
-
 
 def create_editor(root):
     
@@ -14,10 +13,10 @@ def create_editor(root):
     root.columnconfigure(1, weight=5)
 
     # define bar at the top of editor, a left and right sidebar, and the main canvas
-    top_bar = tk.Frame(root)
-    left_sidebar = tk.Frame(root)
-    canvas = tk.Frame(root)
-    right_sidebar = tk.Frame(root)
+    top_bar = ctk.CTkFrame(root)
+    left_sidebar = ctk.CTkFrame(root)
+    canvas = ctk.CTkFrame(root)
+    right_sidebar = ctk.CTkFrame(root)
 
     # grid top bar, left- and right sidebar, canvas
     top_bar.grid(column=0, row=0, columnspan=3, sticky='nesw')
