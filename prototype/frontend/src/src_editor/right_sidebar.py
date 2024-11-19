@@ -1,5 +1,6 @@
 import customtkinter as ctk
 from src.rdf_manager import rename_triples, resource_dictionary, get_level, set_transformation_type, get_transformation_type, set_transformation_function, get_transformation_function, set_source, set_zone, get_source, get_zone
+import src.shared_resources
 
 current_resource_id = None
 selected_type = None
