@@ -128,3 +128,10 @@ def get_source(resource):
         return""
     else:
         print('rdf_manager: get_source: unexpected resource given, it doesnt match the data layer')
+
+
+def get_name(resource):
+    if resource:
+        for o in rdf_graph.objects(subject=rdf.URIRef(dl + resource), predicate=dl.name):
+            return str(o)
+    return ""
