@@ -33,4 +33,4 @@ def reset_canvas():
         src.shared_resources.canvas.delete('all')
 
 def export_button_function():
-    export_graph(filedialog.asksaveasfilename(title="Save RDF Graph As", defaultextension=".xml", filetypes=[("RDF/XML File", "*.xml"), ("All Files", "*.*")]))
+    export_graph(filedialog.asksaveasfilename(title="Save RDF Graph As", defaultextension=".xml", filetypes=[("RDF/XML File", "*.xml"), ("Turtle", "*.ttl"), ("JSON-LD", "*.jsonld"), ("N-Triples", "*.nt"), ("Notation-3", "*.n3"), ("Trig", "*.trig"), ("Trix", "*.trix"), ("N-Quads", "*.nq"), ("All Files", "*.*")]), )
