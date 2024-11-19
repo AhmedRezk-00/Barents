@@ -35,4 +35,4 @@ def reset_canvas():
 
 # function that opens a dialog window to select where graph is exported to and then exports graph there
 def export_button_function():
-    export_graph(filedialog.asksaveasfilename(title="Save RDF Graph As", defaultextension=".xml", filetypes=[("RDF/XML File", "*.xml"), ("All Files", "*.*")]))
+    export_graph(filedialog.asksaveasfilename(title="Save RDF Graph As", defaultextension=".xml", filetypes=[("RDF/XML File", "*.xml"), ("Turtle", "*.ttl"), ("JSON-LD", "*.jsonld"), ("N-Triples", "*.nt"), ("Notation-3", "*.n3"), ("All Files", "*.*")]), )
