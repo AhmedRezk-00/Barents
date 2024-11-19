@@ -9,7 +9,7 @@ Dieses Repository realisiert im Rahmen eines Bachelor-Forschungsprojekts an der 
 | ----------- | -------------- | -------- | ----------------------- |
 | Luke Mayr   | 3593022        | st177937 | B. Sc. Medieninformatik |
 | Metin Arab  | 3587258        | st178931 | B. Sc. Informatik       |
-|             |                |          |                         |
+| Tabea Steeb | 3315718        | st156637 | B. Sc. Informatik       |
 |             |                |          |                         |
 
 ## Projekte 
@@ -27,4 +27,4 @@ Mehr Infos: [Mockups](mockups/README.md)
 ### Installation
 
 ## Programmausführung
-Aktuell kann der prototype von der Datei "frontend.py", im prototype/frontend directory, ausgeführt werden.
+Aktuell kann der prototype von der Datei "frontend.py" ausgeführt werden.
