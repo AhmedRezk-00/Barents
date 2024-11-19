@@ -60,17 +60,17 @@ def add_data_source():
     square = src.shared_resources.canvas.create_rectangle(50, 50, 100, 100, fill='gray30')
     rdf_manager.add_data_source(square)
     name = rdf_manager.get_name(rdf_manager.resource_dictionary[square])
-    src.shared_resources.canvas.create_text(75, 110, text=name, tags=f"text_{square}")
+    src.shared_resources.canvas.create_text(75, 110, text=name, tags=f"tag:{square}")
 
 # function to add data sink to rdf graph and rectangle to represent it on canvas
 def add_data_sink():
     square = src.shared_resources.canvas.create_rectangle(50, 50, 100, 100, fill='olive')
     rdf_manager.add_data_sink(square)
     name = rdf_manager.get_name(rdf_manager.resource_dictionary[square])
-    src.shared_resources.canvas.create_text(75, 110, text=name, tags=f"text_{square}")
+    src.shared_resources.canvas.create_text(75, 110, text=name, tags=f"tag:{square}")
 
 def add_transformation():
     square = src.shared_resources.canvas.create_rectangle(50, 50, 100, 100, fill='teal')
     rdf_manager.add_transformation(square)
     name = rdf_manager.get_name(rdf_manager.resource_dictionary[square])
-    src.shared_resources.canvas.create_text(75, 110, text=name, tags=f"text_{square}")
+    src.shared_resources.canvas.create_text(75, 110, text=name, tags=f"tag:{square}")
