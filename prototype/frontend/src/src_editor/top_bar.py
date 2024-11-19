@@ -1,8 +1,16 @@
-import tkinter as tk
+import customtkinter as ctk
 from src.rdf_manager import export_graph, reset_graph
 import src.shared_resources
 from tkinter import filedialog
 from tkinter.messagebox import askyesno
+from PIL import Image
+
+
+HEADER_FONT = ("Helvetica", 16, "bold")
+
+#Maybe in the future add logo
+#ImageSource="prototype/frontend/src/images/Barents.jpg"
+#Barents_image = ctk.CTkImage(light_image=Image.open(ImageSource),dark_image=Image.open(ImageSource),size=(160, 160))logo_button = ctk.CTkButton(root, text='',fg_color="transparent",font=HEADER_FONT, image=Barents_image, compound="top"),logo_button.grid(row=0, column=2, sticky='nesw')
 
 # function to create top bar widget 
 def create_top_bar(root):
@@ -11,11 +19,11 @@ def create_top_bar(root):
     root.rowconfigure(0, weight=1)
 
     # define an export button that exports the rdf graph as an xml file
-    export_button = tk.Button(root, command=(lambda: export_button_function()), text='export graph')
+    export_button = ctk.CTkButton(root, command=(lambda: export_button_function()), text='Export Graph',font=HEADER_FONT,fg_color="dark blue")
     export_button.grid(row=0, column=0, sticky='nesw')
 
     # reset button that resets rdf graph and canvas on click
-    reset_button = tk.Button(root, command=(lambda: reset_canvas()), text='reset graph')
+    reset_button = ctk.CTkButton(root, command=(lambda: reset_canvas()), text='Reset graph',fg_color="red",font=HEADER_FONT)
     reset_button.grid(row=0, column=1, sticky='nesw')
 
 # function that resets the rdf graph as well as the canvas 

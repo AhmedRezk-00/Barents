@@ -1,8 +1,8 @@
-import tkinter as tk
+import customtkinter as ctk
 from src.editor import create_editor
 
 # define root window size, color and title
-root = tk.Tk()
+root = ctk.CTk()
 root.geometry('1200x675')
 root.minsize(800,450)
 root.state('zoomed')
@@ -12,5 +12,4 @@ root.title("BFP-Barents frontend")
 # function to create gui to edit rdf
 create_editor(root)
 
-# function to run gui from root window
 root.mainloop()
