@@ -1,10 +1,15 @@
 import tkinter as tk
 from src.rdf_manager import rename_triples, resource_dictionary, get_level, set_transformation_type, get_transformation_type, set_transformation_function, get_transformation_function, set_source, set_zone, get_source, get_zone
 
+# id of resource currently being edited in right sidebar
 current_resource_id = None
+# transformation type of the currently selected information level resource
 selected_type = None
+# function (that is its expression) of currently selected information level resource
 function_entry_text = None
+# data soruce literal of currently selected data level resourse
 source_entry_text = None
+# data zone literal of currently selected knowledge level resource
 zone_entry_text = None
 
 # TODO: add comments for this file

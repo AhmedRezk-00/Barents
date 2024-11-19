@@ -20,9 +20,11 @@ def create_top_bar(root):
 
 # function that resets the rdf graph as well as the canvas 
 def reset_canvas():
+    # open dialog window asking user to confirm deletion 
     if(askyesno(title="BFP-BARENTS: Confirm Deletion",message="Are you sure you want to delete the current graph?")):
         reset_graph()
         src.shared_resources.canvas.delete('all')
 
+# function that opens a dialog window to select where graph is exported to and then exports graph there
 def export_button_function():
     export_graph(filedialog.asksaveasfilename(title="Save RDF Graph As", defaultextension=".xml", filetypes=[("RDF/XML File", "*.xml"), ("All Files", "*.*")]))

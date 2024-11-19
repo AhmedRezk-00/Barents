@@ -12,4 +12,5 @@ root.title("BFP-Barents frontend")
 # function to create gui to edit rdf
 create_editor(root)
 
+# function to run gui from root window
 root.mainloop()
