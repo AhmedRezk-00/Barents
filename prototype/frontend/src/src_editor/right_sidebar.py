@@ -76,6 +76,10 @@ def submit_resource_name():
         # TODO: ensure name_entry_text doesn't contain any spaces. if it does spaces should be turned into a special character like a dash
         rename_triples(resource_dictionary[current_resource_id], str(name_entry_text.get()))
         resource_dictionary[current_resource_id] = str(name_entry_text.get())
+    #updates the text Label on the canvas
+     text = src.shared_resources.canvas.find_withtag(f"tag:{current_resource_id}")
+     if text:
+     src.shared_resources.canvas.itemconfig(text[0], text=str(name_entry_text.get()))
 
 def create_knowledge_layer_panel(root):
     root.columnconfigure(0, weight=1)
