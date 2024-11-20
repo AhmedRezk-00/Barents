@@ -7,16 +7,20 @@ from src.src_editor.left_sidebar import create_left_sidebar
 def create_editor(root):
     
     # divide entry window into rows and columns
-    root.rowconfigure(0, weight=1)
-    root.rowconfigure(1, weight=10)
-    root.columnconfigure((0,2), weight=1)
-    root.columnconfigure(1, weight=5)
+    root.rowconfigure(0, weight=0)
+    root.rowconfigure(1, weight=1)
+    root.columnconfigure((0,2), weight=0)
+    root.columnconfigure(1, weight=1)
 
     # define bar at the top of editor, a left and right sidebar, and the main canvas
-    top_bar = ctk.CTkFrame(root)
-    left_sidebar = ctk.CTkFrame(root)
+    top_bar = ctk.CTkFrame(root, height=30)
+    top_bar.grid_propagate(False)
+    left_sidebar = ctk.CTkFrame(root, width=200)
+    left_sidebar.grid_propagate(False)
     canvas = ctk.CTkFrame(root)
-    right_sidebar = ctk.CTkFrame(root)
+    canvas.grid_propagate(False)
+    right_sidebar = ctk.CTkFrame(root, width=200)
+    right_sidebar.grid_propagate(False)
 
     # grid top bar, left- and right sidebar, canvas
     top_bar.grid(column=0, row=0, columnspan=3, sticky='nesw')
