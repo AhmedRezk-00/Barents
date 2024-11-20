@@ -56,15 +56,27 @@ def create_left_sidebar(root):
 
 # function to create rectangle to represent data source on canvas and add data source to rdf graph
 def add_data_source():
-    square = src.shared_resources.canvas.create_rectangle(50, 50, 100, 100, fill='gray30')
+    rectangle_x1 = src.shared_resources.canvas.canvasx(200)
+    rectangle_x2 = src.shared_resources.canvas.canvasx(250)
+    rectangle_y1 = src.shared_resources.canvas.canvasy(150)
+    rectangle_y2 = src.shared_resources.canvas.canvasy(200)
+    square = src.shared_resources.canvas.create_rectangle(rectangle_x1, rectangle_y1, rectangle_x2, rectangle_y2, fill='gray30')
     rdf_manager.add_data_source(square)
 
 # function to add data sink to rdf graph and rectangle to represent it on canvas
 def add_data_sink():
-    square = src.shared_resources.canvas.create_rectangle(50, 50, 100, 100, fill='olive')
+    rectangle_x1 = src.shared_resources.canvas.canvasx(200)
+    rectangle_x2 = src.shared_resources.canvas.canvasx(250)
+    rectangle_y1 = src.shared_resources.canvas.canvasy(150)
+    rectangle_y2 = src.shared_resources.canvas.canvasy(200)
+    square = src.shared_resources.canvas.create_rectangle(rectangle_x1, rectangle_y1, rectangle_x2, rectangle_y2, fill='olive')
     rdf_manager.add_data_sink(square)
 
 # function to add transformation to rdf graph and rectangle to represent it on canvas
 def add_transformation():
-    square = src.shared_resources.canvas.create_rectangle(50, 50, 100, 100, fill='teal')
+    rectangle_x1 = src.shared_resources.canvas.canvasx(200)
+    rectangle_x2 = src.shared_resources.canvas.canvasx(250)
+    rectangle_y1 = src.shared_resources.canvas.canvasy(150)
+    rectangle_y2 = src.shared_resources.canvas.canvasy(200)
+    square = src.shared_resources.canvas.create_rectangle(rectangle_x1, rectangle_y1, rectangle_x2, rectangle_y2, fill='teal')
     rdf_manager.add_transformation(square)
