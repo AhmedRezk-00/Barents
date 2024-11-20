@@ -77,12 +77,10 @@ def set_transformation_function(resource, transformation_function):
 # function to rename all triples belonging to a given resource
 def rename_triples(resource_name, new_name):
     for s, p, o in rdf_graph.triples((rdf.URIRef(dl + resource_name), None, None)):
-        # TODO: add check if new_name is available
         # remove all triples with old resource name
         rdf_graph.remove((s,p,o))
         # re-add all triples with new name of resource
         rdf_graph.add((rdf.URIRef(dl + new_name),p,o))
-    # TODO: add code to rename triples where the given resource appears as an object instead of subject
 
 # helper function to ensure new resources are added properly to dictionary
 # resource should be the string of the URIRef starting after the dl namespace
@@ -120,7 +118,6 @@ def get_transformation_function(resource):
         
 # function to set the zone literal of a given knowledge level resource
 def set_zone(resource, zone):
-    # TODO: possibly implement check to see if resource belongs to knowledge level
     rdf_graph.set((rdf.URIRef(dl + resource), dl.zone, rdf.Literal(zone)))
 
 # function to return data zone of a given data sink, if given resource is a data sink
@@ -143,7 +140,6 @@ def set_part_of(subject, object):
 
 # function to set source literal of a given data level resource
 def set_source(resource, source):
-    # TODO:  possibly check if resource belongs to data level
     rdf_graph.set((rdf.URIRef(dl + resource), dl.source, rdf.Literal(source)))
 
 # function to return source of a given data source. 
