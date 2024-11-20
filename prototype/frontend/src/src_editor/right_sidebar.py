@@ -89,7 +89,6 @@ def update_right_sidebar(resource_id):
 # function of button when renaming triples
 def submit_resource_name():
     if current_resource_id:
-        # TODO: ensure name_entry_text doesn't contain any spaces. if it does spaces should be turned into a special character like a dash
         rename_triples(resource_dictionary[current_resource_id], str(name_entry_text.get()))
         resource_dictionary[current_resource_id] = str(name_entry_text.get())
 
