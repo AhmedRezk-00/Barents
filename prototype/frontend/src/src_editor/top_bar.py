@@ -8,9 +8,9 @@ from PIL import Image
 
 HEADER_FONT = ("Helvetica", 16, "bold")
 
-#Maybe in the future add logo
-#ImageSource="prototype/frontend/src/images/Barents.jpg"
-#Barents_image = ctk.CTkImage(light_image=Image.open(ImageSource),dark_image=Image.open(ImageSource),size=(160, 160))logo_button = ctk.CTkButton(root, text='',fg_color="transparent",font=HEADER_FONT, image=Barents_image, compound="top"),logo_button.grid(row=0, column=2, sticky='nesw')
+
+ImageSource="prototype/frontend/src/images/Barents.png"
+Barents_image = ctk.CTkImage(light_image=Image.open(ImageSource),dark_image=Image.open(ImageSource),size=(100, 100))
 
 # function to create top bar widget 
 def create_top_bar(root):
@@ -25,6 +25,8 @@ def create_top_bar(root):
     # reset button that resets rdf graph and canvas on click
     reset_button = ctk.CTkButton(root, command=(lambda: reset_canvas()), text='Reset graph',fg_color="red",font=HEADER_FONT)
     reset_button.grid(row=0, column=1, sticky='nesw')
+    logo_button = ctk.CTkButton(root, text='',fg_color="transparent",font=HEADER_FONT, image=Barents_image,height=100, width= 100,hover=False,border_width=0 )
+    logo_button.grid(row=0, column=7, sticky='e')
 
 # function that resets the rdf graph as well as the canvas 
 def reset_canvas():
