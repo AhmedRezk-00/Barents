@@ -17,6 +17,7 @@ def create_editor(root):
     left_sidebar = ctk.CTkFrame(root)
     canvas = ctk.CTkFrame(root)
     right_sidebar = ctk.CTkFrame(root)
+    right_sidebar.grid_propagate(False)
 
     # grid top bar, left- and right sidebar, canvas
     top_bar.grid(column=0, row=0, columnspan=3, sticky='nesw')
