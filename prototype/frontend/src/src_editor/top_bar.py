@@ -16,7 +16,7 @@ HEADER_FONT = ("Helvetica", 16, "bold")
 def create_top_bar(root):
     # create grid layout of top_bar
     root.columnconfigure((0,1,2,3,4,5,6,7), weight=1)
-    root.rowconfigure(0, weight=1, minsize=50)
+    root.rowconfigure(0, weight=1)
 
     # define an export button that exports the rdf graph as an xml file
     export_button = ctk.CTkButton(root, command=(lambda: export_button_function()), text='Export Graph',font=HEADER_FONT,fg_color="dark blue")

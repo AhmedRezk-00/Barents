@@ -13,30 +13,42 @@ offset_y = 0
 def create_canvas(root):
     # create canvas widget
     root.columnconfigure(0, weight = 1)
+    root.columnconfigure(1, weight=0)
     root.rowconfigure(0, weight=1)
+    root.rowconfigure(1, weight=0)
     # create canvas with scrollregion which sort of defines minimum size of canvas 
     canvas = tk.Canvas(root, relief='solid', highlightbackground='black',
                        scrollregion=(0, 0, 2400, 2400)) 
     canvas.grid(row=0, column=0, sticky='nesw')
 
-    #issue12: add scrollbar
-    y_scroll = tk.Scrollbar(root, orient='vertical', command=canvas.yview)
-    y_scroll.grid(row=0, column=1, sticky='ns')
-    x_scroll = tk.Scrollbar(root, orient='horizontal', command=canvas.xview)
-    x_scroll.grid(row=1, column=0, sticky='ew')
-    canvas.config(xscrollcommand=x_scroll.set, yscrollcommand=y_scroll.set)
 
     # add buttons to change scrollregion horizontally
-    horizontal_frame = ctk.CTkFrame(root)
-    horizontal_frame.grid(row=2, column=0, pady=15)
-    ctk.CTkButton(horizontal_frame, text='+', command=lambda: horizontal_scrollregion(canvas, 'increase')).pack(side='right', padx=5)
-    ctk.CTkButton(horizontal_frame, text='-', command=lambda: horizontal_scrollregion(canvas, 'decrease')).pack(side='left', padx=5)
+    horizontal_frame = ctk.CTkFrame(root, height=50)
+    horizontal_frame.grid(row=1, column=0, sticky='nesw')
+    horizontal_frame.grid_propagate(False)
+    horizontal_frame.columnconfigure((0,1), weight=1)
+    horizontal_frame.rowconfigure((0,1), weight=1)
+    horizontal_increase_button = ctk.CTkButton(horizontal_frame, text='+', command=lambda: horizontal_scrollregion(canvas, 'increase'), width=100, height=10)
+    horizontal_increase_button.grid(row=1, column=1, pady=5)
+    horizontal_decrease_button = ctk.CTkButton(horizontal_frame, text='-', command=lambda: horizontal_scrollregion(canvas, 'decrease'), width=100, height=10)
+    horizontal_decrease_button.grid(row=1, column=0, pady=5)
+    x_scroll = tk.Scrollbar(horizontal_frame, orient='horizontal', command=canvas.xview)
+    x_scroll.grid(row=0, column=0, sticky='nesw', columnspan=2)
 
     # add buttons to change scrollregion vertically
-    vertical_frame = ctk.CTkFrame(root)
-    vertical_frame.grid(row=0, column=2)
-    ctk.CTkButton(vertical_frame, text='+', command=lambda: vertical_scrollregion(canvas, 'increase')).pack(side='bottom',  pady=5)
-    ctk.CTkButton(vertical_frame, text='-', command=lambda: vertical_scrollregion(canvas, 'decrease')).pack(side='top', pady=5)
+    vertical_frame = ctk.CTkFrame(root, width=50)
+    vertical_frame.grid(row=0, column=1, sticky='nesw')
+    vertical_frame.grid_propagate(False)
+    vertical_frame.columnconfigure((0,1), weight=1)
+    vertical_frame.rowconfigure((0,1), weight=1)
+    vertical_increase_button = ctk.CTkButton(vertical_frame, text='+', command=lambda: vertical_scrollregion(canvas, 'increase'), width=10, height=100)
+    vertical_increase_button.grid(row=1, column=1, padx=5)
+    vertical_decrase_button = ctk.CTkButton(vertical_frame, text='-', command=lambda: vertical_scrollregion(canvas, 'decrease'), width=10, height=100)
+    vertical_decrase_button.grid(row=0, column=1, padx=5)
+    y_scroll = tk.Scrollbar(vertical_frame, orient='vertical', command=canvas.yview)
+    y_scroll.grid(row=0, column=0, sticky='nesw', rowspan=2)
+
+    canvas.config(xscrollcommand=x_scroll.set, yscrollcommand=y_scroll.set)
 
     # define shared_resources.canvas to be this canvas
     src.shared_resources.canvas = canvas
