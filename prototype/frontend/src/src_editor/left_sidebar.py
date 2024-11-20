@@ -62,8 +62,8 @@ def add_data_source():
     rectangle_y2 = src.shared_resources.canvas.canvasy(200)
     square = src.shared_resources.canvas.create_rectangle(rectangle_x1, rectangle_y1, rectangle_x2, rectangle_y2, fill='gray30')
     rdf_manager.add_data_source(square)
-    name = rdf_manager.get_name(rdf_manager.resource_dictionary[square])
-    src.shared_resources.canvas.create_text(75, 110, text=name, tags=f"tag:{square}")
+    name = rdf_manager.resource_dictionary[square]
+    src.shared_resources.canvas.create_text(225, 210, text=name, tags=f"tag:{square}")
 
 # function to add data sink to rdf graph and rectangle to represent it on canvas
 def add_data_sink():
@@ -73,8 +73,8 @@ def add_data_sink():
     rectangle_y2 = src.shared_resources.canvas.canvasy(200)
     square = src.shared_resources.canvas.create_rectangle(rectangle_x1, rectangle_y1, rectangle_x2, rectangle_y2, fill='olive')
     rdf_manager.add_data_sink(square)
-    name = rdf_manager.get_name(rdf_manager.resource_dictionary[square])
-    src.shared_resources.canvas.create_text(75, 110, text=name, tags=f"tag:{square}")
+    name = rdf_manager.resource_dictionary[square]
+    src.shared_resources.canvas.create_text(225, 210, text=name, tags=f"tag:{square}")
 
 # function to add transformation to rdf graph and rectangle to represent it on canvas
 def add_transformation():
@@ -84,5 +84,6 @@ def add_transformation():
     rectangle_y2 = src.shared_resources.canvas.canvasy(200)
     square = src.shared_resources.canvas.create_rectangle(rectangle_x1, rectangle_y1, rectangle_x2, rectangle_y2, fill='teal')
     rdf_manager.add_transformation(square)
-    name = rdf_manager.get_name(rdf_manager.resource_dictionary[square])
-    src.shared_resources.canvas.create_text(75, 110, text=name, tags=f"tag:{square}")
+    name = rdf_manager.resource_dictionary[square]
+    src.shared_resources.canvas.create_text(225, 210, text=name, tags=f"tag:{square}")
+
