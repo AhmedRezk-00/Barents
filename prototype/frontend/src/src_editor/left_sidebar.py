@@ -6,26 +6,23 @@ import os
  #load images
 path_Source="prototype/frontend/src/images/DataSource.png"
 Source="prototype/frontend/src/images/Arrow3.png"
-DataSinkPath="prototype/frontend/src/images/DataSink2.png"
+DataSinkPath="prototype/frontend/src/images/DataSink.png"
 Transformations="prototype/frontend/src/images/Transformations.png"
 
 # set image variables 
 DataSource_image = ctk.CTkImage(light_image=Image.open(path_Source),
                                   dark_image=Image.open(path_Source),
-                                  size=(120, 120))
+                                  size=(100, 100))
 
 Arrow_Img=ctk.CTkImage(light_image=Image.open(Source),
                                   dark_image=Image.open(Source),
-                                  size=(120, 120))
+                                  size=(80, 80))
 DataSink_Img=ctk.CTkImage(light_image=Image.open(DataSinkPath),
                                   dark_image=Image.open(DataSinkPath),
-                                  size=(120, 120))
+                                  size=(60, 70))
 Transformation_Img=ctk.CTkImage(light_image=Image.open(Transformations),
                                   dark_image=Image.open(Transformations),
-                                  size=(120, 120))
-
-
-
+                                  size=(60, 60))
 
 
 # function to create left sidebar
@@ -56,7 +53,6 @@ def create_left_sidebar(root):
     # button to add partof relationships. currently non functional
     partOf_button = ctk.CTkButton(frame,text='Part Of Relationship',text_color="deepsky blue3",image=Arrow_Img,compound="top",fg_color="dark blue" ,corner_radius=30)
     partOf_button.grid(column=0, row=3, sticky='nsew', pady=10)
-
 
 # function to create rectangle to represent data source on canvas and add data source to rdf graph
 def add_data_source():
