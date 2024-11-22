@@ -121,6 +121,9 @@ def on_drag(event, canvas):
         new_y = moveIntoCanvasY(canvas, new_y, canvas.canvasy(canvas.winfo_height()));
 
         canvas.coords(current_resource_id, new_x, new_y, new_x+50, new_y+50)
+        text = canvas.find_withtag(f"tag:{current_resource_id}")
+        if text:
+            canvas.coords(text[0], new_x+25, new_y+60)
 
 #issue12: checks and potentially moves data_source-x-value within canvas-borders
 def moveIntoCanvasX(canvas, new_x, max_width):

@@ -1,5 +1,6 @@
 import customtkinter as ctk
 from src.rdf_manager import rename_triples, resource_dictionary, get_level, set_transformation_type, get_transformation_type, set_transformation_function, get_transformation_function, set_source, set_zone, get_source, get_zone
+import src.shared_resources
 
 # id of resource currently being edited in right sidebar
 current_resource_id = None
@@ -91,6 +92,9 @@ def submit_resource_name():
     if current_resource_id:
         rename_triples(resource_dictionary[current_resource_id], str(name_entry_text.get()))
         resource_dictionary[current_resource_id] = str(name_entry_text.get())
+        text = src.shared_resources.canvas.find_withtag(f"tag:{current_resource_id}")
+        if text:
+            src.shared_resources.canvas.itemconfig(text[0], text=str(name_entry_text.get()))
 
 # function to create panel specific to knowledge level resource
 def create_knowledge_layer_panel(root):
