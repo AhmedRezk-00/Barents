@@ -23,6 +23,11 @@ Mehr Infos: [Mockups](mockups/README.md)
 ## Setup
 
 ### Depenencies, etc.
+Wir verwenden verschiedene Libraries: rdflib, customtkinter, PIL.
+Sind diese noch nicht installiert, dann führe folgende Befehle im Terminal aus:
+pip install rdflib
+pip install customtkinter
+pip install pillow
 
 ### Installation
 
