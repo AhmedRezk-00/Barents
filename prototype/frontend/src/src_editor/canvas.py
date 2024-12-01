@@ -2,6 +2,7 @@ import tkinter as tk
 import customtkinter as ctk
 import src.shared_resources
 from src.src_editor.right_sidebar import update_right_sidebar
+import src.rdf_manager as rdf_manager
 
 # variables to store the last clicked resource
 current_resource_id = None
@@ -92,12 +93,30 @@ def vertical_scrollregion(canvas, type):
 
 # function to handle on_click event
 def on_click(event, canvas):
+    if(src.shared_resources.editor_mode == 'default'):
+        default_on_click(event, canvas) 
+    if(src.shared_resources.editor_mode == 'part_of'):
+        canvas_x = canvas.canvasx(event.x)
+        canvas_y = canvas.canvasy(event.y)
+        if canvas.find_overlapping(canvas_x, canvas_y, canvas_x, canvas_y):
+            current_resource_id = canvas.find_overlapping(canvas_x, canvas_y, canvas_x, canvas_y)[0]
+            src.shared_resources.part_of_set.add(current_resource_id)
+            if len(src.shared_resources.part_of_set) > 1:
+                rdf_manager.set_part_of(list(src.shared_resources.part_of_set)[0], list(src.shared_resources.part_of_set)[1]) 
+                src.shared_resources.part_of_set = set()
+                src.shared_resources.set_editor_mode('default')
+        else:
+            src.shared_resources.set_editor_mode('default')
+            # currently bug of immediately draggin last clicked item
+    else:
+        pass
+    
+def default_on_click(event, canvas):
     global current_resource_id
     # check if theres any items on canvas to drag and drop
     canvas_x = canvas.canvasx(event.x)
     canvas_y = canvas.canvasy(event.y)
     if canvas.find_overlapping(canvas_x, canvas_y, canvas_x, canvas_y):
-    #if canvas.find_overlapping(event.x, event.y, event.x, event.y):
         current_resource_id = canvas.find_overlapping(canvas_x, canvas_y, canvas_x, canvas_y)[0]
         global offset_x, offset_y
         offset_x = event.x - canvas.coords(current_resource_id)[0]
@@ -110,6 +129,12 @@ def on_click(event, canvas):
 
 # function to handle drag event
 def on_drag(event, canvas):
+    if(src.shared_resources.editor_mode == 'default'):
+        default_on_drag(event, canvas) 
+    else:
+        pass
+
+def default_on_drag(event, canvas):
     global current_resource_id
     # check if there's any resource selected to drag
     if current_resource_id:
@@ -154,7 +179,13 @@ def moveIntoCanvasY(canvas, new_y, max_height):
     else: return new_y;
 
 # function to handle  drop event
-def on_drop(event): 
+def on_drop(event):
+    if(src.shared_resources.editor_mode == 'default'):
+        default_on_drop(event) 
+    else:
+        pass
+
+def default_on_drop(event): 
     # NOTE: resetting current_resource_id would also reset right_sidebar selection unless an extra variable is introduced
     pass
 

@@ -131,12 +131,28 @@ def get_zone(resource):
         print('rdf_manager: get_zone: unexpected resource given, it doesnt match the knowledge layer')
 
 # function to set partof relationship given two resources, with one of them being a information level resource (transformation)
-def set_part_of(subject, object):
-    # check if exactly one of the given resources is a transformatiion 
-    if get_level(subject) == information_layer ^ get_level(object) == information_layer:
-        rdf_graph.set((rdf.URIRef(dl + subject), dl.zone, rdf.Literal(object)))
+def set_part_of(first_id, second_id):
+    first_resource = resource_dictionary[first_id]
+    second_resource = resource_dictionary[second_id]
+    # check if exactly one id refers to transformatiion
+    if (get_level(first_resource) == information_layer.value) ^ (get_level(second_resource) == information_layer.value):
+        if get_level(first_resource) == information_layer.value:
+            if get_level(second_resource) == data_layer.value:
+                # first is transform, second is source
+                rdf_graph.set((rdf.URIRef(dl + second_resource), dl.partOf, rdf.Literal(first_resource)))
+            else:
+                # first is transform, second is sink
+                rdf_graph.set((rdf.URIRef(dl + first_resource), dl.partOf, rdf.Literal(second_resource)))
+        if get_level(second_resource) == information_layer.value:
+            if get_level(first_resource) == data_layer.value:
+                # second is transform first is source
+                rdf_graph.set((rdf.URIRef(dl + first_resource), dl.partOf, rdf.Literal(second_resource)))
+            else:
+                # second is transform second is sink 
+                rdf_graph.set((rdf.URIRef(dl + second_resource), dl.partOf, rdf.Literal(first_resource)))
     else:
         print('rdf_manager: set_part_of: unexpected parameters: exactly one resource most belong to the information layer')
+    #     rdf_graph.set((rdf.URIRef(dl + subject), dl.partOf, rdf.Literal(object)))
 
 # function to set source literal of a given data level resource
 def set_source(resource, source):
