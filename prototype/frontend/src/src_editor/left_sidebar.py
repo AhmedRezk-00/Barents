@@ -51,7 +51,7 @@ def create_left_sidebar(root):
     transformation_button.grid(column=0, row=2, sticky='nsew', pady=10)
 
     # button to add partof relationships. currently non functional
-    partOf_button = ctk.CTkButton(frame,text='Part Of Relationship',text_color="deepsky blue3",image=Arrow_Img,compound="top",fg_color="dark blue" ,corner_radius=30)
+    partOf_button = ctk.CTkButton(frame,text='Part Of Relationship',text_color="deepsky blue3",image=Arrow_Img,compound="top",fg_color="dark blue", command=(lambda: src.shared_resources.set_editor_mode('part_of')) ,corner_radius=30)
     partOf_button.grid(column=0, row=3, sticky='nsew', pady=10)
 
 # function to create rectangle to represent data source on canvas and add data source to rdf graph
@@ -86,4 +86,3 @@ def add_transformation():
     rdf_manager.add_transformation(square)
     name = rdf_manager.resource_dictionary[square]
     src.shared_resources.canvas.create_text(225, 210, text=name, tags=f"tag:{square}")
-
