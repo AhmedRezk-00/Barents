@@ -106,6 +106,7 @@ def on_click(event, canvas):
                 src.shared_resources.part_of_set = set()
                 src.shared_resources.set_editor_mode('default')
         else:
+            src.shared_resources.part_of_set = set()
             src.shared_resources.set_editor_mode('default')
             # currently bug of immediately draggin last clicked item
     else:
