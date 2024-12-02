@@ -60,7 +60,7 @@ def add_data_source():
     rectangle_x2 = src.shared_resources.canvas.canvasx(250)
     rectangle_y1 = src.shared_resources.canvas.canvasy(150)
     rectangle_y2 = src.shared_resources.canvas.canvasy(200)
-    square = src.shared_resources.canvas.create_rectangle(rectangle_x1, rectangle_y1, rectangle_x2, rectangle_y2, fill='gray30')
+    square = src.shared_resources.canvas.create_rectangle(rectangle_x1, rectangle_y1, rectangle_x2, rectangle_y2, fill='gray30', tags='resource')
     rdf_manager.add_data_source(square)
     name = rdf_manager.resource_dictionary[square]
     src.shared_resources.canvas.create_text(225, 210, text=name, tags=f"tag:{square}")
@@ -71,7 +71,7 @@ def add_data_sink():
     rectangle_x2 = src.shared_resources.canvas.canvasx(250)
     rectangle_y1 = src.shared_resources.canvas.canvasy(150)
     rectangle_y2 = src.shared_resources.canvas.canvasy(200)
-    square = src.shared_resources.canvas.create_rectangle(rectangle_x1, rectangle_y1, rectangle_x2, rectangle_y2, fill='olive')
+    square = src.shared_resources.canvas.create_rectangle(rectangle_x1, rectangle_y1, rectangle_x2, rectangle_y2, fill='olive', tags='resource')
     rdf_manager.add_data_sink(square)
     name = rdf_manager.resource_dictionary[square]
     src.shared_resources.canvas.create_text(225, 210, text=name, tags=f"tag:{square}")
@@ -82,7 +82,7 @@ def add_transformation():
     rectangle_x2 = src.shared_resources.canvas.canvasx(250)
     rectangle_y1 = src.shared_resources.canvas.canvasy(150)
     rectangle_y2 = src.shared_resources.canvas.canvasy(200)
-    square = src.shared_resources.canvas.create_rectangle(rectangle_x1, rectangle_y1, rectangle_x2, rectangle_y2, fill='teal')
+    square = src.shared_resources.canvas.create_rectangle(rectangle_x1, rectangle_y1, rectangle_x2, rectangle_y2, fill='teal', tags='resource')
     rdf_manager.add_transformation(square)
     name = rdf_manager.resource_dictionary[square]
     src.shared_resources.canvas.create_text(225, 210, text=name, tags=f"tag:{square}")
