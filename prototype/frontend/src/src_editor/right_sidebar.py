@@ -208,4 +208,5 @@ def create_information_layer_panel(root):
 def delete_function():
     src.shared_resources.canvas.delete(current_resource_id)
     delete_resource(current_resource_id)
-    src.shared_resources.canvas.delete(src.shared_resources.canvas.find_withtag(f"tag:{current_resource_id}"))
+    for id in src.shared_resources.canvas.find_withtag(f"tag:{current_resource_id}"):
+        src.shared_resources.canvas.delete(id)
