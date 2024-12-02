@@ -26,7 +26,7 @@ def create_right_sidebar(root):
     header_label = ctk.CTkLabel(root, text='Customize Resource:',font=BIGFONT, fg_color='dark blue')
     header_label.grid(row=0, column=0, sticky='nesw')
 
-    main_frame = ctk.CTkFrame(root)
+    main_frame = ctk.CTkFrame(root, fg_color='dark blue')
     main_frame.grid(column=0, row=1, sticky='nesw')
     main_frame.columnconfigure(0, weight=1)
     main_frame.rowconfigure(0, weight=1)
@@ -34,11 +34,14 @@ def create_right_sidebar(root):
 
     # panel present for all resources
     generic_panel = ctk.CTkFrame(main_frame)
-    generic_panel.grid(row=0, column=0, sticky='nesw')
+    generic_panel.grid(row=0, column=0, sticky='nesw', padx=5, pady=5)
     generic_panel.columnconfigure(0, weight=1)
     generic_panel.rowconfigure((0,1,2), weight=1)
 
-    
+    # header to group name entry widgets
+    name_header = ctk.CTkLabel(generic_panel, text='Customize Resource Name:', font=FONT, fg_color='blue')
+    name_header.grid(row=0, column=0, sticky= 'ew')
+
     # entry field for changing resource names
     global name_entry_text
     name_entry_text = ctk.StringVar(value='')
@@ -46,12 +49,12 @@ def create_right_sidebar(root):
     resource_name_entry.grid(row=1, column=0, sticky='ew')
 
     # button for changing resource names
-    resource_name_button = ctk.CTkButton(generic_panel, fg_color="dark blue", text='Update Name',font=FONT, command=(lambda: submit_resource_name()),corner_radius=30)
+    resource_name_button = ctk.CTkButton(generic_panel, fg_color="blue", text='Update Name',font=FONT, command=(lambda: submit_resource_name()),corner_radius=30)
     resource_name_button.grid(row=2, column=0, sticky='nesw',pady=10,padx=10)
 
     # panel that changes based on what layer a selected resource belongs to
     layer_specific_panel = ctk.CTkFrame(main_frame)
-    layer_specific_panel.grid(row=1, column=0, sticky='nesw')
+    layer_specific_panel.grid(row=1, column=0, sticky='nesw',padx=5, pady=5)
     layer_specific_panel.columnconfigure(0, weight=1)
     layer_specific_panel.rowconfigure(0, weight=1)
 
@@ -116,7 +119,7 @@ def create_knowledge_layer_panel(root):
     zone_entry = ctk.CTkEntry(root, textvariable=zone_entry_text,font=FONT)
     zone_entry.grid(row=0, column=0, sticky='ew')
     # button to update zone based on entered zone of currently selected resource
-    zone_button = ctk.CTkButton(root ,fg_color="dark blue",text='Update Zone',font=FONT, command=(lambda: set_zone(resource_dictionary[current_resource_id], zone_entry_text.get())), corner_radius=30)
+    zone_button = ctk.CTkButton(root ,fg_color="blue",text='Update Zone',font=FONT, command=(lambda: set_zone(resource_dictionary[current_resource_id], zone_entry_text.get())), corner_radius=30)
     zone_button.grid(row=1, column=0, sticky='nesw',pady=10,padx=10)
 
 # functioon to create panel specific to data level resource
@@ -130,7 +133,7 @@ def create_data_layer_panel(root):
     source_entry = ctk.CTkEntry(root, textvariable=source_entry_text,font=FONT)
     source_entry.grid(row=0, column=0, sticky='ew')
     # button to update selected resources source literal based on entered text
-    source_button = ctk.CTkButton( root ,fg_color="dark blue", text='Update Source',font=FONT, command=(lambda: set_source(resource_dictionary[current_resource_id], source_entry_text.get())),corner_radius=30)
+    source_button = ctk.CTkButton( root ,fg_color="blue", text='Update Source',font=FONT, command=(lambda: set_source(resource_dictionary[current_resource_id], source_entry_text.get())),corner_radius=30)
     source_button.grid(row=1, column=0, sticky='nesw',pady=10,padx=10)
 
 # function to create panel specific to information layer resource
@@ -173,5 +176,5 @@ def create_information_layer_panel(root):
     function_entry = ctk.CTkEntry(function_panel, textvariable=function_entry_text,font=FONT)
     function_entry.grid(row=0, column=0, sticky='ew')
     # button to change function text of selected resource
-    function_button = ctk.CTkButton(function_panel,fg_color="dark blue", text='Update Function',font=FONT, command=(lambda: set_transformation_function(resource_dictionary[current_resource_id], function_entry_text.get())))
+    function_button = ctk.CTkButton(function_panel,fg_color="blue", text='Update Function',font=FONT, command=(lambda: set_transformation_function(resource_dictionary[current_resource_id], function_entry_text.get())))
     function_button.grid(row=1, column=0, sticky='nesw',pady=10,padx=10)
