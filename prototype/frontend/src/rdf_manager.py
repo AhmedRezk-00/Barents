@@ -168,5 +168,9 @@ def get_source(resource):
     else:
         print('rdf_manager: get_source: unexpected resource given, it doesnt match the data layer')
 
-
-
+# function to delete single resource from graph 
+def delete_resource(resource_name):
+    for s, p, o in rdf_graph.triples((rdf.URIRef(dl + resource_name), None, None)):
+        rdf_graph.remove((s,p,o))
+    for s, p, o in rdf_graph.triples(None, None, rdf.Literal(resource_name)):
+        rdf_graph.remove((s,p,o))
