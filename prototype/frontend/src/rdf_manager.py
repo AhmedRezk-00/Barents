@@ -81,6 +81,9 @@ def rename_triples(resource_name, new_name):
         rdf_graph.remove((s,p,o))
         # re-add all triples with new name of resource
         rdf_graph.add((rdf.URIRef(dl + new_name),p,o))
+    for s, p, o in rdf_graph.triples((None, None,rdf.URIRef(dl + resource_name))):
+        rdf_graph.remove((s,p,o))
+        rdf_graph.add((s,p,rdf.URIRef(dl + new_name)))
 
 # helper function to ensure new resources are added properly to dictionary
 # resource should be the string of the URIRef starting after the dl namespace
