@@ -12,23 +12,32 @@ function_entry_text = None
 source_entry_text = None
 # data zone literal of currently selected knowledge level resource
 zone_entry_text = None
-FONT = ("Helvetica", 16, "bold")
+FONT = ("Helvetica", 16)
+BIGFONT = ("Helvetica", 16, "bold")
 
 # function to create right sidebar 
 def create_right_sidebar(root):
     # grid right sidebar 
-    root.rowconfigure((0,1), weight=1)
+    root.rowconfigure(0, weight=0)
+    root.rowconfigure(1, weight=1)
     root.columnconfigure(0, weight=1)
 
+    # header for right sidebar
+    header_label = ctk.CTkLabel(root, text='Customize Resource:',font=BIGFONT, fg_color='dark blue')
+    header_label.grid(row=0, column=0, sticky='nesw')
+
+    main_frame = ctk.CTkFrame(root)
+    main_frame.grid(column=0, row=1, sticky='nesw')
+    main_frame.columnconfigure(0, weight=1)
+    main_frame.rowconfigure(0, weight=1)
+    main_frame.rowconfigure(1, weight=1)
+
     # panel present for all resources
-    generic_panel = ctk.CTkFrame(root)
+    generic_panel = ctk.CTkFrame(main_frame)
     generic_panel.grid(row=0, column=0, sticky='nesw')
     generic_panel.columnconfigure(0, weight=1)
     generic_panel.rowconfigure((0,1,2), weight=1)
 
-    # header for right sidebar
-    generic_panel_label = ctk.CTkLabel(generic_panel, text='Customize Resource:',font=FONT)
-    generic_panel_label.grid(row=0, column=0, sticky='nesw')
     
     # entry field for changing resource names
     global name_entry_text
@@ -41,7 +50,7 @@ def create_right_sidebar(root):
     resource_name_button.grid(row=2, column=0, sticky='nesw',pady=10,padx=10)
 
     # panel that changes based on what layer a selected resource belongs to
-    layer_specific_panel = ctk.CTkFrame(root)
+    layer_specific_panel = ctk.CTkFrame(main_frame)
     layer_specific_panel.grid(row=1, column=0, sticky='nesw')
     layer_specific_panel.columnconfigure(0, weight=1)
     layer_specific_panel.rowconfigure(0, weight=1)
