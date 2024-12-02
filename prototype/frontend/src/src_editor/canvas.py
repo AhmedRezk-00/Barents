@@ -111,7 +111,7 @@ def on_click(event, canvas):
                     coords2 = canvas.coords(list(src.shared_resources.part_of_set)[1])
                     x1, y1 = coords1[0] + 25, coords1[1] + 25  
                     x2, y2 = coords2[0] + 25, coords2[1] + 25  
-                    line = canvas.create_line(x1, y1, x2, y2, fill="black", width=2)
+                    line = canvas.create_line(x1, y1, x2, y2, fill="black", width=2, tags=f"tag:{list(src.shared_resources.part_of_set)[1]} tag:{list(src.shared_resources.part_of_set)[0]}")
                     lines[(list(src.shared_resources.part_of_set)[0], list(src.shared_resources.part_of_set)[1])] = line
 
                 src.shared_resources.part_of_set = set()

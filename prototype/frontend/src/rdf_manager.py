@@ -173,5 +173,5 @@ def delete_resource(resource_id):
     resource_name = resource_dictionary[resource_id]
     for s, p, o in rdf_graph.triples((rdf.URIRef(dl + resource_name), None, None)):
         rdf_graph.remove((s,p,o))
-    for s, p, o in rdf_graph.triples(None, None, rdf.Literal(resource_name)):
+    for s, p, o in rdf_graph.triples((None, None,rdf.Literal(resource_name))):
         rdf_graph.remove((s,p,o))
