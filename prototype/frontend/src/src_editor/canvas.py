@@ -10,6 +10,8 @@ current_resource_id = None
 offset_x = 0
 offset_y = 0
 
+lines = {}
+
 # function to create canvas of editor. rdf graph resources should be displayed here 
 def create_canvas(root):
     # create canvas widget
@@ -103,6 +105,15 @@ def on_click(event, canvas):
             src.shared_resources.part_of_set.add(current_resource_id)
             if len(src.shared_resources.part_of_set) > 1:
                 rdf_manager.set_part_of(list(src.shared_resources.part_of_set)[0], list(src.shared_resources.part_of_set)[1]) 
+
+                if (rdf_manager.get_level(rdf_manager.resource_dictionary[list(src.shared_resources.part_of_set)[0]]) == rdf_manager.information_layer.value) ^ (rdf_manager.get_level(rdf_manager.resource_dictionary[list(src.shared_resources.part_of_set)[1]]) == rdf_manager.information_layer.value):
+                    coords1 = canvas.coords(list(src.shared_resources.part_of_set)[0])
+                    coords2 = canvas.coords(list(src.shared_resources.part_of_set)[1])
+                    x1, y1 = coords1[0] + 25, coords1[1] + 25  
+                    x2, y2 = coords2[0] + 25, coords2[1] + 25  
+                    line = canvas.create_line(x1, y1, x2, y2, fill="black", width=2)
+                    lines[(list(src.shared_resources.part_of_set)[0], list(src.shared_resources.part_of_set)[1])] = line
+
                 src.shared_resources.part_of_set = set()
                 src.shared_resources.set_editor_mode('default')
         else:
@@ -136,6 +147,7 @@ def on_drag(event, canvas):
         pass
 
 def default_on_drag(event, canvas):
+    # TODO: handle partof line behavior
     global current_resource_id
     # check if there's any resource selected to drag
     if current_resource_id:
@@ -150,6 +162,14 @@ def default_on_drag(event, canvas):
         text = canvas.find_withtag(f"tag:{current_resource_id}")
         if text:
             canvas.coords(text[0], new_x+25, new_y+60)
+
+        for (id1, id2), line in lines.items():
+            if id1 == current_resource_id or id2 == current_resource_id:
+                coords1 = canvas.coords(id1)
+                coords2 = canvas.coords(id2)
+                x1, y1 = coords1[0]+25, coords1[1]+25 
+                x2, y2 = coords2[0]+25, coords2[1]+25 
+                canvas.coords(line, x1, y1, x2, y2)
 
 #issue12: checks and potentially moves data_source-x-value within canvas-borders
 def moveIntoCanvasX(canvas, new_x, max_width):
