@@ -1,5 +1,5 @@
 import customtkinter as ctk
-from src.rdf_manager import rename_triples, resource_dictionary, get_level, set_transformation_type, get_transformation_type, set_transformation_function, get_transformation_function, set_source, set_zone, get_source, get_zone
+from src.rdf_manager import rename_triples, resource_dictionary, get_level, set_transformation_type, get_transformation_type, set_transformation_function, get_transformation_function, set_source, set_zone, get_source, get_zone, delete_resource
 import src.shared_resources
 
 # id of resource currently being edited in right sidebar
@@ -37,7 +37,7 @@ def create_right_sidebar(root):
     generic_panel = ctk.CTkFrame(main_frame)
     generic_panel.grid(row=0, column=0, sticky='nesw', padx=5, pady=5)
     generic_panel.columnconfigure(0, weight=1)
-    generic_panel.rowconfigure((0,1,2), weight=1)
+    generic_panel.rowconfigure((0,1,2,3,4), weight=1)
 
     # header to group name entry widgets
     name_header = ctk.CTkLabel(generic_panel, text='Customize Resource Name:', font=SMALLFONT, fg_color='blue')
@@ -52,6 +52,14 @@ def create_right_sidebar(root):
     # button for changing resource names
     resource_name_button = ctk.CTkButton(generic_panel, fg_color="blue", text='Update Name',font=FONT, command=(lambda: submit_resource_name()),corner_radius=30)
     resource_name_button.grid(row=2, column=0, sticky='nesw',pady=10,padx=10)
+
+    # header to group delete resource widgets
+    delete_header = ctk.CTkLabel(generic_panel, text='Delete Resource:', font=SMALLFONT, fg_color='blue')
+    delete_header.grid(row=3, column=0, sticky= 'ew')
+
+    # button for deleting resource
+    delete_button = ctk.CTkButton(generic_panel, fg_color="blue", text='Delete resource',font=FONT, command=(lambda: delete_function()),corner_radius=30)
+    delete_button.grid(row=4, column=0, sticky='nesw',pady=10,padx=10)
 
     # panel that changes based on what layer a selected resource belongs to
     layer_specific_panel = ctk.CTkFrame(main_frame)
@@ -196,3 +204,8 @@ def create_information_layer_panel(root):
     # button to change function text of selected resource
     function_button = ctk.CTkButton(function_panel,fg_color="blue", text='Update Function',font=FONT, command=(lambda: set_transformation_function(resource_dictionary[current_resource_id], function_entry_text.get())))
     function_button.grid(row=1, column=0, sticky='nesw',pady=10,padx=10)
+
+def delete_function():
+    src.shared_resources.canvas.delete(current_resource_id)
+    delete_resource(current_resource_id)
+    src.shared_resources.canvas.delete(src.shared_resources.canvas.find_withtag(f"tag:{current_resource_id}"))
