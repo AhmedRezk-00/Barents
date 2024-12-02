@@ -139,17 +139,17 @@ def set_part_of(first_id, second_id):
         if get_level(first_resource) == information_layer.value:
             if get_level(second_resource) == data_layer.value:
                 # first is transform, second is source
-                rdf_graph.set((rdf.URIRef(dl + second_resource), dl.partOf, rdf.Literal(first_resource)))
+                rdf_graph.set((rdf.URIRef(dl + second_resource), dl.partOf, rdf.URIRef(dl + first_resource)))
             else:
                 # first is transform, second is sink
-                rdf_graph.set((rdf.URIRef(dl + first_resource), dl.partOf, rdf.Literal(second_resource)))
+                rdf_graph.set((rdf.URIRef(dl + first_resource), dl.partOf, rdf.URIRef(dl + second_resource)))
         if get_level(second_resource) == information_layer.value:
             if get_level(first_resource) == data_layer.value:
                 # second is transform first is source
-                rdf_graph.set((rdf.URIRef(dl + first_resource), dl.partOf, rdf.Literal(second_resource)))
+                rdf_graph.set((rdf.URIRef(dl + first_resource), dl.partOf, rdf.URIRef(dl + second_resource)))
             else:
                 # second is transform second is sink 
-                rdf_graph.set((rdf.URIRef(dl + second_resource), dl.partOf, rdf.Literal(first_resource)))
+                rdf_graph.set((rdf.URIRef(dl + second_resource), dl.partOf, rdf.URIRef(dl + first_resource)))
     else:
         print('rdf_manager: set_part_of: unexpected parameters: exactly one resource most belong to the information layer')
     #     rdf_graph.set((rdf.URIRef(dl + subject), dl.partOf, rdf.Literal(object)))
@@ -173,5 +173,5 @@ def delete_resource(resource_id):
     resource_name = resource_dictionary[resource_id]
     for s, p, o in rdf_graph.triples((rdf.URIRef(dl + resource_name), None, None)):
         rdf_graph.remove((s,p,o))
-    for s, p, o in rdf_graph.triples((None, None,rdf.Literal(resource_name))):
+    for s, p, o in rdf_graph.triples((None, None,rdf.URIRef(dl + resource_name))):
         rdf_graph.remove((s,p,o))
