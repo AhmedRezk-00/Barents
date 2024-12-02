@@ -102,20 +102,21 @@ def on_click(event, canvas):
         canvas_y = canvas.canvasy(event.y)
         if canvas.find_overlapping(canvas_x, canvas_y, canvas_x, canvas_y):
             current_resource_id = canvas.find_overlapping(canvas_x, canvas_y, canvas_x, canvas_y)[0]
-            src.shared_resources.part_of_set.add(current_resource_id)
-            if len(src.shared_resources.part_of_set) > 1:
-                rdf_manager.set_part_of(list(src.shared_resources.part_of_set)[0], list(src.shared_resources.part_of_set)[1]) 
+            if 'resource' in canvas.gettags(current_resource_id):
+                src.shared_resources.part_of_set.add(current_resource_id)
+                if len(src.shared_resources.part_of_set) > 1:
+                    rdf_manager.set_part_of(list(src.shared_resources.part_of_set)[0], list(src.shared_resources.part_of_set)[1]) 
 
-                if (rdf_manager.get_level(rdf_manager.resource_dictionary[list(src.shared_resources.part_of_set)[0]]) == rdf_manager.information_layer.value) ^ (rdf_manager.get_level(rdf_manager.resource_dictionary[list(src.shared_resources.part_of_set)[1]]) == rdf_manager.information_layer.value):
-                    coords1 = canvas.coords(list(src.shared_resources.part_of_set)[0])
-                    coords2 = canvas.coords(list(src.shared_resources.part_of_set)[1])
-                    x1, y1 = coords1[0] + 25, coords1[1] + 25  
-                    x2, y2 = coords2[0] + 25, coords2[1] + 25  
-                    line = canvas.create_line(x1, y1, x2, y2, fill="black", width=2, tags=f"tag:{list(src.shared_resources.part_of_set)[1]} tag:{list(src.shared_resources.part_of_set)[0]}")
-                    lines[(list(src.shared_resources.part_of_set)[0], list(src.shared_resources.part_of_set)[1])] = line
+                    if (rdf_manager.get_level(rdf_manager.resource_dictionary[list(src.shared_resources.part_of_set)[0]]) == rdf_manager.information_layer.value) ^ (rdf_manager.get_level(rdf_manager.resource_dictionary[list(src.shared_resources.part_of_set)[1]]) == rdf_manager.information_layer.value):
+                        coords1 = canvas.coords(list(src.shared_resources.part_of_set)[0])
+                        coords2 = canvas.coords(list(src.shared_resources.part_of_set)[1])
+                        x1, y1 = coords1[0] + 25, coords1[1] + 25  
+                        x2, y2 = coords2[0] + 25, coords2[1] + 25  
+                        line = canvas.create_line(x1, y1, x2, y2, fill="black", width=2, tags=f"line tag:{list(src.shared_resources.part_of_set)[1]} tag:{list(src.shared_resources.part_of_set)[0]}")
+                        lines[(list(src.shared_resources.part_of_set)[0], list(src.shared_resources.part_of_set)[1])] = line
 
-                src.shared_resources.part_of_set = set()
-                src.shared_resources.set_editor_mode('default')
+                    src.shared_resources.part_of_set = set()
+                    src.shared_resources.set_editor_mode('default')
         else:
             src.shared_resources.part_of_set = set()
             src.shared_resources.set_editor_mode('default')
@@ -130,12 +131,20 @@ def default_on_click(event, canvas):
     canvas_y = canvas.canvasy(event.y)
     if canvas.find_overlapping(canvas_x, canvas_y, canvas_x, canvas_y):
         current_resource_id = canvas.find_overlapping(canvas_x, canvas_y, canvas_x, canvas_y)[0]
-        global offset_x, offset_y
-        offset_x = event.x - canvas.coords(current_resource_id)[0]
-        offset_y = event.y - canvas.coords(current_resource_id)[1]
+        if 'resource' in canvas.gettags(current_resource_id):
+            global offset_x, offset_y
+            offset_x = event.x - canvas.coords(current_resource_id)[0]
+            offset_y = event.y - canvas.coords(current_resource_id)[1]
 
-        # update right sidebar 
-        update_right_sidebar(current_resource_id)
+            # update right sidebar 
+            update_right_sidebar(current_resource_id)
+        if 'line' in canvas.gettags(current_resource_id):
+            id1, id2 = None, None
+            for (resource1, resource2), line_id in lines.items():
+                if line_id == current_resource_id:
+                    id1, id2 = resource1, resource2
+            rdf_manager.delete_part_of(id1, id2)
+            canvas.delete(current_resource_id)
     else:
         current_resource_id = None
 
@@ -147,29 +156,29 @@ def on_drag(event, canvas):
         pass
 
 def default_on_drag(event, canvas):
-    # TODO: handle partof line behavior
     global current_resource_id
     # check if there's any resource selected to drag
     if current_resource_id:
-        new_x = event.x - offset_x;
-        new_y = event.y - offset_y;
+        if 'resource' in canvas.gettags(current_resource_id):
+            new_x = event.x - offset_x;
+            new_y = event.y - offset_y;
 
-        #issue12: new_x and new_y have to be within canvas
-        new_x = moveIntoCanvasX(canvas, new_x, canvas.canvasx(canvas.winfo_width()));
-        new_y = moveIntoCanvasY(canvas, new_y, canvas.canvasy(canvas.winfo_height()));
+            #issue12: new_x and new_y have to be within canvas
+            new_x = moveIntoCanvasX(canvas, new_x, canvas.canvasx(canvas.winfo_width()));
+            new_y = moveIntoCanvasY(canvas, new_y, canvas.canvasy(canvas.winfo_height()));
 
-        canvas.coords(current_resource_id, new_x, new_y, new_x+50, new_y+50)
-        text = canvas.find_withtag(f"tag:{current_resource_id}")
-        if text:
-            canvas.coords(text[0], new_x+25, new_y+60)
+            canvas.coords(current_resource_id, new_x, new_y, new_x+50, new_y+50)
+            text = canvas.find_withtag(f"tag:{current_resource_id}")
+            if text:
+                canvas.coords(text[0], new_x+25, new_y+60)
 
-        for (id1, id2), line in lines.items():
-            if id1 == current_resource_id or id2 == current_resource_id:
-                coords1 = canvas.coords(id1)
-                coords2 = canvas.coords(id2)
-                x1, y1 = coords1[0]+25, coords1[1]+25 
-                x2, y2 = coords2[0]+25, coords2[1]+25 
-                canvas.coords(line, x1, y1, x2, y2)
+            for (id1, id2), line in lines.items():
+                if id1 == current_resource_id or id2 == current_resource_id:
+                    coords1 = canvas.coords(id1)
+                    coords2 = canvas.coords(id2)
+                    x1, y1 = coords1[0]+25, coords1[1]+25 
+                    x2, y2 = coords2[0]+25, coords2[1]+25 
+                    canvas.coords(line, x1, y1, x2, y2)
 
 #issue12: checks and potentially moves data_source-x-value within canvas-borders
 def moveIntoCanvasX(canvas, new_x, max_width):

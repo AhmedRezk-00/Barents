@@ -157,6 +157,14 @@ def set_part_of(first_id, second_id):
         print('rdf_manager: set_part_of: unexpected parameters: exactly one resource most belong to the information layer')
     #     rdf_graph.set((rdf.URIRef(dl + subject), dl.partOf, rdf.Literal(object)))
 
+def delete_part_of(first_id, second_id):
+    first_resource = resource_dictionary[first_id]
+    second_resource = resource_dictionary[second_id]
+    for s, p, o in rdf_graph.triples((rdf.URIRef(dl + first_resource), dl.partOf, rdf.URIRef(dl + second_resource))):
+        rdf_graph.remove((s,p,o))
+    for s, p, o in rdf_graph.triples((rdf.URIRef(dl + second_resource), dl.partOf,rdf.URIRef(dl + first_resource))):
+        rdf_graph.remove((s,p,o))
+
 # function to set source literal of a given data level resource
 def set_source(resource, source):
     rdf_graph.set((rdf.URIRef(dl + resource), dl.source, rdf.Literal(source)))
