@@ -19,7 +19,7 @@ def create_editor(root):
     left_sidebar.grid_propagate(False)
     canvas = ctk.CTkFrame(root)
     canvas.grid_propagate(False)
-    right_sidebar = ctk.CTkFrame(root, width=200)
+    right_sidebar = ctk.CTkFrame(root, width=200, fg_color='dark blue')
     right_sidebar.grid_propagate(False)
 
     # grid top bar, left- and right sidebar, canvas
