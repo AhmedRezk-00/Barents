@@ -44,11 +44,11 @@ def create_left_sidebar(root):
 
     # button to add generic knowledge level resource
     data_sink_button = ctk.CTkButton(frame, text='Data Sink',image=DataSink_Img,compound="top",fg_color="dark blue",text_color="deepsky blue3", command=(lambda: add_data_sink()), corner_radius=30)
-    data_sink_button.grid(column=0, row=1, sticky='nsew', pady=10)
+    data_sink_button.grid(column=0, row=2, sticky='nsew', pady=10)
 
     # button to add generic information level resource
     transformation_button = ctk.CTkButton( frame,text='Transformation',image=Transformation_Img,compound="top", fg_color="dark blue",text_color="deepsky blue3",command=(lambda: add_transformation()),corner_radius=30)
-    transformation_button.grid(column=0, row=2, sticky='nsew', pady=10)
+    transformation_button.grid(column=0, row=1, sticky='nsew', pady=10)
 
     # button to add partof relationships. currently non functional
     partOf_button = ctk.CTkButton(frame,text='Part Of Relationship',text_color="deepsky blue3",image=Arrow_Img,compound="top",fg_color="dark blue", command=(lambda: src.shared_resources.set_editor_mode('part_of')) ,corner_radius=30)
