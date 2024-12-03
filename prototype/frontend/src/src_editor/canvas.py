@@ -96,6 +96,7 @@ def vertical_scrollregion(canvas, type):
 
 # function to handle on_click event
 def on_click(event, canvas):
+    global current_resource_id
     if(src.shared_resources.editor_mode == 'default'):
         default_on_click(event, canvas) 
     if(src.shared_resources.editor_mode == 'part_of'):
@@ -123,7 +124,7 @@ def on_click(event, canvas):
                     src.shared_resources.part_of_set = set()
         else:
             toggle_part_of()
-            # currently bug of immediately draggin last clicked item
+            current_resource_id = None
     else:
         pass
     
@@ -189,29 +190,29 @@ def default_on_drag(event, canvas):
 def moveIntoCanvasX(canvas, new_x, max_width):
     #border-x-values 
     #800x450 canvas (frontend.py); radius=25 (left_sidebar.add_data_source)
-    left_border = canvas.canvasx(0);
-    right_border = max_width;
+    left_border = canvas.canvasx(0)
+    right_border = max_width
 
     #checks (and updates) x
     if new_x < left_border: 
-        return left_border;
+        return left_border
     elif new_x+50 > right_border:   
-       return right_border-50;
-    else: return new_x;
+       return right_border-50
+    else: return new_x
 
 # checks and potentially moves data_source-y-value within canvas-borders
 def moveIntoCanvasY(canvas, new_y, max_height):
     #border-y-values
     #800x450 canvas (frontend.py); radius=25 (left_sidebar.add_data_source)
-    upper_border = canvas.canvasy(0);
-    lower_border = max_height;
+    upper_border = canvas.canvasy(0)
+    lower_border = max_height
 
     #checks (and updates) y
     if new_y+50 > lower_border: 
-        return lower_border-50;
+        return lower_border-50
     elif new_y < upper_border: 
-        return upper_border;
-    else: return new_y;
+        return upper_border
+    else: return new_y
 
 # function to handle  drop event
 def on_drop(event):
