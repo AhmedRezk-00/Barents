@@ -1,5 +1,6 @@
 import rdflib as rdf
 import os
+import re
 
 # initialize graph. changes made to the graph should reflect in the editor.
 rdf_graph = rdf.Graph()
@@ -195,6 +196,13 @@ def is_sink_part_of(resource_ids):
                     return True
     return False
 
-def does_resource_exist(resource_name):
-    return resource_name in resource_dictionary
-        
+def is_resource_valid(resource_name):
+    if resource_name in resource_dictionary:
+        return False 
+    pattern = r'^[a-zA-Z0-9_-]+$'
+    reserved_names = ['transformation_resource_', 'sink_resource_', 'source_resource_']
+    if not re.match(pattern, resource_name):
+        return False
+    if any(resource_name.startswith(prefix) for prefix in reserved_names):
+        return False
+    return True
