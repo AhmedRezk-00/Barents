@@ -1,5 +1,5 @@
 import customtkinter as ctk
-from src.rdf_manager import rename_triples, resource_dictionary, get_level, set_transformation_type, get_transformation_type, set_transformation_function, get_transformation_function, set_source, set_zone, get_source, get_zone, delete_resource
+from src.rdf_manager import rename_triples, resource_dictionary, get_level, set_transformation_type, get_transformation_type, set_transformation_function, get_transformation_function, set_source, set_zone, get_source, get_zone, delete_resource, does_resource_exist
 import src.shared_resources
 
 # id of resource currently being edited in right sidebar
@@ -111,11 +111,14 @@ def update_right_sidebar(resource_id):
 # function of button when renaming triples
 def submit_resource_name():
     if current_resource_id:
-        rename_triples(resource_dictionary[current_resource_id], str(name_entry_text.get()))
-        resource_dictionary[current_resource_id] = str(name_entry_text.get())
-        text = src.shared_resources.canvas.find_withtag(f"tag:{current_resource_id}")
-        if text:
-            src.shared_resources.canvas.itemconfig(text[0], text=str(name_entry_text.get()))
+        if not does_resource_exist(str(name_entry_text.get())):
+            rename_triples(resource_dictionary[current_resource_id], str(name_entry_text.get()))
+            resource_dictionary[current_resource_id] = str(name_entry_text.get())
+            text = src.shared_resources.canvas.find_withtag(f"tag:{current_resource_id}")
+            if text:
+                src.shared_resources.canvas.itemconfig(text[0], text=str(name_entry_text.get()))
+        else:
+            print('right_sidebar: submit_resource_name: new name already in graph')
 
 # function to create panel specific to knowledge level resource
 def create_knowledge_layer_panel(root):
