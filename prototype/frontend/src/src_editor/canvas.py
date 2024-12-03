@@ -121,8 +121,7 @@ def on_click(event, canvas):
                         print('is part of alrdy')
                     src.shared_resources.part_of_set = set()
         else:
-            src.shared_resources.part_of_set = set()
-            src.shared_resources.set_editor_mode('default')
+            exit_part_of()
             # currently bug of immediately draggin last clicked item
     else:
         pass
@@ -225,3 +224,9 @@ def default_on_drop(event):
 # function to return current_resource_id 
 def get_current_resource_id():
     return current_resource_id
+
+# function to exit part_of mode, changes canvas color
+def exit_part_of():
+    src.shared_resources.part_of_set = set()
+    src.shared_resources.set_editor_mode('default')
+    src.shared_resources.canvas.config(bg='white')
