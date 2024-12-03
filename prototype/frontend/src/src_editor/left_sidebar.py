@@ -90,6 +90,7 @@ def add_transformation():
 
 # function to enter part_of mode, changes color of canvas
 def toggle_part_of():
+    src.shared_resources.part_of_set = set()
     if src.shared_resources.editor_mode == 'part_of':
         src.shared_resources.canvas.config(bg='white')
         src.shared_resources.set_editor_mode('default')

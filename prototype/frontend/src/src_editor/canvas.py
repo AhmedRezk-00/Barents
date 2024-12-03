@@ -3,6 +3,7 @@ import customtkinter as ctk
 import src.shared_resources
 from src.src_editor.right_sidebar import update_right_sidebar
 import src.rdf_manager as rdf_manager
+from src.src_editor.left_sidebar import toggle_part_of
 
 # variables to store the last clicked resource
 current_resource_id = None
@@ -121,7 +122,7 @@ def on_click(event, canvas):
                         print('is part of alrdy')
                     src.shared_resources.part_of_set = set()
         else:
-            exit_part_of()
+            toggle_part_of()
             # currently bug of immediately draggin last clicked item
     else:
         pass
@@ -162,8 +163,8 @@ def default_on_drag(event, canvas):
     # check if there's any resource selected to drag
     if current_resource_id:
         if 'resource' in canvas.gettags(current_resource_id):
-            new_x = event.x - offset_x;
-            new_y = event.y - offset_y;
+            new_x = event.x - offset_x
+            new_y = event.y - offset_y
 
             #issue12: new_x and new_y have to be within canvas
             new_x = moveIntoCanvasX(canvas, new_x, canvas.canvasx(canvas.winfo_width()));
@@ -224,9 +225,3 @@ def default_on_drop(event):
 # function to return current_resource_id 
 def get_current_resource_id():
     return current_resource_id
-
-# function to exit part_of mode, changes canvas color
-def exit_part_of():
-    src.shared_resources.part_of_set = set()
-    src.shared_resources.set_editor_mode('default')
-    src.shared_resources.canvas.config(bg='white')
