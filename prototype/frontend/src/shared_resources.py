@@ -7,4 +7,3 @@ part_of_set = set()
 def set_editor_mode(mode):
     global editor_mode 
     editor_mode = mode
-    print('editor is now in mode: ' + editor_mode)
