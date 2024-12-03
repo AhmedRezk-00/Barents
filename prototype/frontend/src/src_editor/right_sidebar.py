@@ -1,5 +1,5 @@
 import customtkinter as ctk
-from src.rdf_manager import rename_triples, resource_dictionary, get_level, set_transformation_type, get_transformation_type, set_transformation_function, get_transformation_function, set_source, set_zone, get_source, get_zone, delete_resource, does_resource_exist
+from src.rdf_manager import rename_triples, resource_dictionary, get_level, set_transformation_type, get_transformation_type, set_transformation_function, get_transformation_function, set_source, set_zone, get_source, get_zone, delete_resource, is_resource_valid
 import src.shared_resources
 import src.src_editor.popup
 
@@ -114,14 +114,14 @@ def update_right_sidebar(resource_id):
 # function of button when renaming triples
 def submit_resource_name():
     if current_resource_id:
-        if not does_resource_exist(str(name_entry_text.get())):
+        if is_resource_valid(str(name_entry_text.get())):
             rename_triples(resource_dictionary[current_resource_id], str(name_entry_text.get()))
             resource_dictionary[current_resource_id] = str(name_entry_text.get())
             text = src.shared_resources.canvas.find_withtag(f"tag:{current_resource_id}")
             if text:
                 src.shared_resources.canvas.itemconfig(text[0], text=str(name_entry_text.get()))
         else:
-            src.src_editor.popup.notification_popup(popup_root, "Error!", "Name is already in use")
+            src.src_editor.popup.notification_popup(popup_root, "Error!", "Name is already in use or invalid")
 
 # function to create panel specific to knowledge level resource
 def create_knowledge_layer_panel(root):
