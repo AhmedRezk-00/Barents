@@ -73,9 +73,14 @@ def horizontal_scrollregion(canvas, type):
         x2 = x2+1000
     if type=='decrease':
         x2 = x2-1000
-        # define a minimum size
-        if x2<800:
-            x2=800
+
+        items = canvas.find_all()
+        if items:
+            bbox = canvas.bbox(*items)
+            x2 = max(x2, bbox[2]+100)
+        x2 = max(x2, 450)
+
+    canvas.config(scrollregion=(x1,y1,x2,y2))
 
     canvas.config(scrollregion=(x1,y1,x2,y2))
 
@@ -88,9 +93,13 @@ def vertical_scrollregion(canvas, type):
         y2 = y2+1000
     if type=='decrease':
         y2 = y2-1000
-        # define a minimum size
-        if y2<450:
-            y2=450
+        
+        items = canvas.find_all()
+        if items:
+            bbox = canvas.bbox(*items)
+            y2 = max(y2, bbox[3]+100)
+        y2 = max(y2, 450)
+        print(y2)
 
     canvas.config(scrollregion=(x1,y1,x2,y2))
 
