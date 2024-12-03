@@ -146,7 +146,9 @@ def default_on_click(event, canvas):
             for (resource1, resource2), line_id in lines.items():
                 if line_id == current_resource_id:
                     id1, id2 = resource1, resource2
-            rdf_manager.delete_part_of(id1, id2)
+            if id1 and id2:
+                del lines[(id1, id2)]
+                rdf_manager.delete_part_of(id1, id2)
             canvas.delete(current_resource_id)
     else:
         current_resource_id = None
