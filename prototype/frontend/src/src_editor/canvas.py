@@ -96,6 +96,7 @@ def vertical_scrollregion(canvas, type):
 
 # function to handle on_click event
 def on_click(event, canvas):
+    global current_resource_id
     if(src.shared_resources.editor_mode == 'default'):
         default_on_click(event, canvas) 
     if(src.shared_resources.editor_mode == 'part_of'):
@@ -123,7 +124,7 @@ def on_click(event, canvas):
                     src.shared_resources.part_of_set = set()
         else:
             toggle_part_of()
-            # currently bug of immediately draggin last clicked item
+            current_resource_id = None
     else:
         pass
     
