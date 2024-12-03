@@ -194,3 +194,7 @@ def is_sink_part_of(resource_ids):
             for s, p, o in rdf_graph.triples((None, dl.partOf, rdf.URIRef(dl + resource_dictionary[id]))):
                     return True
     return False
+
+def does_resource_exist(resource_name):
+    return resource_name in resource_dictionary
+        
