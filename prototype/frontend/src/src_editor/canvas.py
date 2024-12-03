@@ -106,7 +106,7 @@ def on_click(event, canvas):
                 src.shared_resources.part_of_set.add(current_resource_id)
                 if len(src.shared_resources.part_of_set) > 1:
                     id1, id2 = list(src.shared_resources.part_of_set)[0], list(src.shared_resources.part_of_set)[1]
-                    if (not rdf_manager.is_sink_part_of(id1)) & (not rdf_manager.is_sink_part_of(id2)):
+                    if not rdf_manager.is_sink_part_of(list(src.shared_resources.part_of_set)):
                         if not ((id1, id2) in lines or (id2, id1) in lines) :
                             rdf_manager.set_part_of(list(src.shared_resources.part_of_set)[0], list(src.shared_resources.part_of_set)[1]) 
 
@@ -120,7 +120,6 @@ def on_click(event, canvas):
                     else:
                         print('is part of alrdy')
                     src.shared_resources.part_of_set = set()
-                    src.shared_resources.set_editor_mode('default')
         else:
             src.shared_resources.part_of_set = set()
             src.shared_resources.set_editor_mode('default')
