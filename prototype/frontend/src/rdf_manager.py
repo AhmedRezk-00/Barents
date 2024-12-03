@@ -186,3 +186,10 @@ def delete_resource(resource_id):
         rdf_graph.remove((s,p,o))
     for s, p, o in rdf_graph.triples((None, None,rdf.URIRef(dl + resource_name))):
         rdf_graph.remove((s,p,o))
+
+# function that returns true if a given resource id refers to a resource that is already member of a partof relationship
+def is_sink_part_of(resource_id):
+    resource = resource_dictionary[resource_id]
+    for s, p, o in rdf_graph.triples((None, dl.partOf, rdf.URIRef(dl + resource))):
+        return True
+    return False

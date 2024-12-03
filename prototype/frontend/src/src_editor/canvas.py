@@ -106,19 +106,19 @@ def on_click(event, canvas):
                 src.shared_resources.part_of_set.add(current_resource_id)
                 if len(src.shared_resources.part_of_set) > 1:
                     id1, id2 = list(src.shared_resources.part_of_set)[0], list(src.shared_resources.part_of_set)[1]
-                    if (id1, id2) in lines or (id2, id1) in lines:
-                        pass
+                    if (not rdf_manager.is_sink_part_of(id1)) & (not rdf_manager.is_sink_part_of(id2)):
+                        if not ((id1, id2) in lines or (id2, id1) in lines) :
+                            rdf_manager.set_part_of(list(src.shared_resources.part_of_set)[0], list(src.shared_resources.part_of_set)[1]) 
+
+                            if (rdf_manager.get_level(rdf_manager.resource_dictionary[list(src.shared_resources.part_of_set)[0]]) == rdf_manager.information_layer.value) ^ (rdf_manager.get_level(rdf_manager.resource_dictionary[list(src.shared_resources.part_of_set)[1]]) == rdf_manager.information_layer.value):
+                                coords1 = canvas.coords(list(src.shared_resources.part_of_set)[0])
+                                coords2 = canvas.coords(list(src.shared_resources.part_of_set)[1])
+                                x1, y1 = coords1[0] + 25, coords1[1] + 25  
+                                x2, y2 = coords2[0] + 25, coords2[1] + 25  
+                                line = canvas.create_line(x1, y1, x2, y2, fill="black", width=2, tags=f"line tag:{list(src.shared_resources.part_of_set)[1]} tag:{list(src.shared_resources.part_of_set)[0]}")
+                                lines[(list(src.shared_resources.part_of_set)[0], list(src.shared_resources.part_of_set)[1])] = line
                     else:
-                        rdf_manager.set_part_of(list(src.shared_resources.part_of_set)[0], list(src.shared_resources.part_of_set)[1]) 
-
-                        if (rdf_manager.get_level(rdf_manager.resource_dictionary[list(src.shared_resources.part_of_set)[0]]) == rdf_manager.information_layer.value) ^ (rdf_manager.get_level(rdf_manager.resource_dictionary[list(src.shared_resources.part_of_set)[1]]) == rdf_manager.information_layer.value):
-                            coords1 = canvas.coords(list(src.shared_resources.part_of_set)[0])
-                            coords2 = canvas.coords(list(src.shared_resources.part_of_set)[1])
-                            x1, y1 = coords1[0] + 25, coords1[1] + 25  
-                            x2, y2 = coords2[0] + 25, coords2[1] + 25  
-                            line = canvas.create_line(x1, y1, x2, y2, fill="black", width=2, tags=f"line tag:{list(src.shared_resources.part_of_set)[1]} tag:{list(src.shared_resources.part_of_set)[0]}")
-                            lines[(list(src.shared_resources.part_of_set)[0], list(src.shared_resources.part_of_set)[1])] = line
-
+                        print('is part of alrdy')
                     src.shared_resources.part_of_set = set()
                     src.shared_resources.set_editor_mode('default')
         else:
