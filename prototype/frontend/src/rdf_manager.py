@@ -208,7 +208,7 @@ def is_resource_valid(resource_name):
     return True
 
 # function to set database location of data level resource
-def set_source_location(resource, location):
+def set_location(resource, location):
     if get_level(resource) == data_layer.value:
         rdf_graph.set((rdf.URIRef(dl + resource), dl.dbLocation, rdf.Literal(location)))
     else:
