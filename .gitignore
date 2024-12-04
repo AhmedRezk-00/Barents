@@ -4,3 +4,4 @@
 resultsRDF.xml
 *.xml
 prototype/backend/examplebackend.py
+*.sqlite
