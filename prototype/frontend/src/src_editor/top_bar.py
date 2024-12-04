@@ -4,7 +4,7 @@ import src.shared_resources
 from tkinter import filedialog
 from tkinter.messagebox import askyesno
 from PIL import Image
-
+import subprocess
 
 HEADER_FONT = ("Helvetica", 16, "bold")
 
@@ -28,6 +28,14 @@ def create_top_bar(root):
     logo_button = ctk.CTkButton(root, text='',fg_color="transparent",font=HEADER_FONT, image=Barents_image,height=100, width= 100,hover=False,border_width=0 )
     logo_button.grid(row=0, column=7, sticky='e')
 
+    # button to select and process rdf using backend engine
+    process_button = ctk.CTkButton(root, command=(lambda: process_function()), text='Process RDF',fg_color="dark blue",font=HEADER_FONT)
+    process_button.grid(row=0, column=2, sticky='nesw')
+
+def process_function():
+    rdf_location = filedialog.askopenfilename(title="Select RDF to process", defaultextension=".xml", filetypes=[("RDF/XML File", "*.xml"), ("Turtle", "*.ttl"), ("JSON-LD", "*.jsonld"), ("N-Triples", "*.nt"), ("Notation-3", "*.n3"), ("All Files", "*.*")])
+    subprocess.run(['python', 'prototype/backend/backend.py', rdf_location])
+
 # function that resets the rdf graph as well as the canvas 
 def reset_canvas():
     # open dialog window asking user to confirm deletion 
@@ -37,4 +45,4 @@ def reset_canvas():
 
 # function that opens a dialog window to select where graph is exported to and then exports graph there
 def export_button_function():
-    export_graph(filedialog.asksaveasfilename(title="Save RDF Graph As", defaultextension=".xml", filetypes=[("RDF/XML File", "*.xml"), ("Turtle", "*.ttl"), ("JSON-LD", "*.jsonld"), ("N-Triples", "*.nt"), ("Notation-3", "*.n3"), ("All Files", "*.*")]), )
+    export_graph(filedialog.asksaveasfilename(title="Save RDF Graph As", defaultextension=".xml", filetypes=[("RDF/XML File", "*.xml"), ("Turtle", "*.ttl"), ("JSON-LD", "*.jsonld"), ("N-Triples", "*.nt"), ("Notation-3", "*.n3"), ("All Files", "*.*")]))
