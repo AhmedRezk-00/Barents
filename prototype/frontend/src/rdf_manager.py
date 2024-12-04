@@ -206,3 +206,20 @@ def is_resource_valid(resource_name):
     if any(resource_name.startswith(prefix) for prefix in reserved_names):
         return False
     return True
+
+# function to set database location of data level resource
+def set_source_location(resource, location):
+    if get_level(resource) == data_layer.value:
+        rdf_graph.set((rdf.URIRef(dl + resource), dl.dbLocation, rdf.Literal(location)))
+    else:
+        print('rdf_manager: set_source_location: unexcpected resource give, it doesnt match the data layer')
+
+# function to get database location of data level resource
+def get_location(resource):
+    # check if given resource is a data source
+    if get_level(resource) == data_layer.value:
+        for o in rdf_graph.objects(subject=rdf.URIRef(dl + resource), predicate=dl.dbLocation):
+            return str(o)
+        return""
+    else:
+        print('rdf_manager: get_location: unexpected resource given, it doesnt match the data layer')

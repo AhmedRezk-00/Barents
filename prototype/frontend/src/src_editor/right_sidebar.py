@@ -1,5 +1,5 @@
 import customtkinter as ctk
-from src.rdf_manager import rename_triples, resource_dictionary, get_level, set_transformation_type, get_transformation_type, set_transformation_function, get_transformation_function, set_source, set_zone, get_source, get_zone, delete_resource, is_resource_valid
+from src.rdf_manager import rename_triples, resource_dictionary, get_level, set_transformation_type, get_transformation_type, set_transformation_function, get_transformation_function, set_source, set_zone, get_source, get_zone, delete_resource, is_resource_valid, set_source_location, get_location
 import src.shared_resources
 import src.src_editor.popup
 
@@ -110,6 +110,8 @@ def update_right_sidebar(resource_id):
             data_layer_panel.grid(row=0, column=0, sticky='nesw')
             # update source entry text
             source_entry_text.set(get_source(resource_dictionary[current_resource_id]))
+            # update location entry text
+            location_entry_text.set(get_location(resource_dictionary[current_resource_id]))
     
 # function of button when renaming triples
 def submit_resource_name():
@@ -144,7 +146,7 @@ def create_knowledge_layer_panel(root):
 # functioon to create panel specific to data level resource
 def create_data_layer_panel(root):
     root.columnconfigure(0, weight=1)
-    root.rowconfigure((0,1,2), weight=1)
+    root.rowconfigure((0,1,2,3,4), weight=1)
 
     # header to group zone entry widgets
     name_header = ctk.CTkLabel(root, text='Customize data source:', font=SMALLFONT, fg_color='blue')
@@ -157,6 +159,15 @@ def create_data_layer_panel(root):
     # button to update selected resources source literal based on entered text
     source_button = ctk.CTkButton( root ,fg_color="blue", text='Update Source',font=FONT, command=(lambda: set_source(resource_dictionary[current_resource_id], source_entry_text.get())),corner_radius=30)
     source_button.grid(row=2, column=0, sticky='nesw',pady=10,padx=10)
+    
+    # entry field to change db location 
+    global location_entry_text
+    location_entry_text = ctk.StringVar(value='')
+    location_entry = ctk.CTkEntry(root, textvariable=location_entry_text,font=FONT)
+    location_entry.grid(row=3, column=0, sticky='ew')
+    # button to update selected resources source literal based on entered text
+    location_button = ctk.CTkButton( root ,fg_color="blue", text='Update DB Location',font=FONT, command=(lambda: set_source_location(resource_dictionary[current_resource_id], location_entry_text.get())),corner_radius=30)
+    location_button.grid(row=4, column=0, sticky='nesw',pady=10,padx=10)
 
 # function to create panel specific to information layer resource
 def create_information_layer_panel(root):
