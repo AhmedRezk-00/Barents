@@ -94,6 +94,8 @@ def update_right_sidebar(resource_id):
             data_layer_panel.grid_forget()
             # update zone entry text
             zone_entry_text.set(get_zone(resource_dictionary[current_resource_id]))
+            # update location entry text
+            sink_location_entry_text.set(get_location(resource_dictionary[current_resource_id]))
         case "Information Layer":
             knowledge_layer_panel.grid_forget()
             information_layer_panel.grid(row=0, column=0, sticky='nesw')
@@ -128,7 +130,7 @@ def submit_resource_name():
 # function to create panel specific to knowledge level resource
 def create_knowledge_layer_panel(root):
     root.columnconfigure(0, weight=1)
-    root.rowconfigure((0,1,2), weight=1)
+    root.rowconfigure((0,1,2,3,4), weight=1)
 
     # header to group zone entry widgets
     name_header = ctk.CTkLabel(root, text='Customize data zone:', font=SMALLFONT, fg_color='blue')
@@ -142,6 +144,15 @@ def create_knowledge_layer_panel(root):
     # button to update zone based on entered zone of currently selected resource
     zone_button = ctk.CTkButton(root ,fg_color="blue",text='Update Zone',font=FONT, command=(lambda: set_zone(resource_dictionary[current_resource_id], zone_entry_text.get())), corner_radius=30)
     zone_button.grid(row=2, column=0, sticky='nesw',pady=10,padx=10)
+
+    # entry field to change db location 
+    global sink_location_entry_text
+    sink_location_entry_text = ctk.StringVar(value='')
+    sink_location_entry = ctk.CTkEntry(root, textvariable=sink_location_entry_text,font=FONT)
+    sink_location_entry.grid(row=3, column=0, sticky='ew')
+    # button to update selected resources location literal based on entered text
+    sink_location_button = ctk.CTkButton( root ,fg_color="blue", text='Update DB Location',font=FONT, command=(lambda: set_location(resource_dictionary[current_resource_id], sink_location_entry_text.get())),corner_radius=30)
+    sink_location_button.grid(row=4, column=0, sticky='nesw',pady=10,padx=10)
 
 # functioon to create panel specific to data level resource
 def create_data_layer_panel(root):
@@ -165,7 +176,7 @@ def create_data_layer_panel(root):
     source_location_entry_text = ctk.StringVar(value='')
     source_location_entry = ctk.CTkEntry(root, textvariable=source_location_entry_text,font=FONT)
     source_location_entry.grid(row=3, column=0, sticky='ew')
-    # button to update selected resources source literal based on entered text
+    # button to update selected resources location literal based on entered text
     source_location_button = ctk.CTkButton( root ,fg_color="blue", text='Update DB Location',font=FONT, command=(lambda: set_location(resource_dictionary[current_resource_id], source_location_entry_text.get())),corner_radius=30)
     source_location_button.grid(row=4, column=0, sticky='nesw',pady=10,padx=10)
 
