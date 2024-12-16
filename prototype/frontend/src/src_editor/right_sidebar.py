@@ -151,12 +151,8 @@ def create_knowledge_layer_panel(root):
     sink_location_entry_text = ctk.StringVar(value='')
     sink_location_entry = ctk.CTkEntry(root, textvariable=sink_location_entry_text,font=FONT)
     sink_location_entry.grid(row=3, column=0, sticky='ew')
-
-
     # button to update selected resources location literal based on entered text
     sink_location_button = ctk.CTkButton( root ,fg_color="blue", text='Update DB Location',font=FONT, command=(lambda: set_location(resource_dictionary[current_resource_id], getFilePath())),corner_radius=30)
-    
-    
     sink_location_button.grid(row=4, column=0, sticky='nesw',pady=10,padx=10)
 
 #issue 96: returns path of sqlite-file choosen by file dialogue
