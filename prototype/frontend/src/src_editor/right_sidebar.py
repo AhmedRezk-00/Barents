@@ -154,7 +154,6 @@ def create_knowledge_layer_panel(root):
 
 
     # button to update selected resources location literal based on entered text
-    #sink_location_button = ctk.CTkButton( root ,fg_color="blue", text='Update DB Location',font=FONT, command=(lambda: set_location(resource_dictionary[current_resource_id], sink_location_entry_text.get())),corner_radius=30)
     sink_location_button = ctk.CTkButton( root ,fg_color="blue", text='Update DB Location',font=FONT, command=(lambda: set_location(resource_dictionary[current_resource_id], getFilePath())),corner_radius=30)
     
     
@@ -162,7 +161,10 @@ def create_knowledge_layer_panel(root):
 
 #issue 96: returns path of sqlite-file choosen by file dialogue
 def getFilePath():
-    filePath = filedialog.askopenfilename(title="Choose location for your resource", filetypes=[("sqlite databases", "*.sqlite3")])
+    filePath = filedialog.askopenfilename(title="Choose location for your resource", filetypes=[("sqlite3 databases", "*.sqlite3"),
+                                                                                               ("sqlite databases", "*.sqlite"), 
+                                                                                               ("db databases", "*.db")])
+    return filePath
 
 def create_data_layer_panel(root):
     root.columnconfigure(0, weight=1)
@@ -186,7 +188,6 @@ def create_data_layer_panel(root):
     source_location_entry = ctk.CTkEntry(root, textvariable=source_location_entry_text,font=FONT)
     source_location_entry.grid(row=3, column=0, sticky='ew')
     # button to update selected resources location literal based on entered text
-    #source_location_button = ctk.CTkButton( root ,fg_color="blue", text='Update DB Location',font=FONT, command=(lambda: set_location(resource_dictionary[current_resource_id], source_location_entry_text.get())),corner_radius=30)
     source_location_button = ctk.CTkButton( root ,fg_color="blue", text='Update DB Location',font=FONT, command=(lambda: set_location(resource_dictionary[current_resource_id], getFilePath())),corner_radius=30)
     source_location_button.grid(row=4, column=0, sticky='nesw',pady=10,padx=10)
 
