@@ -134,6 +134,42 @@ def get_zone(resource):
     else:
         print('rdf_manager: get_zone: unexpected resource given, it doesnt match the knowledge layer')
 
+#issue99: returns order to swap the elements, of the part-of-set, or not
+def swap(first_id, second_id, second_index_id):
+    first_resource = resource_dictionary[first_id]
+    second_resource = resource_dictionary[second_id]
+    first_resource_level = get_level(first_resource);
+    second_resource_level = get_level(second_resource);
+ 
+    #at least one recource has to be a transformation
+    if(first_resource_level == "Information Layer" or second_resource_level == "Information Layer"):
+        # if first is source or second is sink, make relationship from first to second
+        if(first_resource_level == "Data Layer" or second_resource_level == "Knowledge Layer"):
+            return "dont swap";
+        
+        # if first is sink or second is source, make relationship from second to first
+        if(first_resource_level == "Knowledge Layer" or second_resource_level == "Data Layer"):
+            return "swap";
+       
+        # if both are transformations:
+        #   if the last clicked-on resource isnt at the second (last) index of the part-of-set: 
+        #       swap (move first-clicked element to first index)
+        #   else: 
+        #       dont swap
+        if(first_resource_level == second_resource_level == "Information Layer"):
+            if(second_id != second_index_id):
+                return "swap"
+            else:
+                return "dont swap"
+
+        else:
+            #throw error 
+            return "error";
+    else:
+        # throw error
+        return "error";
+
+
 # function to set partof relationship given two resources, with one of them being a information level resource (transformation)
 def set_part_of(first_id, second_id):
     first_resource = resource_dictionary[first_id]

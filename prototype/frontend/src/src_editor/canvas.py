@@ -12,6 +12,7 @@ offset_x = 0
 offset_y = 0
 
 lines = {}
+lines_swapped = {}  #(line,boolean)-list
 
 # function to create canvas of editor. rdf graph resources should be displayed here 
 def create_canvas(root):
@@ -117,19 +118,23 @@ def on_click(event, canvas):
                 src.shared_resources.part_of_set.add(current_resource_id)
                 if len(src.shared_resources.part_of_set) > 1:
                     id1, id2 = list(src.shared_resources.part_of_set)[0], list(src.shared_resources.part_of_set)[1]
-                    if not rdf_manager.is_sink_part_of(list(src.shared_resources.part_of_set)):
-                        if not ((id1, id2) in lines or (id2, id1) in lines) :
-                            rdf_manager.set_part_of(list(src.shared_resources.part_of_set)[0], list(src.shared_resources.part_of_set)[1]) 
-
-                            if (rdf_manager.get_level(rdf_manager.resource_dictionary[list(src.shared_resources.part_of_set)[0]]) == rdf_manager.information_layer.value) ^ (rdf_manager.get_level(rdf_manager.resource_dictionary[list(src.shared_resources.part_of_set)[1]]) == rdf_manager.information_layer.value):
-                                coords1 = canvas.coords(list(src.shared_resources.part_of_set)[0])
-                                coords2 = canvas.coords(list(src.shared_resources.part_of_set)[1])
-                                x1, y1 = coords1[0] + 25, coords1[1] + 25  
-                                x2, y2 = coords2[0] + 25, coords2[1] + 25  
-                                line = canvas.create_line(x1, y1, x2, y2, fill="black", width=2, tags=f"line tag:{list(src.shared_resources.part_of_set)[1]} tag:{list(src.shared_resources.part_of_set)[0]}")
-                                lines[(list(src.shared_resources.part_of_set)[0], list(src.shared_resources.part_of_set)[1])] = line
-                    else:
-                        print('is part of alrdy')
+                    if not ((id1, id2) in lines or (id2, id1) in lines) :
+                        swap = rdf_manager.swap(id1, id2, current_resource_id) 
+                        rdf_manager.set_part_of(id1, id2) 
+                        if (swap == "swap"):
+                            # arrow ends at second resource
+                            Coords1 = canvas.coords(id2)
+                            Coords2 = canvas.coords(id1)
+                        elif (swap == "dont swap"):
+                            # yrrow ends at first resource
+                            Coords1 = canvas.coords(id1)
+                            Coords2 = canvas.coords(id2)
+                        if(swap == "swap" or swap == "dont swap"):
+                            x1, y1 = Coords1[0] + 25, Coords1[1] + 25  
+                            x2, y2 = Coords2[0] + 25, Coords2[1] + 25  
+                            line = canvas.create_line(x1, y1, x2, y2, fill="black", width=2, arrow="last", tags=f"line tag:{id2} tag:{id1}")
+                            lines[(id1, id2)] = line
+                            lines_swapped[line] = True
                     src.shared_resources.part_of_set = set()
         else:
             toggle_part_of()
@@ -191,8 +196,12 @@ def default_on_drag(event, canvas):
                 if id1 == current_resource_id or id2 == current_resource_id:
                     coords1 = canvas.coords(id1)
                     coords2 = canvas.coords(id2)
-                    x1, y1 = coords1[0]+25, coords1[1]+25 
-                    x2, y2 = coords2[0]+25, coords2[1]+25 
+                    if lines_swapped[line]==True:
+                        x1, y1 = coords2[0]+25, coords2[1]+25 
+                        x2, y2 = coords1[0]+25, coords1[1]+25 
+                    if lines_swapped[line]==False:
+                        x1, y1 = coords1[0]+25, coords1[1]+25 
+                        x2, y2 = coords2[0]+25, coords2[1]+25 
                     canvas.coords(line, x1, y1, x2, y2)
 
 #issue12: checks and potentially moves data_source-x-value within canvas-borders
