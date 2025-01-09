@@ -197,21 +197,39 @@
 \section{Introduction}
 
 
-\section{Glossar}
-
-
 \section{BARENTS}
 The following section is mainly based on \cite{barents21} and \cite{barents22}.
+\subsection{Overview BARENTS}
 \subsection{Use case scenario: nut allegens in chocolate samples}
 
 
 \section{Requirement Specification}
+\begin{enumerate}
+\item[R1)] Our goal is an Easy-to-use GUI for domain experts, with which they can create ontologies.
+%% TODO: hier statt \cite{barents21} die Stelle im Kapitel Barents angeben
+\item[R2)] Transformations I - III as defined in \cite{barents21} (namely filter, map and reduce operator) are functioning.
+\item[R3)] Created ontologies can be saved.
+\item[R4)] Has a data-processing-engine, which processes data according to the ontology.
+\item[R5)] Our prototype should be functioning with at least one database type. We chose relational databases, since we are most familiar with that.
+\end{enumerate}
 
 
-\section{Existing Editors vs implementing ourselves}
+\section{Related Work}
+%% dieses Kapitel optional
 
-\subsection{OwlGrEd}
-\subsection{WebVowl}
+
+\section{Implementation}
+
+\subsection{Discussion on own implementation vs. existing tools}
+
+\subsubsection{OWLGrEd}
+OWLGrEd \cite{owlgred} is a free graphical editor for OWL ontologies in UML style \cite{owlgredW3}. It has classes and different connections, including (directed) associations. The classes we could modify for the data source and data sink and the association for the data transformations. However, this modification would be very time-consuming: classes somehow need to connect to the data source or sink, connections should have different types according to the transformations (filter, map, reduce), and the whole toolbar should be slimmed down to only the necessary tools. \newline
+\includegraphics[width = \linewidth]{Owlgred.png}
+OWLGrEd already has a function to save the created ontology as a RDF/XML file (*.owl). But here as well would we need to modify a lot such that the RDF/XML file suits the BARENTS model. \newline
+The code is written in Lua (which we are not familiar with) and is difficult to understand (lots of code, with unclear structure, often not or in different languages commented). \newline
+All in all it would be much work to alter the editor to our needs.
+
+\subsubsection{WebVowl}
 WebVowl creates and edits ontologies, using a GUI, which simplifies the ontology modeling process.
 It has no drag-and-drop funtionality, it, instead,  creates components on-double-click.
 Its both possesses import and export functions.
@@ -220,16 +238,16 @@ Jet it is fixable due to the possibility of auto-converting TTL- to XML-/RDF-fil
 
 Our problem with WebVowl was that there is a lack of information about the structure of the code.
 This lack of context made it really difficult, for us, to edit or extend the source code.
-\subsection{Protégé}
-\subsection{CoModIDE}
-\subsection{implementing ourselves}
-\subsection{result}
+\subsubsection{Protégé}
+\subsubsection{CoModIDE}
+\subsubsection{implementing ourselves}
+\subsection{evaluation}
 
 \begin{table} [h]
     \centering
     \begin{tabulary} {\paperwidth} {p{1,5cm}|p{2,5cm}|p{1,3cm}|p{2,5cm}}
-        Editor & Oberfläche & Sprache, Tools & Ausgabe \\ \hline
-        OwlGrEd & hat Klassen und verschiedene Verbindungen & Lua, lQuery & kann erzeugte Ontology als RDF/XML file speichern  \\ \hline
+        Editor & design & language, Tools & Output \\ \hline
+        OwlGrEd & has classes and connections & Lua, lQuery & you can save the created Ontology as RDF/XML file \\ \hline
         WebVowl & & & \\ \hline
         Protégé & & & \\ \hline
         CoModIDE & & & \\ \hline
@@ -237,11 +255,13 @@ This lack of context made it really difficult, for us, to edit or extend the sou
 \end{table}
 
 
-\section{Our Prototype}
+\section{Prototyping}
 
-\subsection{frontend}
-\subsection{backend}
+\subsection{expanded BARENTS ontology}
+\subsection{Frontend design}
+\subsection{Backend}
 
+\section{Evaluation - Requirements Fulfillment}
 
 \section{Conclusion}
 
@@ -250,7 +270,7 @@ This lack of context made it really difficult, for us, to edit or extend the sou
 %% The next two lines define the bibliography style to be used, and
 %% the bibliography file.
 \bibliographystyle{ACM-Reference-Format}
-\bibliography{sample-base}
+\bibliography{references}
 
 
 \end{document}
