@@ -1,7 +1,11 @@
 
 *.pyc
-/outdated mockup tries
-resultsRDF.xml
-*.xml
-prototype/backend/examplebackend.py
-*.sqlite
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.pdf
+*.gz
