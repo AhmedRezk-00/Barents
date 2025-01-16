@@ -132,7 +132,7 @@ def on_click(event, canvas):
                         if(swap == "swap" or swap == "dont swap"):
                             x1, y1 = Coords1[0] + 25, Coords1[1] + 25  
                             x2, y2 = Coords2[0] + 25, Coords2[1] + 25  
-                            line = canvas.create_line(x1, y1, x2, y2, fill="black", width=2, arrow="last", tags=f"line tag:{id2} tag:{id1}")
+                            line = canvas.create_line(x1, y1, x2, y2, fill="#4a90e2", width=2, arrow="last",arrowshape=(16, 20, 6), dash=(10, 4), tags=f"line tag:{id2} tag:{id1}")
                             lines[(id1, id2)] = line
                             lines_swapped[line] = True
                     src.shared_resources.part_of_set = set()
@@ -187,10 +187,10 @@ def default_on_drag(event, canvas):
             new_x = moveIntoCanvasX(canvas, new_x, canvas.canvasx(canvas.winfo_width()));
             new_y = moveIntoCanvasY(canvas, new_y, canvas.canvasy(canvas.winfo_height()));
 
-            canvas.coords(current_resource_id, new_x, new_y, new_x+50, new_y+50)
+            canvas.coords(current_resource_id, new_x+50, new_y+50)
             text = canvas.find_withtag(f"tag:{current_resource_id}")
             if text:
-                canvas.coords(text[0], new_x+25, new_y+60)
+                canvas.coords(text[0], new_x+50, new_y+90)
 
             for (id1, id2), line in lines.items():
                 if id1 == current_resource_id or id2 == current_resource_id:
