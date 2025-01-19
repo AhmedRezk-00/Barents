@@ -56,60 +56,64 @@ Stach et al.~\cite{barents21}
 
 
 \section{Implementation}
+    \subsection{Discussion on own implementation vs. existing tools}
+        \subsubsection{OWLGrEd}
+            OWLGrEd \cite{owlgred} is a free graphical editor for OWL ontologies in UML style \cite{owlgredW3}. 
+            It has classes and different connections, including (directed) associations. 
+            The classes we could modify for the data source and data sink and the association for the data transformations. 
+            However, this modification would be very time-consuming: classes somehow need to connect to the data source or sink, connections should have different types according to the transformations (filter, map, reduce), and the whole toolbar should be slimmed down to only the necessary tools. 
+            An example ontology create in OWLGrEd is given in \autoref{OwlGrEd-image}.
 
-\subsection{Discussion on own implementation vs. existing tools}
-
-\subsubsection{OWLGrEd}
-OWLGrEd \cite{owlgred} is a free graphical editor for OWL ontologies in UML style \cite{owlgredW3}. 
-It has classes and different connections, including (directed) associations. 
-The classes we could modify for the data source and data sink and the association for the data transformations. 
-However, this modification would be very time-consuming: classes somehow need to connect to the data source or sink, connections should have different types according to the transformations (filter, map, reduce), and the whole toolbar should be slimmed down to only the necessary tools. 
-An example ontology create in OWLGrEd is given in \autoref{OwlGrEd-image}.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width = \columnwidth]{Owlgred.png}
-    \Description[Example instance of the BARENTS ontology create with OWLGrEd]{Shown here is the OWLGrEd Editor in which an instance of the BARENTS ontology was created}
-    \caption{Example instance of the BARENTS ontology created with OWLGrEd}
-    \label{OwlGrEd-image}
-\end{figure}
+            \begin{figure}[h]
+                \centering
+                \includegraphics[width = \columnwidth]{Owlgred.png}
+                \Description[Example instance of the BARENTS ontology create with OWLGrEd]{Shown here is the OWLGrEd Editor in which an instance of the BARENTS ontology was created}
+                \caption{Example instance of the BARENTS ontology created with OWLGrEd}
+                \label{OwlGrEd-image}
+            \end{figure}
 
 
-OWLGrEd already has a function to save the created ontology as a RDF/XML file (*.owl). But here as well would we need to modify a lot such that the RDF/XML file suits the BARENTS model. 
+            OWLGrEd already has a function to save the created ontology as a RDF/XML file (*.owl). But here as well would we need to modify a lot such that the RDF/XML file suits the BARENTS model. 
 
-The code is written in Lua (which we are not familiar with) and is difficult to understand (lots of code, with unclear structure, often not or in different languages commented). 
+            The code is written in Lua (which we are not familiar with) and is difficult to understand (lots of code, with unclear structure, often not or in different languages commented). 
 
-All in all it would be much work to alter the editor to our needs.
+            All in all it would be much work to alter the editor to our needs.
 
-\subsubsection{WebVowl}
-WebVowl creates and edits ontologies, using a GUI, which simplifies the ontology modeling process.
-It has no drag-and-drop funtionality, it, instead,  creates components on-double-click.
-Its both possesses import and export functions.
-However, it can only export TTL-files.
-Jet it is fixable due to the possibility of auto-converting TTL- to XML-/RDF-files using the tool Apache Jena.
+        \subsubsection{WebVowl}
+            WebVowl creates and edits ontologies, using a GUI, which simplifies the ontology modeling process.
+            It has no drag-and-drop funtionality, it, instead,  creates components on-double-click.
+            Its both possesses import and export functions.
+            However, it can only export TTL-files.
+            Jet it is fixable due to the possibility of auto-converting TTL- to XML-/RDF-files using the tool Apache Jena.
 
-Our problem with WebVowl was that there is a lack of information about the structure of the code.
-This lack of context made it really difficult, for us, to edit or extend the source code.
-\subsubsection{Protégé}
-Protégé is an open Source ontology editor(CITE PROTOGE PAPER). One if it main core features that you can extend it functionality by building your own plugins. However after carefully examining and using Protégé, we determine that the UI is complex, as requires us to watch multiple tutorials just to navigate and use it effectively, which goes against our easy-to-use requirement (R1).
-Moreover, the process of developing Protégé plugin is not clear and the some of the available information became outdated or is no longer accessible. 
-\subsubsection{CoModIDE}
-    \subsubsection{implementing ourselves}
-\subsection{evaluation}
-    Finally, we compare the various editors previously discussed (pictured in \autoref{Editor-table}).
+            Our problem with WebVowl was that there is a lack of information about the structure of the code.
+            This lack of context made it really difficult, for us, to edit or extend the source code.
+        \subsubsection{Protégé}
+            Protégé is an open Source ontology editor(CITE PROTOGE PAPER). One if it main core features that you can extend it functionality by building your own plugins. However after carefully examining and using Protégé, we determine that the UI is complex, as requires us to watch multiple tutorials just to navigate and use it effectively, which goes against our easy-to-use requirement (R1).
+            Moreover, the process of developing Protégé plugin is not clear and the some of the available information became outdated or is no longer accessible. 
+        \subsubsection{CoModIDE}
+        \subsubsection{implementing ourselves}
+            The last consideration we made was implementing the prototype ourselves, from the ground up. 
+            This approach is much more structured, as it allows us to only implement necessary features and model the applications architecture for the BARENTS ontology specifically. 
+            On the flipside this would lead to a larger workload. 
 
-    \begin{table} [h]
-        \centering
-        \begin{tabulary} {\paperwidth} {p{1,5cm}|p{2,5cm}|p{1,3cm}|p{2,5cm}}
-            Editor & design & language, Tools & Output \\ \hline
-            OwlGrEd & has classes and connections & Lua, lQuery & you can save the created Ontology as RDF/XML file \\ \hline
-            WebVowl & & & \\ \hline
-            Protégé & & & \\ \hline
-            CoModIDE & & & \\ \hline
-        \end{tabulary}
-        \caption{Comparison of Ontology Editors discussed}
-        \label{Editor-table}
-    \end{table}
+            In order to accurately assess the feasibility of such an implementation, we created a total of three iterative mockups. 
+
+    \subsection{evaluation}
+        Finally, we compare the various editors previously discussed (pictured in \autoref{Editor-table}).
+
+        \begin{table} [h]
+            \centering
+            \begin{tabulary} {\paperwidth} {p{1,5cm}|p{2,5cm}|p{1,3cm}|p{2,5cm}}
+                Editor & design & language, Tools & Output \\ \hline
+                OwlGrEd & has classes and connections & Lua, lQuery & you can save the created Ontology as RDF/XML file \\ \hline
+                WebVowl & & & \\ \hline
+                Protégé & & & \\ \hline
+                CoModIDE & & & \\ \hline
+            \end{tabulary}
+            \caption{Comparison of Ontology Editors discussed}
+            \label{Editor-table}
+        \end{table}
 
 
 \section{Prototyping}
