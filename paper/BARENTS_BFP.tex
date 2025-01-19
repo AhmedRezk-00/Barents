@@ -89,7 +89,7 @@ Stach et al.~\cite{barents21}
             Our problem with WebVowl was that there is a lack of information about the structure of the code.
             This lack of context made it really difficult, for us, to edit or extend the source code.
         \subsubsection{Protégé}
-            Protégé is an open Source ontology editor(CITE PROTOGE PAPER). One if it main core features that you can extend it functionality by building your own plugins. However after carefully examining and using Protégé, we determine that the UI is complex, as requires us to watch multiple tutorials just to navigate and use it effectively, which goes against our easy-to-use requirement (R1).
+            Protégé is an open Source ontology editor\cite{musen2015protege}. One if it main core features that you can extend it functionality by building your own plugins. However after carefully examining and using Protégé, we determine that the UI is complex, as requires us to watch multiple tutorials just to navigate and use it effectively, which goes against our easy-to-use requirement (R1).
             Moreover, the process of developing Protégé plugin is not clear and the some of the available information became outdated or is no longer accessible. 
         \subsubsection{CoModIDE}
         \subsubsection{implementing ourselves}
@@ -150,16 +150,22 @@ Stach et al.~\cite{barents21}
     \includegraphics[width = \columnwidth]{GUI_interface.PNG} 
     \Description{The prototype of the BARENTS Editor}
     \caption{The prototype of the BARENTS Editor}
-    \label{BARENTS-editor}
+    \label{BARENTS-editor} 
 \end{figure}
-The User Interface for the Barents project (pictured in \autoref{BARENTS-editor}) is built on CustomTkinter, a Python library that provides a modern look for the user interface. 
-The choice was made to ensure consistency, as the Backend also uses Python, allowing us to have one programming language instead of managing multiple programming languages simultaneously. 
-Our UI adopts a minimalistic design. The layout is divided into a canvas, making up most of the screen space, along with a left, right and top bar. 
-Our goal was to minimize the number of buttons and give them a reasonable size to ensure simplicity and a good user experience. The left bar contains only four buttons, which are the buttons for the addition of source, transformation, sink and part of Relationship arrows.
-Each button is represented with a corresponding symbol, making it easier for the user to understand and differentiate between the nodes in the canvas. 
+The User Interface for the Barents project(pictured in\autoref{BARENTS-editor})
+is built on CustomTkinter\cite{customtkinter}.It is a Python library that provides a modern look for the user interface. As  our Backend also uses Python,we chose to use CustomTkinter, allowing us to have one
+programming language instead of managing multiple programming languages simultaneously. Our UI adopts a minimalistic design. The layout is divided into a canvas, making up most of the screen space, along with a left, right and top bar. Our goal was to minimize the number of buttons and give them a reasonable size to ensure simplicity and a good user experience. 
 
-By selecting the node, a corresponding right-side panel opens, giving the user specific textboxes with clear labels indicating what information is required for the node, to meet the ontology requirements.
-Finally, the user can export the graph in formats, such as XML,ttl,jasonld,nt and n3 and process RDF/XML files not created by our UI, as long they follow the Barents namespaces.
+The left bar contains only four buttons, which are the buttons for the addition of source, transformation, sink and part of Relationship arrows. Each button is
+represented with a corresponding symbol, making it easier for
+the user to understand and differentiate between the nodes in the
+canvas.
+
+By selecting the node, a corresponding right-side panel opens,
+giving the user specific textboxes with clear labels indicating what
+information is required for the node, to meet the ontology requirements. 
+
+Finally, the user can export the graph in formats, such as XML, ttl, jasonld, nt and n3 and process RDF/XML files not created by our UI, as long they follow the Barents namespaces.
 
 \begin{figure}
     \noindent
