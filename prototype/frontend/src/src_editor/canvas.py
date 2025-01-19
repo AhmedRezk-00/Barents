@@ -204,7 +204,7 @@ def default_on_drag(event, canvas):
                         x2, y2 = coords2[0], coords2[1]-45 
 
                     x3=(coords1[0]+coords2[0])/2
-                    y3=((coords[1]+coords2[1])/2)-50
+                    y3=((coords1[1]+coords2[1])/2)-50
                     canvas.coords(line, x1, y1,x3,y3, x2, y2)
 
 #issue12: checks and potentially moves data_source-x-value within canvas-borders
