@@ -82,6 +82,8 @@ Jet it is fixable due to the possibility of auto-converting TTL- to XML-/RDF-fil
 Our problem with WebVowl was that there is a lack of information about the structure of the code.
 This lack of context made it really difficult, for us, to edit or extend the source code.
 \subsubsection{Protégé}
+Protégé is an open Source ontology editor(CITE PROTOGE PAPER). One if it main core features that you can extend it functionality by building your own plugins. However after carefully examining and using Protégé, we determine that the UI is complex, as requires us to watch multiple tutorials just to navigate and use it effectively, which goes against our easy-to-use requirement (R1).
+Moreover, the process of developing Protégé plugin is not clear and the some of the available information became outdated or is no longer accessible. 
 \subsubsection{CoModIDE}
 \subsubsection{implementing ourselves}
 \subsection{evaluation}
@@ -115,17 +117,26 @@ This lack of context made it really difficult, for us, to edit or extend the sou
         As such there is no data catalogue for our prototype to reference. 
         Therefore we require the user to provide both a database location, as well as a table within that database. 
         This information is the modeled as two seperate literals.
+        \includegraphics[width = \linewidth]{Pyramid Chart - Page 1.png}
 
 \subsection{Frontend design}
-The user-interface has the minimal size of 900x500 pixels which can be increased into the full screen size of its device.
-It is divided into a canvas, making up most of the screenspace, along with a left, right and top bar.
-The canvas contains the created graphs.
-It is scrollable and plain-white putting the users focus on the graph.
-These graphs contain ressources (source, transformation, sink) as nodes and are connected by part-of relationships.
-The top bar contains three buttons to import, export (process the created rdf-file) and reset the created graph.
-The left sidebar contains the buttons which add the graph-components. 
-More specifically, it contains buttons which add ressources and part-of relationships.
-The right sidebar contains buttons and texts to name and update selected ressources.
+\includegraphics[width = \columnwidth]{GUI_interface.PNG}
+The User Interface for the Barents project is built on CustomTkinter, a Python library that provides a modern look for the user interface. 
+The choice was made to ensure consistency, as the Backend also uses Python, allowing us to have one programming language instead of managing multiple programming languages simultaneously. 
+Our UI adopts a minimalistic design. The layout is divided into a canvas, making up most of the screen space, along with a left, right and top bar. 
+Our goal was to minimize the number of buttons and give them a reasonable size to ensure simplicity and a good user experience. The left bar contains only four buttons, which are the buttons for the addition of source, transformation, sink and part of Relationship arrows.
+Each button is represented with a corresponding symbol, making it easier for the user to understand and differentiate between the nodes in the canvas. 
+
+By selecting the node, a corresponding right-side panel opens, giving the user specific textboxes with clear labels indicating what information is required for the node, to meet the ontology requirements.
+Finally, the user can export the graph in formats, such as XML,ttl,jasonld,nt and n3 and process RDF/XML files not created by our UI, as long they follow the Barents namespaces.
+
+\begin{figure}
+    \noindent
+    \centering
+    \includegraphics[width = \columnwidth]{USE-Case Diagaramm.png}
+    \caption{Use-case diagram showing users possible interactions with the Braents UI}
+    \label{FrontendDesign}
+\end{figure}
 
 \subsection{Backend}
 
