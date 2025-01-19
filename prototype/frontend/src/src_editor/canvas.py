@@ -130,8 +130,8 @@ def on_click(event, canvas):
                             Coords1 = canvas.coords(id1)
                             Coords2 = canvas.coords(id2)
                         if(swap == "swap" or swap == "dont swap"):
-                            x1, y1 = Coords1[0] + 25, Coords1[1] + 25  
-                            x2, y2 = Coords2[0] + 25, Coords2[1] + 25  
+                            x1, y1 = Coords1[0] + 10, Coords1[1] + 55  
+                            x2, y2 = Coords2[0] , Coords2[1] - 45  
                             line = canvas.create_line(x1, y1, x2, y2, fill="#4a90e2", width=2, arrow="last",arrowshape=(16, 20, 6), dash=(10, 4), tags=f"line tag:{id2} tag:{id1}",smooth=True)
                             lines[(id1, id2)] = line
                             lines_swapped[line] = False
@@ -197,8 +197,8 @@ def default_on_drag(event, canvas):
                     coords1 = canvas.coords(id1)
                     coords2 = canvas.coords(id2)
                     if lines_swapped[line]==True:
-                        x1, y1 = coords2[0]+15, coords2[1]+55 
-                        x2, y2 = coords1[0], coords1[1]+45 
+                        x1, y1 = coords2[0]+10, coords2[1]+55 
+                        x2, y2 = coords1[0], coords1[1]-45 
                     if lines_swapped[line]==False:
                         x1, y1 = coords1[0]+10, coords1[1]+55 
                         x2, y2 = coords2[0], coords2[1]-45 
