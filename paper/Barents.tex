@@ -169,11 +169,11 @@ In figure \ref{RDFExample} we can see how the from BARENTS automatically created
         \begin{table} [h]
             \centering
             \begin{tabulary} {\paperwidth} {p{1,5cm}|p{2,5cm}|p{1,3cm}|p{2,5cm}}
-                Editor & design & language, Tools & Output \\ \hline
-                OwlGrEd & has classes and connections & Lua, lQuery & you can save the created Ontology as RDF/XML file \\ \hline
-                WebVowl & & & \\ \hline
-                Protégé & & & \\ \hline
-                CoModIDE & & & \\ \hline
+                Editor & design & language, Tools & Problems \\ \hline
+                OwlGrEd & UML-style classes and connections & java & unclear and complex Code, timeconsuming to adapt \\ \hline
+                WebVowl & GUI to draw graph&JavaScript,Node.js& exports only TTL, code structure unclear \\ \hline
+                Protégé & extendable via plugins & Java& Complex UI; not enough information to develop ow plug in\\ \hline
+                CoModIDE & GUI with drag and drop feature to draw RDF graph & Java&too general for Barents, not for domain experts \\ \hline
             \end{tabulary}
             \caption{Comparison of Ontology Editors discussed}
             \label{Editor-table}
@@ -243,7 +243,7 @@ Finally, the user can export the graph in formats, such as XML, ttl, jasonld, nt
 \subsection{Backend}
 This Section discusses the overall structure and design of the backend system. 
 \subsubsection{Libraries}
-Our backend system uses SQLite3 and RDFLIb libraries, which play an integral part in our backend functionality. As our frontend system exports our ontology RDF/XML files, we use RDFLib to create the graph internally in the system and parse through it. This allows us to extract relevant information from the ontology graph. For example, Database location, that can later establish a connection to it through SQLite. For now, our backend system supports local  SQlite Databases, that can manipulate and transform structured data like tables.
+Our backend system uses SQLite3 and RDFLIb libraries, which play an integral part in our backend functionality. As our frontend system exports our ontology RDF/XML files, we use RDFLib to create the graph internally in the system and parse through it. This allows us to extract relevant information from the ontology graph. For example, Database location, that can later establish a connection to it through SQLite. For now, our backend system supports local  SQlite Databases, that can manipulate and transform relational data.
 \subsubsection{Parsing Algorithm}
 One of the key challenges in developing the backend system is parsing through the RDF graph and extracting only relevant information related to the transformation for SQlite3. As we tried to cover the use case, if the user created a graph with multiple transformations, then each transformation has to be executed separately and use only data Sources and Data Sink, that it is only connected to it through the partOf relationship. The following figure gives a brief overview of the parsing of the RDF graph. 
 \begin{figure}[h]
@@ -257,7 +257,7 @@ One of the key challenges in developing the backend system is parsing through th
         draw,
         text centered,
         minimum height=0.8cm,
-        minimum width=2.5cm,
+        minimum width=2cm,
         font=\scriptsize
     },
     decision/.style={
@@ -297,7 +297,7 @@ One of the key challenges in developing the backend system is parsing through th
     
     \begin{pgfonlayer}{background}
         \node[draw=black,dashed,fit=(read)(run)(write),
-        inner sep=0.2cm,label=right:{\scriptsize DB Ops}] {};
+        inner sep=0.2cm,label=left:{\scriptsize DB Ops}] {};
     \end{pgfonlayer}
 \end{tikzpicture}
 \caption{RDF Parsing Algorithm}
@@ -305,9 +305,9 @@ One of the key challenges in developing the backend system is parsing through th
 \end{figure}
 \subsubsection{Filter Operation}
 
-For our backend, we implemented a dynamic filter operation that by leveraging python lambda functions, so the user would have a wide range of filtering criteria.
+For our backend, we implemented a dynamic filter operation that leverages Python lambda functions, giving the user a wide range of filtering criteria.
 
-We start the filtering operation by extracting relevant MetaData as shown in Listing \ref{lst:filter_metadata}. We identify with the help of rdflib Sink Table(target Table),it's corresponding Database, and the user specified lambda expression. As a transformation can have multiple Data Sources, we identify the ones that are connected to the transformation and store them in a set. We later on establish connections with the help of sqlite3 library in python to all Databases that we extracted. 
+We start the filtering operation by extracting relevant MetaData as shown in Listing \ref{lst:filter_metadata}. We identify with the help of rdflib Sink Table(target Table), its corresponding Database, and the user-specified lambda expression. As a transformation can have multiple Data Sources, we identify the ones connected to the transformation and store them in a set. We later on establish connections with the help of sqlite3 library in Python to all the Databases that we extracted.
 \lstset{
     language=Python,
     basicstyle=\ttfamily\footnotesize,  % Smaller font size
@@ -345,11 +345,11 @@ def filter(transformation, sources):
                         
 \end{lstlisting}
 
-As we store the relevant Data Sources in a set we iterate through each one and execute an SQL command to select all rows from the table in source database and apply filter function, which is the lambda function to every row of the table. If the function returns True the row is kept and inserted to the designated sink table, trough an sql command. 
+As we store the relevant Data Sources in a set, we iterate through each one and execute an SQL command to select all rows from the table in the source database and apply the filter function, which is the lambda function to every row of the table. If the function returns True the row is kept and inserted into the designated sink table, through an SQL command.
 \begin{figure}[h]
   \centering
   \includegraphics[width=1.1\linewidth]{Sequence_diagramm.png}
-  \caption{Squencediagramm illustrating the filter operation}
+  \caption{Sequence diagram illustrating the filter operation}
   \label{sequence}
 \end{figure}
 
@@ -370,14 +370,11 @@ As we store the relevant Data Sources in a set we iterate through each one and e
 
 
 \section{Evaluation - Requirements Fulfillment}
-In this section we evaluate or project towords or previously set requirements in Section 3.
-\begin{enumerate}
-\item[R1)] For the easy to use 
-\item[R2)] Transformations I - III as defined in \ref{barents} (namely filter, map and reduce operator) are functioning.
-\item[R3)] Created ontologies can be saved.
-\item[R4)] Has a data-processing-engine, which processes data according to the ontology.
-\item[R5)] Our prototype should be functioning with at least one database type. We chose relational databases, since we are most familiar with that.
-\end{enumerate}
+In this section, we evaluate our project towards or previously set requirements in Section 3.
+For the easy-to-use requirement R1, we kept our UI design minimalistic, used the least amount of buttons, and only kept features that are relevant to the creation of Ontology. These decisions were taken based on the review of other ontology editors that were hard to understand or had unnecessary features for our project, that would overcomplicate things for domain experts.
+Moreover, the R3 requirement is fulfilled, as the user can save the created ontologies graphs in various formats, giving flexibility for future Developers to design their own Data Processing engine, that does not only have work RDF/XML files
+
+We have built a small data-processing-engine, that can process data according to the ontology, and utilizes SQLite to transform relational databases. The transformation I, namely filter has been implemented in our engine, however, the full functionality of the filter operation is limited by....(name limitations). However, we can say that requirements R4 create a data-processing engine, R5 prototype works with at least one relational database, and R2 implementing Transformation I, are partially fulfilled.
 
 \section{Conclusion}
 
