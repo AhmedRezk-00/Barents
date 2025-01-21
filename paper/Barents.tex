@@ -346,45 +346,15 @@ def filter(transformation, sources):
 \end{lstlisting}
 
 As we store the relevant Data Sources in a set we iterate through each one and execute an SQL command to select all rows from the table in source database and apply filter function, which is the lambda function to every row of the table. If the function returns True the row is kept and inserted to the designated sink table, trough an sql command. 
-
-\lstset{
-    language=Python,
-    basicstyle=\ttfamily\footnotesize,  % Smaller font size
-    keywordstyle=\color{blue},
-    commentstyle=\color{gray},
-    stringstyle=\color{red},
-    numbers=left,
-    numberstyle=\tiny\color{gray},
-    stepnumber=1,
-    numbersep=5pt,
-    backgroundcolor=\color{white!20},
-    showspaces=false,
-    showstringspaces=false,
-    frame=single,
-    breaklines=true,  % Enable line breaking
-    breakatwhitespace=true,
-    captionpos=b,
-    xleftmargin=0.5cm,  % Adjust left margin
-    xrightmargin=0.5cm  % Adjust right margin
-}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=1.1\linewidth]{Sequence_diagramm.png}
+  \caption{Squencediagramm illustrating the filter operation}
+  \label{sequence}
+\end{figure}
 
 
-\begin{lstlisting}[caption={SQL Extraction and Insertion}, label={sql}]
- cur_source.execute(f"SELECT * from {source_db[1]}")
-        # filter rows
-        rows = cur_source.fetchall()
-        filter_function = eval(lambda_function)
-        filter =[row for row in rows if filter_function(row)]
-        cur_source.execute(f"SELECT sql FROM sqlite_master WHERE type='table' AND name='{source_db[1]}'")
-        create_table_sql = cur_source.fetchone()
-        check_for_table = create_table_sql[0].replace('CREATE TABLE', 'CREATE TABLE IF NOT EXISTS')
-        check_for_table = check_for_table.replace(source_db[1], sinkTable)
-        cur_sink.execute(check_for_table)
-        placeholders = ', '.join(['?'] * len(filter[0])) if filter else ''
-      # if row returns true for any of the lambda functions, remove row 
-        cur_sink.executemany(f"INSERT INTO {sinkTable} VALUES ({placeholders})", filter)
-                        
-\end{lstlisting}
+
 
 
 
