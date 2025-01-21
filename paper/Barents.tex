@@ -342,18 +342,16 @@ We start the filtering operation by extracting relevant MetaData as shown in Lis
 }
 
 
-\begin{lstlisting}[caption={Filter Operation: Metadata Extraction}, label={lst:filter_metadata}]
-def filter(transformation, sources):
-    sink = rdf_graph.value(transformation, dl.partOf)
-    sinkColumn = str(sink).split('/')[-1]
-    sinkTable = rdf_graph.value(sink, dl.zone)
-    sinkDB = rdf_graph.value(sink, dl.dbLocation)
-    lambda_function = rdf_graph.value(transformation, dl.function)
-    source_dbs = set()
-    for source in sources:
-        source_dbs.add((rdf_graph.value(source, dl.dbLocation), 
-                        rdf_graph.value(source, dl.source)))
-    ...... Rest of code.....
+\begin{lstlisting}[caption={Transformation function}, label={lst:filter_metadata}]
+    def run_transformation(transformation, sources):
+    transformation_type = rdf_graph.value(transformation, dl.type).strip()
+    match transformation_type:
+        case "filter":
+            filter(transformation, sources)
+        case "map":
+            map(transformation,sources)#TODO
+        case "reduce":
+            reduce(transformation,sources)#TODO
                         
 \end{lstlisting}
 
