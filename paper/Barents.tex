@@ -27,18 +27,18 @@
 \email{st156637@stud.uni-stuttgart.de}
 
 \begin{abstract}
-Data has never been as significant as it is today. 
-It can be acquired virtually at will on any subject.
-Data is digital Oil. Within this digital age, it is crucial for humantity in almost every domain. 
-Additionally, data is not restricted in quantity, meaning u limited data can be generated for use.
-Along with this growing demand, the processing of this data must develop in order to keep up.
-The goal has to be a demand-driven data provisioning, i. e., the right data must be available in the right form at the
-right time. 
-Our goal is to develop a demand-driven application for data lakes.
-Therefore, we created a tailorable data preparation zone called BARENTS.
-he users get the opportunity to decide what data is derived how and where.
-The users are not required to understand the background-process, only the basic steps.
-We developed a prototype and compared severall methods of implementation.
+    Data has never been as significant as it is today. 
+    It can be acquired virtually at will on any subject.
+    Data is digital Oil. Within this digital age, it is crucial for humantity in almost every domain. 
+    Additionally, data is not restricted in quantity, meaning u limited data can be generated for use.
+    Along with this growing demand, the processing of this data must develop in order to keep up.
+    The goal has to be a demand-driven data provisioning, i. e., the right data must be available in the right form at the
+    right time. 
+    Our goal is to develop a demand-driven application for data lakes.
+    Therefore, we created a tailorable data preparation zone called BARENTS.
+    he users get the opportunity to decide what data is derived how and where.
+    The users are not required to understand the background-process, only the basic steps.
+    We developed a prototype and compared severall methods of implementation.
 \end{abstract}
 
 \keywords{Data Lake, data preprocessing, ontology, BARENTS, LALO}
@@ -51,83 +51,96 @@ We developed a prototype and compared severall methods of implementation.
 \section{Background}
 \label{background}
 
-We want to develop our Editor with the concept BARENTS. In this section we will have a closer look at BARENTS and introduce a scenario, in which our Editor might be of use: testing chocolate samples for nut allergens. This section \ref{background} is mainly based on \cite{barents21} and \cite{barents22}.
+    We want to develop our Editor with the concept BARENTS. In this section we will have a closer look at BARENTS and introduce a scenario, in which our Editor might be of use: testing chocolate samples for nut allergens. This section \ref{background} is mainly based on \cite{barents21} and \cite{barents22}.
 
-\subsection{Overview BARENTS}
-\label{barents}
-Data can be a valuable resource, but often it has to fit a specific use case (demand-driven data provisioning). With BARENTS, a user can specify how to pre-process data. It is a tailorable data preparation zone for data lakes. \newline
+    \subsection{Overview BARENTS}
+        \label{barents}
+        Data can be a valuable resource, but often it has to fit a specific use case (demand-driven data provisioning). 
+        With BARENTS, a user can specify how to pre-process data. It is a tailorable data preparation zone for data lakes. 
 
-In an ontology the user defines the following:
-\begin{itemize}
-    \item (data level) the data source
-    \item (information level) a transformation (how the data should be processed), which can be:
-    \begin{itemize}
-        \item filter: eliminate or select data
-        \item map: modify data
-        \item reduce: aggregate data (a set of data gets one output value)
-        \item other procedure: a user-defined function
-    \end{itemize}
-    \item (knowledge level) the data sink, where the results are stored
-\end{itemize}
-According to the created ontology the data then is automatically processed and delivered. \newline
+        In an ontology the user defines the following:
+        \begin{itemize}
+            \item (data level) the data source
+            \item (information level) a transformation (how the data should be processed), which can be:
+            \begin{itemize}
+                \item filter: eliminate or select data
+                \item map: modify data
+                \item reduce: aggregate data (a set of data gets one output value)
+                \item other procedure: a user-defined function
+            \end{itemize}
+            \item (knowledge level) the data sink, where the results are stored
+        \end{itemize}
+        According to the created ontology the data then is automatically processed and delivered. 
 
-\begin{figure} [h]
-    \noindent
-    \centering
-    \includegraphics[width = \columnwidth]{BARENTS_operationProcess.png}
-    \caption{operation process of BARENTS}
-    \label{operationProcess}
-\end{figure}
-In figure \ref{operationProcess} we can see how BARENTS operates: \newline
-1. the user models the pre-processing steps for his use case (as an ontology), e.g. with a graphical editor. \newline
-2. this ontology is saved as a RDF/XML file \newline
-3. - 5. RDF/XML file is processed \newline
-6. all data sources (listed in the ontology) are retrieved from the "raw data zone" \newline
-7. the pre-processing steps are applied on the data \newline
-8. the pre-processed data is forwarded to the (in the ontology indicated) "use case zone" \newline
-9. user can access this data in the "delivery zone"
+        \begin{figure}[h]
+            \noindent
+            \centering
+            \includegraphics[width = \columnwidth]{BARENTS_operationProcess.png}
+            \Description{operation process of BARENTS}
+            \caption{operation process of BARENTS}
+            \label{operationProcess}
+        \end{figure}
 
-\subsection{Use case scenario: nut allergens in chocolate samples}
+        In figure \ref{operationProcess} we can see how BARENTS operates: 
 
-On food packaging, it is important to write the correct allergy information, as food allergies can trigger severe allergic shocks. So for our use case scenario, chocolate is tested whether it contains nut allergens. \newline
-Chocolate samples are tested with a mass spectrometer, if they contain "allergenic peptides", i.e. fragments of proteins. The thereby created raw data is cross-checked against a protein sequence database to figure out if the sample contains hazelnut or walnut peptides. Sample, that contain nut allergens, are marked. \newline
+        \begin{enumerate}
+            \item the user models the pre-processing steps for his use case (as an ontology), e.g. with a graphical editor.
+            \item this ontology is saved as a RDF/XML file
+            \item 5. RDF/XML file is processed
+            \item all data sources (listed in the ontology) are retrieved from the "raw data zone"
+            \item the pre-processing steps are applied on the data
+            \item the pre-processed data is forwarded to the (in the ontology indicated) "use case zone"
+            \item user can access this data in the "delivery zone"
+        \end{enumerate}
 
-The food chemist, (the "domain expert"), now wants to filter out unmarked chocolate samples, so he can use the marked samples (with nuts) for further analysis.
-\begin{figure} [H]
-    \noindent
-    \centering
-    \includegraphics[width = \columnwidth]{BARENTS_ontologyExample.png}
-    \caption{graphical depiction of the BARENTS ontology for the chocolate example}
-    \label{ontologyExample}
-\end{figure}
-For that purpose the food chemist can create an ontology in BARENTS. In figure \ref{ontologyExample} we can see that ontology depicted. \newline
-In the data level the information about hazelnut and walnut in the database chocolate get extracted and loaded into a new table "peptides". In the information level the chocolate samples that are marked as containing hazelnuts or walnuts are filtered out. On the knowledge level the results are then stored in the use case zone "allergens". \newline
-A domain expert with no knowledge about databases should still be able to work with data, which is why we want to develop an easy-to-use editor for BARENTS. \newline
+    \subsection{Use case scenario: nut allergens in chocolate samples}
 
-In figure \ref{RDFExample} we can see how the from BARENTS automatically created RDF/XML file might look like with the chocolate example.
-\begin{figure} [H]
-    \noindent
-    \centering
-    \includegraphics[width = \columnwidth]{BARENTS_RDFExample.png}
-    \caption{from the chocolate example created RDF/XML file}
-    \label{RDFExample}
-\end{figure}
+        On food packaging, it is important to write the correct allergy information, as food allergies can trigger severe allergic shocks. So for our use case scenario, chocolate is tested whether it contains nut allergens.
+
+        Chocolate samples are tested with a mass spectrometer, if they contain "allergenic peptides", i.e. fragments of proteins. 
+        The thereby created raw data is cross-checked against a protein sequence database to figure out if the sample contains hazelnut or walnut peptides. Sample, that contain nut allergens, are marked. 
+
+        The food chemist, (the "domain expert"), now wants to filter out unmarked chocolate samples, so he can use the marked samples (with nuts) for further analysis.
+        \begin{figure} [H]
+            \noindent
+            \centering
+            \includegraphics[width = \columnwidth]{BARENTS_ontologyExample.png}
+            \Description{graphical depiction of the BARENTS ontology for the chocolate example}
+            \caption{graphical depiction of the BARENTS ontology for the chocolate example}
+            \label{ontologyExample}
+        \end{figure}
+
+        For that purpose the food chemist can create an ontology in BARENTS. In figure \ref{ontologyExample} we can see that ontology depicted.
+
+        In the data level the information about hazelnut and walnut in the database chocolate get extracted and loaded into a new table "peptides". 
+        In the information level the chocolate samples that are marked as containing hazelnuts or walnuts are filtered out. 
+        On the knowledge level the results are then stored in the use case zone "allergens". 
+
+        A domain expert with no knowledge about databases should still be able to work with data, which is why we want to develop an easy-to-use editor for BARENTS.
+
+        In figure \ref{RDFExample} we can see how the from BARENTS automatically created RDF/XML file might look like with the chocolate example.
+        \begin{figure} [H]
+            \noindent
+            \centering
+            \includegraphics[width = \columnwidth]{BARENTS_RDFExample.png}
+            \Description{from the chocolate example created RDF/XML file}
+            \caption{from the chocolate example created RDF/XML file}
+            \label{RDFExample}
+        \end{figure}
 
 
 
 \section{Requirement Specification}
-\begin{enumerate}
-\item[(R1)] Our goal is an Easy-to-use GUI for domain experts, with which they can create ontologies.
-%% TODO: hier statt \cite{barents21} die Stelle im Kapitel Barents angeben
-\item[(R2)] Transformations I - III as defined in \cite{barents21} (namely filter, map and reduce operator) are functioning.
-\item[(R3)] Created ontologies can be saved.
-\item[(R4)] Has a data-processing-engine, which processes data according to the ontology.
-\item[(R5)] Our prototype should be functioning with at least one database type. We chose relational databases, since we are most familiar with that.
-\end{enumerate}
+    \begin{enumerate}
+        \item[(R1)] Our goal is an Easy-to-use GUI for domain experts, with which they can create ontologies.
+        %% TODO: hier statt \cite{barents21} die Stelle im Kapitel Barents angeben
+        \item[(R2)] Transformations I - III as defined in \cite{barents21} (namely filter, map and reduce operator) are functioning.
+        \item[(R3)] Created ontologies can be saved.
+        \item[(R4)] Has a data-processing-engine, which processes data according to the ontology.
+        \item[(R5)] Our prototype should be functioning with at least one database type. We chose relational databases, since we are most familiar with that.
+    \end{enumerate}
 
-
-
-%% dieses Kapitel optional
+    %% dieses Kapitel optional
 
 
 \section{Implementation}
@@ -167,7 +180,7 @@ In figure \ref{RDFExample} we can see how the from BARENTS automatically created
             Protégé is an open Source ontology editor\cite{musen2015protege}. One if it main core features that you can extend it functionality by building your own plugins. However after carefully examining and using Protégé, we determine that the UI is complex, as requires us to watch multiple tutorials just to navigate and use it effectively, which goes against our easy-to-use requirement (R1).
             Moreover, the process of developing Protégé plugin is not clear and the some of the available information became outdated or is no longer accessible. 
         \subsubsection{CoModIDE}
-        CoModIDE is a plugin for Protégé, that allows users to create and edit ontologies graphically\cite{shimizu2019comodide}. With its drag-and-drop functions, creating and editing ontologies is relatively easy. However, the Problem with CoModIDE is that it models RDF graphs in a very general way, which means that not all available features are easily applicable to BARENTS and are not tailored to domain experts.  
+            CoModIDE is a plugin for Protégé, that allows users to create and edit ontologies graphically\cite{shimizu2019comodide}. With its drag-and-drop functions, creating and editing ontologies is relatively easy. However, the Problem with CoModIDE is that it models RDF graphs in a very general way, which means that not all available features are easily applicable to BARENTS and are not tailored to domain experts.  
         \subsubsection{implementing ourselves}
             The last consideration we made was implementing the prototype ourselves, from the ground up. 
             This approach is much more structured, as it allows us to only implement necessary features and model the applications architecture for the BARENTS ontology specifically. 
@@ -230,7 +243,10 @@ In figure \ref{RDFExample} we can see how the from BARENTS automatically created
 \end{figure}
 The User Interface for the Barents project(pictured in\autoref{BARENTS-editor})
 is built on CustomTkinter\cite{customtkinter}.It is a Python library that provides a modern look for the user interface. As  our Backend also uses Python,we chose to use CustomTkinter, allowing us to have one
-programming language instead of managing multiple programming languages simultaneously. Our UI adopts a minimalistic design. The layout is divided into a canvas, making up most of the screen space, along with a left, right and top bar. Our goal was to minimize the number of buttons and give them a reasonable size to ensure simplicity and a good user experience. 
+programming language instead of managing multiple programming languages simultaneously. 
+Our UI adopts a minimalistic design. 
+The layout is divided into a canvas, making up most of the screen space, along with a left, right and top bar. 
+Our goal was to minimize the number of buttons and give them a reasonable size to ensure simplicity and a good user experience. 
 
 The left bar contains only four buttons, which are the buttons for the addition of source, transformation, sink and part of Relationship arrows. Each button is
 represented with a corresponding symbol, making it easier for
@@ -312,6 +328,7 @@ One of the key challenges in developing the backend system is parsing through th
         inner sep=0.2cm,label=left:{\scriptsize DB Ops}] {};
     \end{pgfonlayer}
 \end{tikzpicture}
+\Description{RDF Parsing Algorithm}
 \caption{RDF Parsing Algorithm}
 \label{fig:rdf_parsing}
 \end{figure}
@@ -356,35 +373,21 @@ We start the filtering operation by extracting relevant MetaData as shown in Lis
 \end{lstlisting}
 
 As we store the relevant Data Sources in a set, we iterate through each one and execute an SQL command to select all rows from the table in the source database and apply the filter function, which is the lambda function to every row of the table. If the function returns True the row is kept and inserted into the designated sink table, through an SQL command.
+
 \begin{figure}[h]
   \centering
-  \includegraphics[width=1.1\linewidth]{Sequence_diagramm.png}
+  \includegraphics[width=1\linewidth]{Sequence_diagramm.png}
+  \Description{Sequence diagram illustrating the filter operation}
   \caption{Sequence diagram illustrating the filter operation}
   \label{sequence}
 \end{figure}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 \section{Evaluation - Requirements Fulfillment}
-In this section, we evaluate our project towards or previously set requirements in Section 3.
-For the easy-to-use requirement R1, we kept our UI design minimalistic, used the least amount of buttons, and only kept features that are relevant to the creation of Ontology. These decisions were taken based on the review of other ontology editors that were hard to understand or had unnecessary features for our project, that would overcomplicate things for domain experts.
-Moreover, the R3 requirement is fulfilled, as the user can save the created ontologies graphs in various formats, giving flexibility for future Developers to design their own Data Processing engine, that does not only have work RDF/XML files
+    In this section, we evaluate our project towards or previously set requirements in Section 3.
+    For the easy-to-use requirement R1, we kept our UI design minimalistic, used the least amount of buttons, and only kept features that are relevant to the creation of Ontology. These decisions were taken based on the review of other ontology editors that were hard to understand or had unnecessary features for our project, that would overcomplicate things for domain experts.
+    Moreover, the R3 requirement is fulfilled, as the user can save the created ontologies graphs in various formats, giving flexibility for future Developers to design their own Data Processing engine, that does not only have work RDF/XML files
 
-We have built a small data-processing-engine, that can process data according to the ontology, and utilizes SQLite to transform relational databases. The transformation I, namely filter has been implemented in our engine, however, the full functionality of the filter operation is limited by....(name limitations). However, we can say that requirements R4 create a data-processing engine, R5 prototype works with at least one relational database, and R2 implementing Transformation I, are partially fulfilled.
+    We have built a small data-processing-engine, that can process data according to the ontology, and utilizes SQLite to transform relational databases. The transformation I, namely filter has been implemented in our engine, however, the full functionality of the filter operation is limited by....(name limitations). However, we can say that requirements R4 create a data-processing engine, R5 prototype works with at least one relational database, and R2 implementing Transformation I, are partially fulfilled.
 
 \section{Conclusion}
 Virtual data will only increase in importance in the future. 
