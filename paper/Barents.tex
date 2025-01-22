@@ -189,7 +189,7 @@ The Barents paper is organized as follows: Section 2 discusses the background of
             All in all it would be much work to alter the editor to our needs.
 
         \subsubsection{WebVowl}
-            WebVowl creates and edits ontologies, using a GUI, which simplifies the ontology modeling process\ref{lohmann2015webvowl}.
+            WebVowl creates and edits ontologies, using a GUI, which simplifies the ontology modeling process\cite{lohmann2015webvowl}.
             It has no drag-and-drop functionality, it, instead,  creates components on-double-click.
             Its both possesses import and export functions.
             However, it can only export TTL-files.
@@ -292,9 +292,9 @@ Finally, the user can export the graph in formats, such as XML, ttl, jasonld, nt
 \subsection{Backend}
 This Section discusses the overall structure and design of the backend system. 
 \subsubsection{Libraries}
-Our backend system uses SQLite3 and RDFLIb libraries, which play an integral part in our backend functionality. As our frontend system exports our ontology RDF/XML files, we use RDFLib to create the graph internally in the system and parse through it. This allows us to extract relevant information from the ontology graph. For example, Database location, that can later establish a connection to it through SQLite. For now, our backend system supports local  SQlite Databases, that can manipulate and transform relational data.
+Our backend system uses SQLite3\cite{python_sqlite3} and rdflib\cite{rdflib} libraries, which play an integral part in our backend functionality. As our frontend system exports our ontology RDF/XML files, we use RDFLib to create the graph internally in the system and parse through it. This allows us to extract relevant information from the ontology graph. For example, Database location, that can later establish a connection to it through SQLite. For now, our backend system supports local  SQlite Databases, that can manipulate and transform relational data.
 \subsubsection{Parsing Algorithm}
-One of the key challenges in developing the backend system is parsing through the RDF graph and extracting only relevant information related to the transformation for SQlite3. As we tried to cover the use case, if the user created a graph with multiple transformations, then each transformation has to be executed separately and use only data Sources and Data Sink, that it is only connected to it through the partOf relationship. The following figure gives a brief overview of the parsing of the RDF graph. 
+One of the key challenges in developing the backend system is parsing through the RDF graph and extracting only relevant information related to the transformation for SQlite3. As we tried to cover the use case, if the user created a graph with multiple transformations, then each transformation has to be executed separately and use only data Sources and Data Sink, that it is only connected to it through the partOf relationship. The following Figure  \ref{rdf_parsing} gives a brief overview of the parsing of the RDF graph. 
 \begin{figure}[h]
 \centering
 \begin{tikzpicture}[
@@ -351,7 +351,7 @@ One of the key challenges in developing the backend system is parsing through th
 \end{tikzpicture}
 \Description{RDF Parsing Algorithm}
 \caption{RDF Parsing Algorithm}
-\label{fig:rdf_parsing}
+\label{rdf_parsing}
 \end{figure}
 \subsubsection{Filter Operation}
 
