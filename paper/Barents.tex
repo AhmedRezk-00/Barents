@@ -63,7 +63,7 @@ The Barents paper is organized as follows: Section 2 discusses the background of
 \section{Background}
 \label{background}
 
-    We want to develop our Editor with the concept BARENTS. In this section we will have a closer look at BARENTS and introduce a scenario, in which our Editor might be of use: testing chocolate samples for nut allergens. This section \ref{background} is mainly based on \cite{barents21} and \cite{barents22}.
+    We want to develop our Editor with the concept BARENTS. In this section we will have a closer look at BARENTS and introduce a scenario, in which our Editor might be of use: testing chocolate samples for nut allergens. This section \ref{background} is mainly based on papers by Stach et al.\cite{barents21} and \cite{barents22}.
 
     \subsection{Overview BARENTS}
         \label{barents}
@@ -145,8 +145,7 @@ The Barents paper is organized as follows: Section 2 discusses the background of
 \section{Requirement Specification}
     \begin{enumerate}
         \item[(R1)] Our goal is an Easy-to-use GUI for domain experts, with which they can create ontologies.
-        %% TODO: hier statt \cite{barents21} die Stelle im Kapitel Barents angeben
-        \item[(R2)]  minimum one of the Transformations I,II or III as defined in \cite{barents21} (namely filter, map or reduce operator) is functioning.
+        \item[(R2)]  minimum one of the Transformations I,II or III as defined in \ref{barents} (namely filter, map or reduce operator) is functioning.
         \item[(R3)] Created ontologies can be saved.
         \item[(R4)] Has a data-processing-engine, which processes data according to the ontology.
         \item[(R5)] Our prototype should be functioning with at least one database type. We chose relational databases, since we are most familiar with that.
@@ -213,7 +212,7 @@ The Barents paper is organized as follows: Section 2 discusses the background of
         Our prototype is supposed to be a proof of concept for the utility of a GUI that allows users to create a configuration file following the BARENTS specifications. 
         It is worth noting that BARENTS was conceived for the purpose of data provisioning in data lakes.
         Our prototype will only support data provisioning in select relational databases. 
-        This allows for both the desired proof of concept, while keeping the scale much for feasible.
+        This allows for both the desired proof of concept, while keeping the scale much more feasible.
 
     \subsection{Data Access and the Expanded BARENTS Ontology}
         In the BARENTS ontology as described by Stach et al.~\cite{barents21} data features are represented by resources in the ontology.
@@ -224,7 +223,7 @@ The Barents paper is organized as follows: Section 2 discusses the background of
         Considering the scope of this project, we opted to omit the Management Zone.
         As such there is no data catalogue for our prototype to reference. 
         Therefore we require the user to provide both a database location, as well as a table within that database. 
-        This information is the modeled as two seperate literals.
+        This information is then modeled as two seperate literals.
 
         Finally, we provide an instance of this expanded BARENTS ontology in \autoref{BARENTS-instance-pyramid}.
         \begin{figure}[h]
@@ -251,7 +250,7 @@ Our UI adopts a minimalistic design.
 The layout is divided into a canvas, making up most of the screen space, along with a left, right and top bar. 
 Our goal was to minimize the number of buttons and give them a reasonable size to ensure simplicity and a good user experience. 
 
-The left bar contains only four buttons, which are the buttons for the addition of source, transformation, sink and part of Relationship arrows. Each button is
+The left bar contains only four buttons, which are the buttons for the addition of source, transformation, sink and "part of" Relationship arrows. Each button is
 represented with a corresponding symbol, making it easier for
 the user to understand and differentiate between the nodes in the
 canvas.
@@ -341,7 +340,7 @@ a run transformation function shown in Listing \ref{listing} is called,
 and queries the RDF graph to identify the transformation type in the Information layer.
 In our backend, we  only implemented a dynamic filter operation that leverages Python lambda functions, giving the user a wide range of filtering criteria.
 
-We start the filtering operation by extracting relevant MetaData. We identify with the help of rdflib Sink Table(target Table), its corresponding Database, and the user-specified lambda expression. As a transformation can have multiple Data Sources, we identify the ones connected to the transformation and store them in a set. We later on establish connections with the help of sqlite3 library in Python to all the Databases that we extracted.
+We start the filtering operation by extracting relevant MetaData. We identify with the help of rdflib Sink Table (target Table), its corresponding Database, and the user-specified lambda expression. As a transformation can have multiple Data Sources, we identify the ones connected to the transformation and store them in a set. We later on establish connections with the help of sqlite3 library in Python to all the Databases that we extracted.
 \lstset{
     language=Python,
     basicstyle=\ttfamily\footnotesize,  % Smaller font size
@@ -389,15 +388,15 @@ As we store the relevant Data Sources in a set, we iterate through each one and 
 
 \section{Evaluation - Requirements Fulfillment}
     In this section, we evaluate our project towards or previously set requirements in Section 3.
-    For the easy-to-use requirement R1, we kept our UI design minimalistic, used the least amount of buttons, and only kept features that are relevant to the creation of Ontology. These decisions were taken based on the review of other ontology editors that were hard to understand or had unnecessary features for our project, that would overcomplicate things for domain experts.
-    Moreover, the R3 requirement is fulfilled, as the user can save the created ontologies graphs in various formats, giving flexibility for future Developers to design their own Data Processing engine, that does not only have work RDF/XML files
+    For the easy-to-use requirement R1, we kept our UI design minimalistic, used the least amount of buttons, and only kept features that are relevant to the creation of an Ontology. These decisions were taken based on the review of other ontology editors that were hard to understand or had unnecessary features for our project, which would overcomplicate things for domain experts.
+    Moreover, the R3 requirement is fulfilled, as the user can save the created ontologies graphs in various formats, giving flexibility for future Developers to design their own Data Processing engine, that does not only have work RDF/XML files.
 
-    We have built a small data-processing-engine, that can process data according to the ontology, and utilizes SQLite to transform relational databases. The Transformation I, namely filter has been implemented in our engine. However, the filter functionality is limited, as it only works for sqlite Databases.It can be stated that requirements R4 create a data-processing engine, R5 prototype works with at least one relational database, and R2 implementing Transformation I, are fulfilled.
+    We have built a small data-processing-engine, that can process data according to the ontology, and utilizes SQLite to transform relational databases. The Transformation I, namely filter has been implemented in our engine. However, the filter functionality is limited, as it only works for sqlite Databases. It can be stated that requirements R4 (create a data-processing engine), R5 (prototype works with at least one relational database) and R2 (implementing Transformation I) are fulfilled.
 
 \section{Conclusion}
 Our paper presents a proof of concept for the utility of a GUI that allows users to create a configuration file following the BARENTS specifications. \newline
 We evaluated other ontology editors and determined that developing our own UI is more efficient, although it would mean a larger workload. Our BARENTS UI can now create an RDF graph with an expanded BARENTS ontology easily for the user and export it. The data processing engine can now process Transformation I (filter). \newline
-However, for future projects, one could extend the processing engine to Transformations II (map) and III (reduce) and improve compatibility with other databases.  
+For future projects, one could extend the processing engine to Transformations II (map) and III (reduce) and improve compatibility with other databases.  
 
 %% The next two lines define the bibliography style to be used, and
 %% the bibliography file.
