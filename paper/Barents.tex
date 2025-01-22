@@ -58,9 +58,9 @@
 \section{Introduction}
 In our modern society, data is more important than it has been ever before. Whether for day to day applications like navigation or social media, chatbots like ChatGPT, that are recently open to the public, or even in different study fields like molecular biotechnology using genomics data, many need some form of data. \newline
 To allow all sort of domain experts to access that data without needing a deep understanding of databases, we want to create a prototype, an editor, for the concept BARENTS. BARENTS "enables users to model in an ontology how to derive information from data and assign the information to use cases" \cite{barents21}. The users are not required to understand the background process, only the basic steps. \newline
-The Barents paper is organized as follows: Section 2 discusses the background of Barents and its overall concept. Section 3 discusses our requirement specification for building the prototype BARENTS. Section 4 evaluates ontology editors and whether they can be used for the BARENTS prototype. Section 5 outlines the prototype implementation and the structure of the frontend and backend system. In section 6 we evaluate our requirement specification from section 3. Finally, in Section 7 we conclude and summarize our work.
+The Barents paper is organized as follows: Section \ref{Section2} discusses the background of Barents and its overall concept. Section \ref{Section3} discusses our requirement specification for building the prototype BARENTS. Section \ref{Section4} evaluates ontology editors and whether they can be used for the BARENTS prototype. Section \ref{Section5} outlines the prototype implementation and the structure of the frontend and backend system. In Section \ref{Section6} we evaluate our requirement specification from Section \ref{Section3}. Finally, in Section 7 we conclude and summarize our work.
 
-\section{Background}
+\section{Background}\label{Section2}
 \label{background}
 
     We want to develop our Editor with the concept BARENTS. In this section we will have a closer look at BARENTS and introduce a scenario, in which our Editor might be of use: testing chocolate samples for nut allergens. This section \ref{background} including its pictures is mainly based on papers by Stach et al.\cite{barents21} and \cite{barents22}.
@@ -142,7 +142,7 @@ The Barents paper is organized as follows: Section 2 discusses the background of
 
 
 
-\section{Requirement Specification}
+\section{Requirement Specification}\label{Section3}
     \begin{enumerate}
         \item[(R1)] Our goal is an Easy-to-use GUI for domain experts, with which they can create ontologies.
         \item[(R2)]  minimum one of the Transformations I,II or III as defined in \ref{barents} (namely filter, map or reduce operator) is functioning.
@@ -154,7 +154,7 @@ The Barents paper is organized as follows: Section 2 discusses the background of
     %% dieses Kapitel optional
 
 
-\section{Implementation}
+\section{Implementation}\label{Section4}
     \subsection{Discussion on own implementation vs. existing tools}
         \subsubsection{OWLGrEd}
             OWLGrEd \cite{owlgred} is a free graphical editor for OWL ontologies in UML style \cite{owlgredW3}. 
@@ -207,7 +207,7 @@ The Barents paper is organized as follows: Section 2 discusses the background of
         Due to the various problems of modifying existing editors, we finally decided to implement an editor ourselves.
 
 
-\section{Prototyping}
+\section{Prototyping}\label{Section5}
     \subsection{Scope of the Prototype}
         Our prototype is supposed to be a proof of concept for the utility of a GUI that allows users to create a configuration file following the BARENTS specifications. 
         It is worth noting that BARENTS was conceived for the purpose of data provisioning in data lakes.
@@ -386,7 +386,7 @@ As we store the relevant Data Sources in a set, we iterate through each one and 
   \label{sequence}
 \end{figure}
 
-\section{Evaluation - Requirements Fulfillment}
+\section{Evaluation - Requirements Fulfillment}\label{Section6}
     In this section, we evaluate our project towards or previously set requirements in Section 3.
     For the easy-to-use requirement R1, we kept our UI design minimalistic, used the least amount of buttons, and only kept features that are relevant to the creation of an Ontology. These decisions were taken based on the review of other ontology editors that were hard to understand or had unnecessary features for our project, which would overcomplicate things for domain experts.
     Moreover, the R3 requirement is fulfilled, as the user can save the created ontologies graphs in various formats, giving flexibility for future Developers to design their own Data Processing engine, that does not only have work RDF/XML files.
