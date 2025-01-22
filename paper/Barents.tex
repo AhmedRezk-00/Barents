@@ -394,13 +394,7 @@ As we store the relevant Data Sources in a set, we iterate through each one and 
     We have built a small data-processing-engine, that can process data according to the ontology, and utilizes SQLite to transform relational databases. The Transformation I, namely filter has been implemented in our engine, however, the full functionality of the filter operation is limited by....(name limitations). However, we can say that requirements R4 create a data-processing engine, R5 prototype works with at least one relational database, and R2 implementing Transformation I, are partially fulfilled.
 
 \section{Conclusion}
-    Virtual data will only increase in importance in the future. 
-    In order to get the most profit out of it, we need to manage it efficiently.
-    We have developed a tailorable data preparation zone for data lakes called BARENTS that for demand-driven data management.
-    We firstly described the concept of BARNETS and explained what makes it so important.
-    Then we explained how we implemented our application and why we decided to implement ourselves, without plugins.
-    BARENTS performs efficiently, and fulfills all criteria for good data preparation.
-    Our implementation has been a succes and we look forward to further plugins or extensions of our appliction.
+Our paper presents a proof of concept for the utility of a GUI that allows users to create a configuration file following the BARENTS specifications. We evaluated other ontology editors and determined that developing our own UI is more efficient, although it would mean a larger workload. Our BARENTS UI can now create an RDF graph with an expanded BARENTS ontology easily for the user and export it. The data processing engine can now process Transformation I (filter). However, for future projects, one could extend the processing engine to Transformations II (map) and III (reduce) and improve compatibility with other databases.  
 
 %% The next two lines define the bibliography style to be used, and
 %% the bibliography file.
