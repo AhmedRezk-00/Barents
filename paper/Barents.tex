@@ -354,10 +354,12 @@ One of the key challenges in developing the backend system is parsing through th
 \label{rdf_parsing}
 \end{figure}
 \subsubsection{Filter Operation}
+Before calling any of the transformation operation,
+a run transformation function shown in Listing \ref{listing} is called,
+and queries the RDF graph to identify the transformation type in the Information layer.
+In our backend, we  only implemented a dynamic filter operation that leverages Python lambda functions, giving the user a wide range of filtering criteria.
 
-For our backend, we implemented a dynamic filter operation that leverages Python lambda functions, giving the user a wide range of filtering criteria.
-
-We start the filtering operation by extracting relevant MetaData as shown in Listing \ref{lst:filter_metadata}. We identify with the help of rdflib Sink Table(target Table), its corresponding Database, and the user-specified lambda expression. As a transformation can have multiple Data Sources, we identify the ones connected to the transformation and store them in a set. We later on establish connections with the help of sqlite3 library in Python to all the Databases that we extracted.
+We start the filtering operation by extracting relevant MetaData. We identify with the help of rdflib Sink Table(target Table), its corresponding Database, and the user-specified lambda expression. As a transformation can have multiple Data Sources, we identify the ones connected to the transformation and store them in a set. We later on establish connections with the help of sqlite3 library in Python to all the Databases that we extracted.
 \lstset{
     language=Python,
     basicstyle=\ttfamily\footnotesize,  % Smaller font size
@@ -380,7 +382,7 @@ We start the filtering operation by extracting relevant MetaData as shown in Lis
 }
 
 
-\begin{lstlisting}[caption={Transformation function}, label={lst:filter_metadata}]
+\begin{lstlisting}[caption={Transformation function}, label={listing}]
     def run_transformation(transformation, sources):
     transformation_type = rdf_graph.value(transformation, dl.type).strip()
     match transformation_type:
@@ -408,7 +410,7 @@ As we store the relevant Data Sources in a set, we iterate through each one and 
     For the easy-to-use requirement R1, we kept our UI design minimalistic, used the least amount of buttons, and only kept features that are relevant to the creation of Ontology. These decisions were taken based on the review of other ontology editors that were hard to understand or had unnecessary features for our project, that would overcomplicate things for domain experts.
     Moreover, the R3 requirement is fulfilled, as the user can save the created ontologies graphs in various formats, giving flexibility for future Developers to design their own Data Processing engine, that does not only have work RDF/XML files
 
-    We have built a small data-processing-engine, that can process data according to the ontology, and utilizes SQLite to transform relational databases. The transformation I, namely filter has been implemented in our engine, however, the full functionality of the filter operation is limited by....(name limitations). However, we can say that requirements R4 create a data-processing engine, R5 prototype works with at least one relational database, and R2 implementing Transformation I, are partially fulfilled.
+    We have built a small data-processing-engine, that can process data according to the ontology, and utilizes SQLite to transform relational databases. The Transformation I, namely filter has been implemented in our engine, however, the full functionality of the filter operation is limited by....(name limitations). However, we can say that requirements R4 create a data-processing engine, R5 prototype works with at least one relational database, and R2 implementing Transformation I, are partially fulfilled.
 
 \section{Conclusion}
     Virtual data will only increase in importance in the future. 
