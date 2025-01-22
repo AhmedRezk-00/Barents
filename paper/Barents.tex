@@ -376,7 +376,7 @@ We start the filtering operation by extracting relevant MetaData. We identify wi
                         
 \end{lstlisting}
 
-As we store the relevant Data Sources in a set, we iterate through each one and execute an SQL command to select all rows from the table in the source database and apply the filter function, which is the lambda function to every row of the table. If the function returns True the row is kept and inserted into the designated sink table, through an SQL command.
+As we store the relevant Data Sources in a set, we iterate through each one and execute an SQL command to select all rows from the table in the source database and apply the filter function, which is the lambda function to every row of the table. If the function returns True the row is kept and inserted into the designated sink table, through an SQL command. \autoref{sequence} illustrates the Process. 
 
 \begin{figure}[h]
   \centering
@@ -387,11 +387,11 @@ As we store the relevant Data Sources in a set, we iterate through each one and 
 \end{figure}
 
 \section{Evaluation - Requirements Fulfillment}\label{Section6}
-    In this section, we evaluate our project towards or previously set requirements in Section 3.
-    For the easy-to-use requirement R1, we kept our UI design minimalistic, used the least amount of buttons, and only kept features that are relevant to the creation of an Ontology. These decisions were taken based on the review of other ontology editors that were hard to understand or had unnecessary features for our project, which would overcomplicate things for domain experts.
-    Moreover, the R3 requirement is fulfilled, as the user can save the created ontologies graphs in various formats, giving flexibility for future Developers to design their own Data Processing engine, that does not only have work RDF/XML files.
+    In this section, we evaluate our project towards or previously set requirements in Section \ref{Section3}.
+    For the easy-to-use requirement \hyperref[Section3]{R1}, we kept our UI design minimalistic, used the least amount of buttons, and only kept features that are relevant to the creation of an Ontology. These decisions were taken based on the review of other ontology editors that were hard to understand or had unnecessary features for our project, which would overcomplicate things for domain experts.
+    Moreover, the \hyperref[Section3]{R3} requirement is fulfilled, as the user can save the created ontologies graphs in various formats, giving flexibility for future Developers to design their own Data Processing engine, that does not only have work RDF/XML files.
 
-    We have built a small data-processing-engine, that can process data according to the ontology, and utilizes SQLite to transform relational databases. The Transformation I, namely filter has been implemented in our engine. However, the filter functionality is limited, as it only works for sqlite Databases. It can be stated that requirements R4 (create a data-processing engine), R5 (prototype works with at least one relational database) and R2 (implementing Transformation I) are fulfilled.
+    We have built a small data-processing-engine, that can process data according to the ontology, and utilizes SQLite to transform relational databases. The Transformation I, namely filter has been implemented in our engine. However, the filter functionality is limited, as it only works for sqlite Databases. It can be stated that requirements \hyperref[Section3]{R4} (create a data-processing engine), \hyperref[Section3]{R5} (prototype works with at least one relational database) and \hyperref[Section3]{R2} (implementing Transformation I) are fulfilled.
 
 \section{Conclusion}
 Our paper presents a proof of concept for the utility of a GUI that allows users to create a configuration file following the BARENTS specifications. \newline
