@@ -179,8 +179,8 @@ The Barents paper is organized as follows: Section 2 discusses the background of
             Our problem with WebVowl was that there is a lack of information about the structure of the code.
             This lack of context made it really difficult, for us, to edit or extend the source code.
         \subsubsection{Protégé}
-            Protégé is an open Source ontology editor\cite{musen2015protege}. One if it main core features that you can extend it functionality by building your own plugins. However after carefully examining and using Protégé, we determine that the UI is complex, as requires us to watch multiple tutorials just to navigate and use it effectively, which goes against our easy-to-use requirement (R1).
-            Moreover, the process of developing Protégé plugin is not clear and the some of the available information became outdated or is no longer accessible. 
+            Protégé is an open Source ontology editor\cite{musen2015protege}. One of its main core features that you can extend its functionality by building your own plugins. However after carefully examining and using Protégé, we determine that the UI is complex, as it requires us to watch multiple tutorials just to navigate and use it effectively, which goes against our easy-to-use requirement (R1).
+            Moreover, the process of developing a Protégé plugin is not clear and the some of the available information became outdated or is no longer accessible. 
         \subsubsection{CoModIDE}
             CoModIDE is a plugin for Protégé, that allows users to create and edit ontologies graphically\cite{shimizu2019comodide}. With its drag-and-drop functions, creating and editing ontologies is relatively easy. However, the Problem with CoModIDE is that it models RDF graphs in a very general way, which means that not all available features are easily applicable to BARENTS and are not tailored to domain experts.  
         \subsubsection{implementing ourselves}
@@ -205,6 +205,7 @@ The Barents paper is organized as follows: Section 2 discusses the background of
             \caption{Comparison of Ontology Editors discussed}
             \label{Editor-table}
         \end{table}
+        Due to the various problems of modifying existing editors, we finally decided to implement an editor ourselves.
 
 
 \section{Prototyping}
@@ -394,7 +395,9 @@ As we store the relevant Data Sources in a set, we iterate through each one and 
     We have built a small data-processing-engine, that can process data according to the ontology, and utilizes SQLite to transform relational databases. The Transformation I, namely filter has been implemented in our engine, however, the full functionality of the filter operation is limited by....(name limitations). However, we can say that requirements R4 create a data-processing engine, R5 prototype works with at least one relational database, and R2 implementing Transformation I, are partially fulfilled.
 
 \section{Conclusion}
-Our paper presents a proof of concept for the utility of a GUI that allows users to create a configuration file following the BARENTS specifications. We evaluated other ontology editors and determined that developing our own UI is more efficient, although it would mean a larger workload. Our BARENTS UI can now create an RDF graph with an expanded BARENTS ontology easily for the user and export it. The data processing engine can now process Transformation I (filter). However, for future projects, one could extend the processing engine to Transformations II (map) and III (reduce) and improve compatibility with other databases.  
+Our paper presents a proof of concept for the utility of a GUI that allows users to create a configuration file following the BARENTS specifications. \newline
+We evaluated other ontology editors and determined that developing our own UI is more efficient, although it would mean a larger workload. Our BARENTS UI can now create an RDF graph with an expanded BARENTS ontology easily for the user and export it. The data processing engine can now process Transformation I (filter). \newline
+However, for future projects, one could extend the processing engine to Transformations II (map) and III (reduce) and improve compatibility with other databases.  
 
 %% The next two lines define the bibliography style to be used, and
 %% the bibliography file.
