@@ -377,7 +377,7 @@ We start the filtering operation by extracting relevant MetaData. We identify wi
     xrightmargin=0.5cm  % Adjust right margin
 }
 
-
+\begin{minipage}{\columnwidth}
 \begin{lstlisting}[caption={Transformation function}, label={listing}]
     def run_transformation(transformation, sources):
     transformation_type = rdf_graph.value(transformation, dl.type).strip()
@@ -390,6 +390,7 @@ We start the filtering operation by extracting relevant MetaData. We identify wi
             reduce(transformation,sources)#TODO
                         
 \end{lstlisting}
+\end{minipage}
 
 As we store the relevant Data Sources in a set, we iterate through each one and execute an SQL command to select all rows from the table in the source database and apply the filter function, which is the lambda function to every row of the table. If the function returns True the row is kept and inserted into the designated sink table, through an SQL command. \autoref{sequence} illustrates the Process. 
 
