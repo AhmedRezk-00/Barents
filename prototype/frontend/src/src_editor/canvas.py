@@ -132,7 +132,7 @@ def on_click(event, canvas):
                         if(swap == "swap" or swap == "dont swap"):
                             x1, y1 = Coords1[0] + 10, Coords1[1] + 55  
                             x2, y2 = Coords2[0] , Coords2[1] - 45  
-                            line = canvas.create_line(x1, y1, x2, y2, fill="#4a90e2", width=2, arrow="last",arrowshape=(16, 20, 6), dash=(10, 4), tags=f"line tag:{id2} tag:{id1}",smooth=True)
+                            line = canvas.create_line(x1, y1, x2, y2, fill="#4a90e2", width=2, arrow="last",arrowshape=(16, 20, 6), dash=(10, 4), tags=f"line tag:{id2} tag:{id1}",smooth=True) #creates the arrow
                             lines[(id1, id2)] = line
                             lines_swapped[line] = False
                     src.shared_resources.part_of_set = set()
@@ -202,9 +202,10 @@ def default_on_drag(event, canvas):
                     if lines_swapped[line]==False:
                         x1, y1 = coords1[0]+10, coords1[1]+55 
                         x2, y2 = coords2[0], coords2[1]-45 
-
+                    #x3 and y3 create the curvature for the arrow
                     x3=(coords1[0]+coords2[0])/2
                     y3=((coords1[1]+coords2[1])/2)-50
+
                     canvas.coords(line, x1, y1,x3,y3, x2, y2)
 
 #issue12: checks and potentially moves data_source-x-value within canvas-borders

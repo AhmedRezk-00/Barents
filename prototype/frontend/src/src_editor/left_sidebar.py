@@ -23,6 +23,7 @@ DataSink_Img=ctk.CTkImage(light_image=Image.open(DataSinkPath),
 Transformation_Img=ctk.CTkImage(light_image=Image.open(Transformations),
                                   dark_image=Image.open(Transformations),
                                   size=(60, 60))
+#function that resizes the images to be able to appear on the canvas
 def canvas_images():
     global DataSource_Canvas, DataSink_canvas, Transformation_Canvas
     DataSource_Canvas = ImageTk.PhotoImage(Image.open(path_Source).resize((100, 100)))
@@ -62,41 +63,35 @@ def create_left_sidebar(root):
     part_of_button = ctk.CTkButton(frame,text='Set Part Of Relationships',image=Arrow_Img,compound="top",fg_color="#333333", command=(lambda: toggle_part_of()),hover_color="#4a90e2" ,font=("Helvetica", 12),corner_radius=30)
     part_of_button.grid(column=0, row=3, sticky='nsew', pady=10)
 
-# function to create rectangle to represent data source on canvas and add data source to rdf graph
+# function to creates data source and adds its corresponding image to the canvas 
 def add_data_source():
-    rectangle_x1 = src.shared_resources.canvas.canvasx(200)
-    #rectangle_x2 = src.shared_resources.canvas.canvasx(250)
-    rectangle_y1 = src.shared_resources.canvas.canvasy(150)
-    #rectangle_y2 = src.shared_resources.canvas.canvasy(200)
-    square = src.shared_resources.canvas.create_image(rectangle_x1, rectangle_y1, tags='resource',image=DataSource_Canvas)
-    rdf_manager.add_data_source(square)
-    name = rdf_manager.resource_dictionary[square]
-    src.shared_resources.canvas.create_text(rectangle_x1, rectangle_y1+60, text=name, tags=f"tag:{square}")
+    DataSource_x1 = src.shared_resources.canvas.canvasx(200)
+    DataSource_y1 = src.shared_resources.canvas.canvasy(150)
+    DataSource = src.shared_resources.canvas.create_image(DataSource_x1, DataSource_y1, tags='resource',image=DataSource_Canvas)
+    rdf_manager.add_data_source(DataSource)
+    name = rdf_manager.resource_dictionary[DataSource]
+    src.shared_resources.canvas.create_text(DataSource_x1, DataSource_y1+60, text=name, tags=f"tag:{DataSource}")
 
-# function to add data sink to rdf graph and rectangle to represent it on canvas
+# function to add data sink to rdf graph and and a corresponding image to represent it on canvas
 def add_data_sink():
-    rectangle_x1 = src.shared_resources.canvas.canvasx(200)
-    #rectangle_x2 = src.shared_resources.canvas.canvasx(250)
-    rectangle_y1 = src.shared_resources.canvas.canvasy(450)
-    #rectangle_y2 = src.shared_resources.canvas.canvasy(200)
-    square = src.shared_resources.canvas.create_image(rectangle_x1, rectangle_y1,image=DataSink_canvas,tags='resource')
-    rdf_manager.add_data_sink(square)
-    name = rdf_manager.resource_dictionary[square]
-    src.shared_resources.canvas.create_text(rectangle_x1, rectangle_y1+60, text=name, tags=f"tag:{square}")
+    DataSink_x1 = src.shared_resources.canvas.canvasx(200)
+    DataSink_y1 = src.shared_resources.canvas.canvasy(450)
+    DataSink = src.shared_resources.canvas.create_image(DataSink_x1, DataSink_y1,image=DataSink_canvas,tags='resource')
+    rdf_manager.add_data_sink(DataSink)
+    name = rdf_manager.resource_dictionary[DataSink]
+    src.shared_resources.canvas.create_text(DataSink_x1, DataSink_y1+60, text=name, tags=f"tag:{DataSink}")
 
-# function to add transformation to rdf graph and rectangle to represent it on canvas
+# function to add transformation to rdf graph and a corresponding image to represent it on canvas
 def add_transformation():
-    rectangle_x1 = src.shared_resources.canvas.canvasx(200)
-    #rectangle_x2 = src.shared_resources.canvas.canvasx(250)
-    rectangle_y1 = src.shared_resources.canvas.canvasy(300)
-    #rectangle_y2 = src.shared_resources.canvas.canvasy(200)
-    square = src.shared_resources.canvas.create_image(rectangle_x1, rectangle_y1,image=Transformation_Canvas,tags='resource')
-    rdf_manager.add_transformation(square)
-    name = rdf_manager.resource_dictionary[square]
-    src.shared_resources.canvas.create_text(rectangle_x1, rectangle_y1+60, text=name, tags=f"tag:{square}")
+    Transformation_x1 = src.shared_resources.canvas.canvasx(200)
+    Transformation_y1 = src.shared_resources.canvas.canvasy(300)
+    Transformation = src.shared_resources.canvas.create_image(Transformation_x1, Transformation_y1,image=Transformation_Canvas,tags='resource')
+    rdf_manager.add_transformation(Transformation)
+    name = rdf_manager.resource_dictionary[Transformation]
+    src.shared_resources.canvas.create_text(Transformation_x1, Transformation_y1+60, text=name, tags=f"tag:{Transformation}")
 
-# function to enter part_of mode, changes color of canvas
-def toggle_part_of():
+# function to enter part_of mode, changes color of canvas, and show instructions
+def toggle_part_of():  
     src.shared_resources.part_of_set = set()
     if src.shared_resources.editor_mode == 'part_of':
         src.shared_resources.canvas.config(bg='white')

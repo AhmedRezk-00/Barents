@@ -14,6 +14,7 @@ function_entry_text = None
 source_entry_text = None
 # data zone literal of currently selected knowledge level resource
 zone_entry_text = None
+
 FONT = ("Helvetica", 16)
 SMALLFONT = ("Helvetica", 12)
 BIGFONT = ("Helvetica", 16, "bold")
@@ -155,7 +156,7 @@ def create_knowledge_layer_panel(root):
     sink_location_button = ctk.CTkButton( root ,fg_color="#1f538d", text='Update DB Location',font=SMALLFONT, command=(lambda: set_location(resource_dictionary[current_resource_id], getFilePath())),corner_radius=30)
     sink_location_button.grid(row=4, column=0, sticky='nesw',pady=10,padx=10)
 
-#issue 96: returns path of sqlite-file choosen by file dialogue
+#issue 96: returns path of sqlite-file chosen by file dialogue
 def getFilePath():
     filePath = filedialog.askopenfilename(title="Choose location for your resource", filetypes=[("sqlite3 databases", "*.sqlite3"),
                                                                                                ("sqlite databases", "*.sqlite"), 
