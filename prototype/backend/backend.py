@@ -1,7 +1,7 @@
-
+import sys
 import sqlite3 as sql
 import rdflib as rdf
-
+rdf_location= sys.argv[1]
 rdf_graph = rdf.Graph()
 dl = rdf.Namespace("http://barents.dl/")
 rdf_graph.bind("dl", dl)
@@ -11,7 +11,7 @@ data_layer = rdf.Literal("Data Layer")
 
 def process_rdf(rdf_location):
 
-    setup_chocolate_db()
+    #setup_chocolate_db()
     rdf_graph.parse(rdf_location)
     # create list of sources 
     sources = set()
@@ -58,30 +58,6 @@ def run_transformation(transformation, sources):
         case _:
             print('unsupported filter type')
 
-def setup_chocolate_db():
-    con = sql.connect("C:/Users/UNI/Desktop/Database/candy.db")
-    cur = con.cursor()
-
-    # Drop the table if it exists
-    cur.execute("DROP TABLE IF EXISTS chocolate")
-    
-    cur.execute("CREATE TABLE IF NOT EXISTS chocolate(name, hazelnut, walnut)")
-    cur.execute("""INSERT INTO chocolate VALUES
-                ('plain chocolate', false, false),
-                ('hazelnut chocolate', true, false),
-                ('walnut chocolate', false, true)
-                """)
-    
-    # Print the table contents
-    print("\nChocolate Table Contents:")
-    cur.execute("SELECT * FROM chocolate")
-    rows = cur.fetchall()
-    for row in rows:
-        print(row)
-    
-    con.commit()
-    con.close()
-
 def filter(transformation, sources):
     sink = rdf_graph.value(transformation, dl.partOf)
     sinkColumn = str(sink).split('/')[-1]
@@ -97,30 +73,30 @@ def filter(transformation, sources):
         con_sink = sql.connect(sinkDB)
         cur_source = con_source.cursor()
         cur_sink = con_sink.cursor()
-
+        #retrieve all rows from the source table 
         cur_source.execute(f"SELECT * from {source_db[1]}")
-        # filter rows
         rows = cur_source.fetchall()
+         
         filter_function = eval(lambda_function)
+        #rows that are true according to the filter function are kept
         filter =[row for row in rows if filter_function(row)]
+        #copying the table structure from the source table 
         cur_source.execute(f"SELECT sql FROM sqlite_master WHERE type='table' AND name='{source_db[1]}'")
         create_table_sql = cur_source.fetchone()
+        #creating the sink table 
         check_for_table = create_table_sql[0].replace('CREATE TABLE', 'CREATE TABLE IF NOT EXISTS')
         check_for_table = check_for_table.replace(source_db[1], sinkTable)
         cur_sink.execute(check_for_table)
-        placeholders = ', '.join(['?'] * len(filter[0])) if filter else ''
-      # if row returns true for any of the lambda functions, remove row 
-        cur_sink.executemany(f"INSERT INTO {sinkTable} VALUES ({placeholders})", filter)
+        #inserting the filtered rows into the sink table 
+        for row in filter:
+            cur_sink.execute(f"INSERT INTO {sinkTable} VALUES {row}")
         
+
         con_source.commit()
         con_sink.commit()
 
         con_source.close()
         con_sink.close()
 
-    
-##set up the process RDF button at the begining of the code
-if __name__ == "__main__":
-    # Provide the path to your RDF file
-    rdf_file_path = "C:/Users/UNI/Desktop/names.xml"
-    process_rdf(rdf_file_path)
+
+process_rdf(rdf_location)
