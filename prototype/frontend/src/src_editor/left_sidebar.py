@@ -58,7 +58,7 @@ def create_left_sidebar(root):
     transformation_button = ctk.CTkButton( frame,text='Transformation',image=Transformation_Img,compound="top", fg_color="#333333",command=(lambda: add_transformation()),hover_color="#4a90e2",font=("Helvetica", 12),corner_radius=30)
     transformation_button.grid(column=0, row=1, sticky='nsew', pady=10)
 
-    # button to add partof relationships. currently non functional
+    # button to add partof relationships. 
     global part_of_button
     part_of_button = ctk.CTkButton(frame,text='Set Part Of Relationships',image=Arrow_Img,compound="top",fg_color="#333333", command=(lambda: toggle_part_of()),hover_color="#4a90e2" ,font=("Helvetica", 12),corner_radius=30)
     part_of_button.grid(column=0, row=3, sticky='nsew', pady=10)
