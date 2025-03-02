@@ -3,7 +3,7 @@
 
 Dieses Repository realisiert im Rahmen eines Bachelor-Forschungsprojekts an der Universität Stuttgart einen Prototyp bezüglich des papers ["Demand-Driven Data Provisioning in DataLakes: BARENTS — A Tailorable Data Preparation Zone"](https://www.ipvs.uni-stuttgart.de/departments/as/publications/stachch/iiwas_21_barents.pdf).
 
-## Autoren
+## Authors
 
 | Name        | Matrikelnummer | e-mail   | Studiengang             |
 | ----------- | -------------- | -------- | ----------------------- |
@@ -12,9 +12,9 @@ Dieses Repository realisiert im Rahmen eines Bachelor-Forschungsprojekts an der 
 | Tabea Steeb | 3315718        | st156637 | B. Sc. Informatik       |
 | Ahmed Rezk  | 3391499        | st163697 | B. Sc. Informatik       |
 
-## Projekt
+## Description
 For the research project we created a prototype.
-A GUI that lets users create an RDF graph based on BARENTS Ontology and a prototype backend that processes the RDF graph.
+A GUI that lets users create an RDF graph based on BARENTS ontology and a prototype backend that processes the RDF graph.
 Both can be found in the folder prototype.  
 There are three mockups that were used to test the graphical and logical implementation of the GUI.
 for more Info: [Mockups](mockups/README.md)
@@ -47,3 +47,8 @@ for more Info: [Mockups](mockups/README.md)
    ```
 
    Note: Replace `python` with `python3` if your system uses that command instead.
+
+## Usage
+1. Create the RDF graph with GUI.
+2. To save the Graph press the "Export" button.
+3. To process an RDF graph press the "Process RDF" button and navigate to the RDF/XML file
