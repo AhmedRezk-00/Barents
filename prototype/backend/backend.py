@@ -1,6 +1,7 @@
 import sys
 import sqlite3 as sql
 import rdflib as rdf
+import re
 rdf_location= sys.argv[1]
 rdf_graph = rdf.Graph()
 dl = rdf.Namespace("http://barents.dl/")
@@ -76,7 +77,23 @@ def filter(transformation, sources):
         #retrieve all rows from the source table 
         cur_source.execute(f"SELECT * from {source_db[1]}")
         rows = cur_source.fetchall()
-         
+
+        
+        column_dictionary ={}
+        cur_source.execute(f"PRAGMA table_info({source_db[1]})")
+        columns= cur_source.fetchall()
+        for col in columns:
+            index=col[0]
+            name= col[1]
+            column_dictionary[name]=index
+    
+        for name,index in column_dictionary.items():
+            pattern = re.escape(f'.{name}')
+            lambda_function =re.sub(pattern,f'[{index}]',lambda_function)
+            
+        
+
+
         filter_function = eval(lambda_function)
         #rows that are true according to the filter function are kept
         filter =[row for row in rows if filter_function(row)]
@@ -90,8 +107,8 @@ def filter(transformation, sources):
         #inserting the filtered rows into the sink table 
         for row in filter:
             cur_sink.execute(f"INSERT INTO {sinkTable} VALUES {row}")
+        print(sinkTable)
         
-
         con_source.commit()
         con_sink.commit()
 

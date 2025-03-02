@@ -103,7 +103,7 @@ def toggle_part_of():
         src.shared_resources.set_editor_mode('part_of')
         src.shared_resources.canvas.config(bg='lightblue')
         part_of_button.configure(text='Exit Part Of Mode')
-        text_canvas_1="\nPossible Combinations:\nData Source-->Transformation\nTransformation-->Data Sink\nData Sink-->Transformation"
+        text_canvas_1="\nPossible Combinations:\nData Source-->Transformation\nTransformation-->Data Sink"
         src.shared_resources.canvas.create_text(800,675,text=text_canvas_1, fill='black', font=("Helvetica", 14), tags='text_for_canvas_1')
         text_canvas_2="Click on items to establish 'part of' relationships."
         src.shared_resources.canvas.create_text(475,70,text=text_canvas_2, fill='black', font=("Helvetica", 14), tags='text_for_canvas_2')
