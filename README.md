@@ -12,24 +12,38 @@ Dieses Repository realisiert im Rahmen eines Bachelor-Forschungsprojekts an der 
 | Tabea Steeb | 3315718        | st156637 | B. Sc. Informatik       |
 | Ahmed Rezk  | 3391499        | st163697 | B. Sc. Informatik       |
 
-## Projekte 
-Im Rahmen des Forschungsprojekts erstellen wir einen Prototyp.
-Dieser ist im entsprechendenden Ordner, "prototype", zu finden. 
-Dazu gehört ein Frontend, mit dem RDF-Ontologien erstellt werden können und ein backend, welches diese Ontologien verarbeiten kann.
-
-Es gibt drei Mockups, mit denen graphische und logische Umsetzung des GUIs getestet wurde. 
-Mehr Infos: [Mockups](mockups/README.md)
+## Projekt
+For the research project we created a prototype.
+A GUI that lets users create an RDF graph based on BARENTS Ontology and a prototype backend that processes the RDF graph.
+Both can be found in the folder prototype.  
+There are three mockups that were used to test the graphical and logical implementation of the GUI.
+for more Info: [Mockups](mockups/README.md)
 
 ## Setup
 
-### Depenencies, etc.
-Wir verwenden verschiedene Libraries: rdflib, customtkinter, PIL.
-Sind diese noch nicht installiert, dann führe folgende Befehle im Terminal aus:
-pip install rdflib
-pip install customtkinter
-pip install pillow
+### Dependencies and Requirements
+- Python 3.7 or higher
+- External packages (need installation):
+  - customtkinter
+  - rdflib
+  - Pillow
+- Standard library modules (pre-installed with Python):
+  - sqlite3
+  - re
+  - sys
+  - os
+  - tkinter (on Linux, may require additional installation: [How to install tkinter on Linux](https://www.geeksforgeeks.org/how-to-install-tkinter-on-linux/))
 
 ### Installation
+1. Clone this repository
+2. Install required dependencies
+   
 
-## Programmausführung
-Aktuell kann der prototype von der Datei "frontend.py" ausgeführt werden.
+## Running the Application
+1. Navigate to the project directory:
+   ```
+   cd path/to/bfp_barents
+   python prototype/frontend/frontend.py
+   ```
+
+   Note: Replace `python` with `python3` if your system uses that command instead.
