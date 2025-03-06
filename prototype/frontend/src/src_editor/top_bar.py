@@ -19,19 +19,21 @@ def create_top_bar(root):
     root.rowconfigure(0, weight=1)
 
     # define an export button that exports the rdf graph as an xml file
-    export_button = ctk.CTkButton(root, command=(lambda: export_button_function()), text='Export Graph',font=HEADER_FONT,fg_color="dark blue")
+    export_button = ctk.CTkButton(root, command=(lambda: export_button_function()), text='Export Graph',font=HEADER_FONT,fg_color="#1f538d")
     export_button.grid(row=0, column=0, sticky='nesw')
 
     # reset button that resets rdf graph and canvas on click
     reset_button = ctk.CTkButton(root, command=(lambda: reset_canvas()), text='Reset graph',fg_color="red",font=HEADER_FONT)
     reset_button.grid(row=0, column=1, sticky='nesw')
+    #logo buttopn where the image is inserted
     logo_button = ctk.CTkButton(root, text='',fg_color="transparent",font=HEADER_FONT, image=Barents_image,height=100, width= 100,hover=False,border_width=0 )
     logo_button.grid(row=0, column=7, sticky='e')
 
     # button to select and process rdf using backend engine
-    process_button = ctk.CTkButton(root, command=(lambda: process_function()), text='Process RDF',fg_color="dark blue",font=HEADER_FONT)
+    process_button = ctk.CTkButton(root, command=(lambda: process_function()), text='Process RDF',fg_color="green",font=HEADER_FONT )
     process_button.grid(row=0, column=2, sticky='nesw')
 
+# this function connects the frontend with the backend and runs the created ontologies 
 def process_function():
     rdf_location = filedialog.askopenfilename(title="Select RDF to process", defaultextension=".xml", filetypes=[("RDF/XML File", "*.xml"), ("Turtle", "*.ttl"), ("JSON-LD", "*.jsonld"), ("N-Triples", "*.nt"), ("Notation-3", "*.n3"), ("All Files", "*.*")])
     subprocess.run(['python', 'prototype/backend/backend.py', rdf_location])

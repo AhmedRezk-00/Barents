@@ -1,6 +1,7 @@
 import customtkinter as ctk
 from src.editor import create_editor
-
+ctk.set_appearance_mode("dark")
+ctk.set_default_color_theme("blue")
 # define root window size, color and title
 root = ctk.CTk()
 root.geometry('1200x675')
