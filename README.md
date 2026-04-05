@@ -5,12 +5,13 @@ Dieses Repository realisiert im Rahmen eines Bachelor-Forschungsprojekts an der 
 
 ## Authors
 
-| Name        | Matrikelnummer | e-mail   | Studiengang             |
-| ----------- | -------------- | -------- | ----------------------- |
-| Luke Mayr   | 3593022        | st177937 | B. Sc. Medieninformatik |
-| Metin Arab  | 3587258        | st178931 | B. Sc. Informatik       |
-| Tabea Steeb | 3315718        | st156637 | B. Sc. Informatik       |
-| Ahmed Rezk  | 3391499        | st163697 | B. Sc. Informatik       |
+|  Name          | Matrikelnummer | e-mail   | Studiengang             |
+|  -----------   | -------------- | -------- | ----------------------- |
+|  Luke Mayr     | 3593022        | st177937 | B. Sc. Medieninformatik |
+|  Metin Arab    | 3587258        | st178931 | B. Sc. Informatik       |
+|  Tabea Steeb   | 3315718        | st156637 | B. Sc. Informatik       |
+|  Ahmed Rezk    | 3391499        | st163697 | B. Sc. Informatik       |
+|  Omar Aboulazm | 3392281        | st163760 | B. Sc. W-Informatik     |
 
 ## Description
 For the research project we created a prototype.
